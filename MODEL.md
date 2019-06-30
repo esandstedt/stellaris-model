@@ -8,15 +8,15 @@
 |          | army                        |                                          |
 |          | bypasses                    |                                          |
 |          | clusters                    |                                          |
-| PARTIAL  | country                     | The countries                            |
-| COMPLETE | date                        | The in-game date                         |
+| Partial  | country                     | The countries                            |
+| Complete | date                        | The in-game date                         |
 |          | debris                      |                                          |
 |          | deposit                     |                                          |
 |          | fired_events                |                                          |
 |          | flags                       |                                          |
 |          | fleet                       |                                          |
 |          | fleet_template              |                                          |
-| PARTIAL  | galactic_object             | The star systems                         |
+| Partial  | galactic_object             | The star systems                         |
 |          | galaxy                      |                                          |
 |          | galaxy_radius               |                                          |
 |          | global_ship_design          |                                          |
@@ -43,12 +43,12 @@
 |          | megastructures              |                                          |
 |          | message                     |                                          |
 |          | missile                     |                                          |
-| COMPLETE | name                        | The name shown when opening the savefile |
+| Complete | name                        | The name shown when opening the savefile |
 |          | name_list                   |                                          |
 |          | natural_wormholes           |                                          |
 |          | nebula                      |                                          |
 |          | planets                     |                                          |
-| COMPLETE | player                      | The human players                        |
+| Complete | player                      | The human players                        |
 |          | player_event                |                                          |
 |          | pop                         |                                          |
 |          | pop_factions                |                                          |
@@ -56,7 +56,7 @@
 |          | random_log_day              |                                          |
 |          | random_name_database        |                                          |
 |          | random_seed                 |                                          |
-| COMPLETE | required_dlcs               | List of required DLCs                    |
+| Complete | required_dlcs               | List of required DLCs                    |
 |          | rim_galactic_objects        |                                          |
 |          | saved_event_target          |                                          |
 |          | sectors                     |                                          |
@@ -75,7 +75,7 @@
 |          | used_species_names          |                                          |
 |          | used_species_portrait       |                                          |
 |          | used_symbols                |                                          |
-| PARTIAL  | version                     |                                          |
+| Partial  | version                     |                                          |
 |          | version_control_revision    |                                          |
 |          | war                         |                                          |
 
@@ -136,7 +136,7 @@
 |          | location                      |                    |
 |          | military_power                |                    |
 |          | modules                       |                    |
-| COMPLETE | name                          | The country's name |
+| Complete | name                          | The country's name |
 |          | name_list                     |                    |
 |          | neighbor_rivals               |                    |
 |          | new_colonies                  |                    |
@@ -194,8 +194,8 @@
 
 | Status   | Property | Description           |
 | -------- | -------- | --------------------- |
-| COMPLETE | name     | The player's username |
-| COMPLETE | country  | The player's country  |
+| Complete | name     | The player's username |
+| Complete | country  | The player's country  |
 
 ## System
 
@@ -207,22 +207,22 @@
 |          | aura_presence          |                                     |
 |          | bypasses               |                                     |
 |          | claims                 |                                     |
-| COMPLETE | coordinate             | Position on the galactic map        |
+| Complete | coordinate             | Position on the galactic map        |
 |          | discovery              |                                     |
 |          | flags                  |                                     |
 |          | fleet_presence         |                                     |
 |          | ftl_inhibitor_presence |                                     |
-| COMPLETE | hyperlane              | List of hyperlanes from this system |
+| Complete | hyperlane              | List of hyperlanes from this system |
 |          | init_parent            |                                     |
 |          | initializer            |                                     |
 |          | inner_radius           |                                     |
 |          | megastructures         |                                     |
-| COMPLETE | name                   | The system's name                   |
+| Complete | name                   | The system's name                   |
 |          | natural_wormholes      |                                     |
 |          | outer_radius           |                                     |
 |          | planet                 |                                     |
 |          | sector                 |                                     |
-| COMPLETE | star_class             | The system's star class             |
+| Complete | star_class             | The system's star class             |
 |          | starbase               |                                     |
 |          | trade_collection       |                                     |
 |          | trade_hub              |                                     |
