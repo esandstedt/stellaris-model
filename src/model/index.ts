@@ -53,6 +53,20 @@ export class Model {
       this.planets[key] = new Planet(key, value);
     }
      */
+
+    /*
+    var set = new Set<string | null>([]);
+    var foo = asDictionary(asPairArray(data["galactic_object"]));
+    Object.keys(foo).forEach(key => {
+      var bar = foo[key];
+      if (typeof bar !== "string") {
+        bar.forEach(pair => set.add(pair.key));
+      }
+    });
+    var list = Array.from(set.values());
+    list.sort();
+    list.forEach(item => console.log(item));
+     */
   }
 
   private printObject(obj: any) {
