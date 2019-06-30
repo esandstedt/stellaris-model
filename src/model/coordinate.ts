@@ -1,10 +1,13 @@
+import { asDictionary, asString, Pair } from "../compile";
+
 export class Coordinate {
+  x: number;
+  y: number;
 
-  x: number
-  y: number
+  constructor(pairs: Pair[]) {
+    var data = asDictionary(pairs);
 
-  constructor(doc: any) {
-    this.x = parseFloat(doc["x"]);
-    this.y = parseFloat(doc["y"]);
+    this.x = parseFloat(asString(data["x"]));
+    this.y = parseFloat(asString(data["y"]));
   }
 }

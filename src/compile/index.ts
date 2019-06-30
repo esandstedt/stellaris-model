@@ -2,6 +2,8 @@ import { loadAsync } from "jszip";
 import { Lexer } from "./lexer";
 import { Parser } from "./parser";
 
+export { Pair, asArray, asDictionary, asString, asPairArray } from "./parser";
+
 function readSavefileAsText(data: string | ArrayBuffer | Blob) {
   return loadAsync(data)
     .then(zip => zip.files["gamestate"])

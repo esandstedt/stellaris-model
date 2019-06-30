@@ -1,16 +1,26 @@
 import { Coordinate } from "./coordinate";
+import { asDictionary, Pair, asString, asPairArray, asArray } from "../compile";
 
 export class System {
   coordinate: Coordinate;
   type: string;
   name: string;
+  starClass: string;
 
-  planetIds: string[];
+  hyperlanes: Hyperlane[];
 
-  constructor(public id: string, doc: any) {
-    this.coordinate = new Coordinate(doc["coordinate"]);
-    this.type = doc["type"] as string;
-    this.name = doc["name"] as string;
-    this.planetIds = doc["planets"] as string[];
+  constructor(public id: string, pairs: Pair[]) {
+    var data = asDictionary(pairs);
+
+    this.coordinate = new Coordinate(asPairArray(data["coordinate"]));
+    this.type = asString(data["type"]);
+    this.name = asString(data["name"]);
+    this.starClass = asString(data["star_class"]);
+
+    this.hyperlanes = [];
   }
+}
+
+export class Hyperlane {
+  constructor(public from: System, public to: System, public length: number) {}
 }

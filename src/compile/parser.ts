@@ -1,7 +1,54 @@
 import { Lexer, Token } from "./lexer";
 
-class Pair {
-  constructor(public key: string | null, public value: any) {}
+export class Pair {
+  constructor(public key: string | null, public value: Pair[] | string) {}
+}
+
+export function asString(pairsOrString: Pair[] | string): string {
+  if (typeof pairsOrString === "undefined") {
+    throw new Error("Could not convert undefined to string.");
+  } else if (typeof pairsOrString === "string") {
+    return pairsOrString;
+  } else {
+    throw new Error("Could not convert pair array to string.");
+  }
+}
+
+export function asPairArray(pairsOrString: Pair[] | string): Pair[] {
+  if (typeof pairsOrString === "undefined") {
+    throw new Error("Could not convert undefined to pair array.");
+  } else if (typeof pairsOrString === "string") {
+    throw new Error("Could not convert string to pair array.");
+  } else {
+    return pairsOrString;
+  }
+}
+
+export function asDictionary(
+  pairs: Pair[]
+): { [key: string]: Pair[] | string } {
+  const result: { [key: string]: Pair[] | string } = {};
+
+  pairs.forEach(pair => {
+    if (pair.key === null) {
+      throw new Error(
+        "Can't create dictionary from pair list with any null keys."
+      );
+    } else {
+      result[pair.key] = pair.value;
+    }
+  });
+
+  return result;
+}
+
+export function asArray(pairs: Pair[]): (Pair[] | string)[] {
+  const hasKeys = pairs.some(pair => pair.key !== null);
+  if (hasKeys) {
+    throw new Error("Can't create array from pair list with keys.");
+  }
+
+  return pairs.map(pair => pair.value);
 }
 
 export class Parser {
@@ -10,12 +57,12 @@ export class Parser {
     this.token = this.lexer.getNextToken();
   }
 
-  public parse(): Element {
-    const pairs = [];
+  public parse(): Pair[] {
+    const pairs: Pair[] = [];
     while (this.token.type !== "eof") {
       pairs.push(this.parsePair());
     }
-    return this.convertPairs(pairs);
+    return pairs;
   }
 
   private parsePair(): Pair {
@@ -43,48 +90,13 @@ export class Parser {
     }
   }
 
-  private parseObject(): any {
+  private parseObject(): Pair[] {
     this.token = this.lexer.getNextToken();
-    const pairs = [];
+    const pairs: Pair[] = [];
     while (this.token.type !== "}") {
       pairs.push(this.parsePair());
     }
     this.token = this.lexer.getNextToken();
-    return this.convertPairs(pairs);
-  }
-
-  private convertPairs(pairs: Pair[]): any {
-    if (pairs.length === 0) {
-      return [];
-    }
-
-    const isList = pairs.every(p => p.key === null);
-    const isObject = pairs.every(p => p.key !== null);
-
-    if (isList) {
-      return pairs.map(p => p.value);
-    } else if (isObject) {
-      const obj: { [key: string]: any } = {};
-
-      pairs.forEach(p => {
-        const key = <string>p.key;
-        if (obj.hasOwnProperty(key)) {
-          obj[key].push(p.value);
-        } else {
-          obj[key] = [p.value];
-        }
-      });
-
-      Object.keys(obj).forEach(key => {
-        const value = obj[key];
-        if (value.length === 1) {
-          obj[key] = value[0];
-        }
-      });
-
-      return obj;
-    } else {
-      throw new Error("could not convert pairs");
-    }
+    return pairs;
   }
 }
