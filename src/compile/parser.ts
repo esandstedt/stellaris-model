@@ -5,13 +5,12 @@ class Pair {
 }
 
 export class Parser {
-
-  token: Token
+  token: Token;
   constructor(private lexer: Lexer) {
     this.token = this.lexer.getNextToken();
   }
 
-  public parse(): any {
+  public parse(): Element {
     const pairs = [];
     while (this.token.type !== "eof") {
       pairs.push(this.parsePair());
@@ -66,7 +65,7 @@ export class Parser {
       return pairs.map(p => p.value);
     } else if (isObject) {
       const obj: { [key: string]: any } = {};
-      
+
       pairs.forEach(p => {
         const key = <string>p.key;
         if (obj.hasOwnProperty(key)) {
@@ -88,5 +87,4 @@ export class Parser {
       throw new Error("could not convert pairs");
     }
   }
-
 }

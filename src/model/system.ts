@@ -1,12 +1,11 @@
 import { Coordinate } from "./coordinate";
 
 export class System {
+  coordinate: Coordinate;
+  type: string;
+  name: string;
 
-  coordinate: Coordinate
-  type: string
-  name: string
-
-  planetIds: string[]
+  planetIds: string[];
 
   constructor(public id: string, doc: any) {
     this.coordinate = new Coordinate(doc["coordinate"]);

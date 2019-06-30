@@ -5,9 +5,8 @@
   "main": "dist/index",
   "types": "dist/index",
   "scripts": {
-    "start": "npm run build:live",
-    "build": "tsc -p .",
-    "build:live": "nodemon src/index.ts"
+    "test": "node dist/run.js",
+    "build": "tsc"
   },
   "author": "",
   "license": "ISC",
@@ -19,6 +18,7 @@
     "typescript": "^3.1.6"
   },
   "dependencies": {
+    "commander": "^2.20.0",
     "jszip": "^3.1.5"
   }
 }

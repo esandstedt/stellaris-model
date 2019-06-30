@@ -1,6 +1,9 @@
+import { Country } from "./country";
+
 export class Player {
-  name: string
-  countryId: string
+  public name: string;
+  public country: Country | undefined;
+  public countryId: string;
 
   constructor(doc: any) {
     this.name = doc["name"] as string;
