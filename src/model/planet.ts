@@ -5,6 +5,7 @@ import { Country } from "./country";
 export class Planet {
   amenities: number;
   amenitiesUsage: number;
+  colonizeDate: string | undefined;
   controllerId: string | undefined;
   controller: Country | undefined;
   coordinates: Coordinate;
@@ -12,13 +13,22 @@ export class Planet {
   owner: Country | undefined;
   ownerId: string | undefined;
   name: string;
+  planetClass: string;
   size: number;
+  stability: number;
 
   constructor(public id: string, pairs: Pair[]) {
     const data = asDictionary(pairs);
 
+    const key = "original_owner";
+    if (data[key]) console.log(data[key]);
+
     this.amenities = parseFloat(asString(data["amenities"]));
     this.amenitiesUsage = parseFloat(asString(data["amenities_usage"]));
+
+    if (data["colonize_date"]) {
+      this.colonizeDate = asString(data["colonize_date"]);
+    }
 
     if (data["controller"]) {
       this.controllerId = asString(data["controller"]);
@@ -32,6 +42,8 @@ export class Planet {
     }
 
     this.name = asString(data["name"]);
+    this.planetClass = asString(data["planet_class"]);
     this.size = parseInt(asString(data["planet_size"]));
+    this.stability = parseFloat(asString(data["stability"]));
   }
 }

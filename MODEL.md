@@ -208,7 +208,7 @@
 |          | build_queue_item          |                                         |
 |          | building                  |                                         |
 |          | built_armies              |                                         |
-|          | colonize_date             |                                         |
+| Complete | colonize_date             | Date planet was colonized               |
 | Complete | controller                | Controlling country id                  |
 | Complete | coordinate                |                                         |
 | Complete | crime                     | The amount of crime                     |
@@ -257,17 +257,17 @@
 |          | original_owner            | Original owning country id              |
 | Copmlete | owner                     | Owning country id                       |
 |          | picture                   |                                         |
-|          | planet_class              |                                         |
+| Complete | planet_class              | Planet type                             |
 |          | planet_class_changed      |                                         |
 |          | planet_modifier           |                                         |
-| Complete | planet_size               |                                         |
-|          | pop                       |                                         |
+| Complete | planet_size               | Planet size                             |
+|          | pop                       | List of pop ids                         |
 |          | pop_assembly              |                                         |
 |          | prevent_anomaly           |                                         |
 |          | ruined                    |                                         |
 |          | ruined_branch_office      |                                         |
 |          | shipclass_orbital_station |                                         |
-|          | stability                 |                                         |
+| Complete | stability                 | Amount of stability                     |
 |          | surveyed                  |                                         |
 |          | surveyed_by               |                                         |
 |          | terraformed_by            |                                         |
