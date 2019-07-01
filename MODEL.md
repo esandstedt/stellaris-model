@@ -8,7 +8,7 @@
 |          | army                        |                                      |
 |          | bypasses                    |                                      |
 |          | clusters                    |                                      |
-| Partial  | country                     | Dictionary of countries              |
+| Complete | country                     | Dictionary of countries              |
 | Complete | date                        | In-game date                         |
 |          | debris                      |                                      |
 |          | deposit                     |                                      |
@@ -16,7 +16,7 @@
 |          | flags                       |                                      |
 |          | fleet                       |                                      |
 |          | fleet_template              |                                      |
-| Partial  | galactic_object             | Dictionary of star systems           |
+| Complete | galactic_object             | Dictionary of star systems           |
 |          | galaxy                      |                                      |
 |          | galaxy_radius               |                                      |
 |          | global_ship_design          |                                      |
@@ -47,7 +47,7 @@
 |          | name_list                   |                                      |
 |          | natural_wormholes           |                                      |
 |          | nebula                      |                                      |
-|          | planets                     |                                      |
+| Complete | planets                     | List of planets                      |
 | Complete | player                      | List of human players                |
 |          | player_event                |                                      |
 |          | pop                         |                                      |
@@ -75,7 +75,7 @@
 |          | used_species_names          |                                      |
 |          | used_species_portrait       |                                      |
 |          | used_symbols                |                                      |
-| Partial  | version                     |                                      |
+| Complete | version                     |                                      |
 |          | version_control_revision    |                                      |
 |          | war                         |                                      |
 
@@ -98,7 +98,7 @@
 |          | city_graphical_culture        |             |
 |          | color_index                   |             |
 |          | control_groups                |             |
-|          | controlled_planets            |             |
+| Complete | controlled_planets            |             |
 |          | custom_name                   |             |
 |          | customization                 |             |
 |          | democratic_election           |             |
@@ -148,7 +148,7 @@
 |          | owned_fleets                  |             |
 |          | owned_leaders                 |             |
 |          | owned_megastructures          |             |
-|          | owned_planets                 |             |
+| Complete | owned_planets                 |             |
 |          | personality                   |             |
 |          | policy_flags                  |             |
 |          | random_name_variables         |             |
@@ -190,6 +190,91 @@
 |          | victory_score                 |             |
 |          | war_allies                    |             |
 
+## Planet
+
+| Status   | Property                  | Description                             |
+| -------- | ------------------------- | --------------------------------------- |
+| Complete | amenities                 | The amount of amenities produced        |
+| Complete | amenities_usage           | The amount of amenities used            |
+|          | anomaly                   | Unknown (string)                        |
+|          | army                      | List of army ids                        |
+|          | army_build_queue_item     | Unknown (complex)                       |
+|          | assembling_species        | Unknown (number)                        |
+|          | auto_slots_taken          | Unknown (list of yes/no)                |
+|          | automated_development     | Whether automated development is active |
+|          | bombardment_damage        |                                         |
+|          | branch_office_building    |                                         |
+|          | branch_office_owner       |                                         |
+|          | build_queue_item          |                                         |
+|          | building                  |                                         |
+|          | built_armies              |                                         |
+|          | colonize_date             |                                         |
+| Complete | controller                | Controlling country id                  |
+| Complete | coordinate                |                                         |
+| Complete | crime                     | The amount of crime                     |
+|          | custom_name               |                                         |
+|          | decline                   |                                         |
+|          | declining_pop             |                                         |
+|          | declining_species         |                                         |
+|          | delayed_event             |                                         |
+|          | deposits                  |                                         |
+|          | disabled                  |                                         |
+|          | disabled_branch_office    |                                         |
+|          | district                  |                                         |
+|          | employable_pops           |                                         |
+|          | entity                    |                                         |
+|          | entity_name               |                                         |
+|          | entity_planet_class       |                                         |
+|          | explicit_entity           |                                         |
+|          | favorite_jobs             |                                         |
+|          | final_designation         |                                         |
+|          | flags                     |                                         |
+|          | free_amenities            |                                         |
+|          | free_housing              |                                         |
+|          | ground_support_stance     |                                         |
+|          | growth                    |                                         |
+|          | growth_species            |                                         |
+|          | has_ring                  |                                         |
+|          | housing_usage             |                                         |
+|          | is_moon                   |                                         |
+|          | is_terraformed            |                                         |
+|          | is_under_colonization     |                                         |
+|          | job_priority              |                                         |
+|          | jobs_cache                |                                         |
+|          | kill_pop                  |                                         |
+|          | last_bombardment          |                                         |
+|          | last_building_changed     |                                         |
+|          | last_district_changed     |                                         |
+|          | migration                 |                                         |
+|          | moon_of                   |                                         |
+|          | moons                     |                                         |
+| Complete | name                      |                                         |
+|          | next_build_item_id        |                                         |
+|          | num_sapient_pops          |                                         |
+|          | orbit                     |                                         |
+|          | orbital_bombardment       |                                         |
+|          | orbitals                  |                                         |
+|          | original_owner            | Original owning country id              |
+| Copmlete | owner                     | Owning country id                       |
+|          | picture                   |                                         |
+|          | planet_class              |                                         |
+|          | planet_class_changed      |                                         |
+|          | planet_modifier           |                                         |
+| Complete | planet_size               |                                         |
+|          | pop                       |                                         |
+|          | pop_assembly              |                                         |
+|          | prevent_anomaly           |                                         |
+|          | ruined                    |                                         |
+|          | ruined_branch_office      |                                         |
+|          | shipclass_orbital_station |                                         |
+|          | stability                 |                                         |
+|          | surveyed                  |                                         |
+|          | surveyed_by               |                                         |
+|          | terraformed_by            |                                         |
+|          | timed_modifier            |                                         |
+|          | total_housing             |                                         |
+|          | variables                 |                                         |
+
 ## Player
 
 | Status   | Property | Description |
@@ -227,4 +312,4 @@
 |          | trade_collection       | Unknown (complex)                                        |
 |          | trade_hub              | Amount and source of trade value collected in the system |
 |          | trade_piracy           | Unknown (complex)                                        |
-| Added    | type                   | The systems's type                                       |
+| Complete | type                   | The systems's type                                       |

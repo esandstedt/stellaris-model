@@ -9,7 +9,6 @@ import {
 import { Player } from "./player";
 import { System, Hyperlane } from "./system";
 import { Planet } from "./planet";
-import { Version } from "./version";
 import { Country } from "./country";
 
 export class Model {
@@ -17,19 +16,19 @@ export class Model {
     return compile(data).then(doc => new Model(doc));
   }
 
-  version: Version;
+  version: string;
   name: string;
   date: string;
   requiredDlcs: string[];
   players: { [name: string]: Player };
   countries: { [id: string]: Country };
   systems: { [id: string]: System };
-  // planets: { [id: string]: Planet };
+  planets: { [id: string]: Planet };
 
   constructor(pairs: Pair[]) {
     const data = asDictionary(pairs);
 
-    this.version = new Version(asString(data["version"]));
+    this.version = asString(data["version"]);
     this.name = asString(data["name"]);
     this.date = asString(data["date"]);
 
@@ -44,7 +43,11 @@ export class Model {
     this.systems = this.getSystems(systemPairs);
     this.linkSystemsByHyperlanes(systemPairs);
 
-    this.linkCountryToPlayers();
+    this.planets = this.getPlanets(asPairArray(data["planets"]));
+
+    this.linkPlayersCountry();
+    this.linkPlanetsController();
+    this.linkPlanetsOwner();
 
     /*
     this.planets = {};
@@ -146,7 +149,27 @@ export class Model {
     });
   }
 
-  private linkCountryToPlayers() {
+  private getPlanets(pairs: Pair[]) {
+    const result: { [id: string]: Planet } = {};
+
+    var array = asArray(pairs, "planet");
+    if (array.length != 1) {
+      throw new Error("unexpected array length");
+    }
+
+    asPairArray(array[0]).forEach(pair => {
+      if (pair.key === null) {
+        throw new Error();
+      }
+
+      const planet = new Planet(pair.key, asPairArray(pair.value));
+      result[planet.id] = planet;
+    });
+
+    return result;
+  }
+
+  private linkPlayersCountry() {
     this.addForeignReference(
       this.players,
       "country",
@@ -155,22 +178,44 @@ export class Model {
     );
   }
 
+  private linkPlanetsController() {
+    this.addForeignReference(
+      this.planets,
+      "controller",
+      "controllerId",
+      this.countries,
+      "controlledPlanets"
+    );
+  }
+
+  private linkPlanetsOwner() {
+    this.addForeignReference(
+      this.planets,
+      "owner",
+      "ownerId",
+      this.countries,
+      "ownedPlanets"
+    );
+  }
+
   private addForeignReference(
     set: { [id: string]: any },
     referenceProperty: string,
-    foreignKeyProperty: string,
-    foreignSet: { [id: string]: any }
+    referenceKeyProperty: string,
+    foreignSet: { [id: string]: any },
+    foreignArrayProperty: string | null = null
   ) {
     Object.keys(set).forEach(key => {
-      var obj = set[key];
-      const f = foreignSet[obj[foreignKeyProperty]];
-      if (f) {
-        obj[referenceProperty] = f;
+      var item = set[key];
+      var referenceKey = item[referenceKeyProperty];
+      const reference = foreignSet[referenceKey];
+      if (reference) {
+        item[referenceProperty] = reference;
+
+        if (foreignArrayProperty !== null) {
+          reference[foreignArrayProperty].push(item);
+        }
       }
     });
   }
-
-  // Still todo:
-  //  - connect Player to Country
-  //  - connect System to Planet
 }

@@ -42,12 +42,14 @@ export function asDictionary(
   return result;
 }
 
-export function asArray(pairs: Pair[]): (Pair[] | string)[] {
-  const hasKeys = pairs.some(pair => pair.key !== null);
+export function asArray(
+  pairs: Pair[],
+  key: string | null = null
+): (Pair[] | string)[] {
+  const hasKeys = pairs.some(pair => pair.key !== key);
   if (hasKeys) {
-    throw new Error("Can't create array from pair list with keys.");
+    throw new Error("Can't create array from pair list with invalid keys.");
   }
-
   return pairs.map(pair => pair.value);
 }
 
