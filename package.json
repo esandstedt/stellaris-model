@@ -5,15 +5,18 @@
   "main": "dist/index",
   "types": "dist/index",
   "scripts": {
-    "test": "node dist/run.js",
-    "build": "tsc"
+    "build": "tsc",
+    "start": "node dist/run.js",
+    "test": "npx jest"
   },
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "@types/jest": "^24.0.15",
     "@types/jszip": "^3.1.4",
     "@types/node": "^10.12.2",
-    "nodemon": "^1.18.6",
+    "jest": "^24.8.0",
+    "ts-jest": "^24.0.2",
     "ts-node": "^7.0.1",
     "typescript": "^3.1.6"
   },

@@ -1,6 +1,7 @@
 import { Coordinate } from "./coordinate";
 import { Pair, asDictionary, asString, asPairArray } from "../compile";
 import { Country } from "./country";
+import { System } from "./system";
 
 export class Planet {
   amenities: number;
@@ -16,12 +17,16 @@ export class Planet {
   planetClass: string;
   size: number;
   stability: number;
+  systemId: string;
+  system: System | undefined;
 
   constructor(public id: string, pairs: Pair[]) {
     const data = asDictionary(pairs);
 
-    const key = "original_owner";
+    /*
+    const key = "coordinate";
     if (data[key]) console.log(data[key]);
+     */
 
     this.amenities = parseFloat(asString(data["amenities"]));
     this.amenitiesUsage = parseFloat(asString(data["amenities_usage"]));
@@ -45,5 +50,9 @@ export class Planet {
     this.planetClass = asString(data["planet_class"]);
     this.size = parseInt(asString(data["planet_size"]));
     this.stability = parseFloat(asString(data["stability"]));
+
+    this.systemId = asString(
+      asDictionary(asPairArray(data["coordinate"]))["origin"]
+    );
   }
 }

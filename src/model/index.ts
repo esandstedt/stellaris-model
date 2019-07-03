@@ -48,6 +48,7 @@ export class Model {
     this.linkPlayersCountry();
     this.linkPlanetsController();
     this.linkPlanetsOwner();
+    this.linkPlanetsSystem();
 
     /*
     this.planets = {};
@@ -195,6 +196,16 @@ export class Model {
       "ownerId",
       this.countries,
       "ownedPlanets"
+    );
+  }
+
+  private linkPlanetsSystem() {
+    this.addForeignReference(
+      this.planets,
+      "system",
+      "systemId",
+      this.systems,
+      "planets"
     );
   }
 

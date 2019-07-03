@@ -210,7 +210,7 @@
 |          | built_armies              |                                         |
 | Complete | colonize_date             | Date planet was colonized               |
 | Complete | controller                | Controlling country id                  |
-| Complete | coordinate                |                                         |
+| Complete | coordinate                | Position in system as well as system id |
 | Complete | crime                     | The amount of crime                     |
 |          | custom_name               |                                         |
 |          | decline                   |                                         |

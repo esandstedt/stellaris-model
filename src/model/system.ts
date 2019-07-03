@@ -1,5 +1,6 @@
 import { Coordinate } from "./coordinate";
 import { asDictionary, Pair, asString, asPairArray, asArray } from "../compile";
+import { Planet } from "./planet";
 
 export class System {
   coordinate: Coordinate;
@@ -7,7 +8,8 @@ export class System {
   name: string;
   starClass: string;
 
-  hyperlanes: Hyperlane[];
+  hyperlanes: Hyperlane[] = [];
+  planets: Planet[] = [];
 
   constructor(public id: string, pairs: Pair[]) {
     var data = asDictionary(pairs);
@@ -16,8 +18,6 @@ export class System {
     this.type = asString(data["type"]);
     this.name = asString(data["name"]);
     this.starClass = asString(data["star_class"]);
-
-    this.hyperlanes = [];
   }
 }
 
