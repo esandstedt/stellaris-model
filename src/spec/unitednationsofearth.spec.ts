@@ -1,12 +1,14 @@
-import { Model } from "../model";
-
 import fs from "fs";
-import { Country } from "../model/country";
+
+import { Model } from "../model";
 
 const filePath = "savefiles/unitednationsofearth.sav";
 
 describe("unitednationsofearth", () => {
   let model: Model;
+  beforeAll(async () => {
+    model = await Model.from(fs.readFileSync(filePath).buffer);
+  });
 
   function getPlanetByName(name: string) {
     return Object.keys(model.planets)
@@ -14,28 +16,24 @@ describe("unitednationsofearth", () => {
       .filter(planet => planet.name === name)[0];
   }
 
-  beforeAll(async () => {
-    model = await Model.from(fs.readFileSync(filePath).buffer);
-  });
-
-  test("loads the savefile name", () => {
+  test("loads savefile name", () => {
     expect(model.name).toEqual("United Nations of Earth");
   });
 
-  test("loads the savefile date", () => {
+  test("loads savefile date", () => {
     expect(model.date).toEqual("2246.12.11");
   });
 
-  test("loads the savefile version", () => {
+  test("loads savefile version", () => {
     expect(model.version).toEqual("Wolfe v2.3.2");
   });
 
-  test("loads the player", () => {
+  test("loads player", () => {
     const keys = Object.keys(model.players);
     expect(keys).toEqual(["Goose"]);
   });
 
-  test("links the player to their country", () => {
+  test("links player to their country", () => {
     const player = model.players["Goose"];
 
     const country = model.countries["0"];
@@ -44,7 +42,7 @@ describe("unitednationsofearth", () => {
     expect(player.country).toBe(country);
   });
 
-  test("links the player's country to their owned planets", () => {
+  test("links country to their owned planets", () => {
     const country = model.players["Goose"].country;
 
     if (typeof country === "undefined") {
@@ -62,7 +60,7 @@ describe("unitednationsofearth", () => {
     });
   });
 
-  test("links planets to their system", () => {
+  test("links planet to their system", () => {
     function check(planetName: string, systemName: string) {
       const planet = getPlanetByName(planetName);
 
@@ -73,6 +71,7 @@ describe("unitednationsofearth", () => {
       }
 
       expect(system.name).toEqual(systemName);
+      expect(system.planets.some(p => p.name === planetName)).toBe(true);
     }
 
     check("Earth", "Sol");
@@ -82,7 +81,7 @@ describe("unitednationsofearth", () => {
     check("Tokugawa", "Chiiban");
   });
 
-  test("loads planet's colonization date", () => {
+  test("loads planet colonization date", () => {
     function check(planetName: string, date: string) {
       const planet = getPlanetByName(planetName);
       expect(planet.colonizeDate).toEqual(date);
