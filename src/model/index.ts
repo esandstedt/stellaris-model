@@ -49,33 +49,13 @@ export class Model {
     this.linkPlanetsController();
     this.linkPlanetsOwner();
     this.linkPlanetsSystem();
-
-    /*
-    this.planets = {};
-    for (let key in doc["planet"]) {
-      let value = doc["planet"][key];
-      this.planets[key] = new Planet(key, value);
-    }
-     */
-
-    /*
-    var set = new Set<string | null>([]);
-    var foo = asDictionary(asPairArray(data["galactic_object"]));
-    Object.keys(foo).forEach(key => {
-      var bar = foo[key];
-      if (typeof bar !== "string") {
-        bar.forEach(pair => set.add(pair.key));
-      }
-    });
-    var list = Array.from(set.values());
-    list.sort();
-    list.forEach(item => console.log(item));
-     */
   }
 
+  /*
   private printObject(obj: any) {
     console.log(JSON.stringify(obj, null, "\t"));
   }
+   */
 
   private getPlayers(pairs: Pair[]): { [name: string]: Player } {
     const result: { [name: string]: Player } = {};

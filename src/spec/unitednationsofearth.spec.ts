@@ -10,10 +10,22 @@ describe("unitednationsofearth", () => {
     model = await Model.from(fs.readFileSync(filePath).buffer);
   });
 
+  function getCountryByName(name: string) {
+    return Object.keys(model.countries)
+      .map(key => model.countries[key])
+      .filter(x => x.name === name)[0];
+  }
+
   function getPlanetByName(name: string) {
     return Object.keys(model.planets)
       .map(key => model.planets[key])
       .filter(planet => planet.name === name)[0];
+  }
+
+  function getSystemByName(name: string) {
+    return Object.keys(model.systems)
+      .map(key => model.systems[key])
+      .filter(x => x.name === name)[0];
   }
 
   test("loads savefile name", () => {
@@ -91,5 +103,53 @@ describe("unitednationsofearth", () => {
     check("Oda", "2215.08.01");
     check("Asgard", "2220.08.01");
     check("Tokugawa", "2226.10.01");
+  });
+
+  test("links country to their controlled planets", () => {
+    function check(countryName: string, planetNames: string[]) {
+      const country = getCountryByName(countryName);
+      expect(country).not.toBeUndefined();
+
+      expect(new Set(country.controlledPlanets.map(x => x.name))).toEqual(
+        new Set(planetNames)
+      );
+
+      country.controlledPlanets.forEach(planet => {
+        expect(planet.controller).toEqual(country);
+      });
+    }
+
+    // primitive civilizations
+    check("Vhemm Civilization", ["Saraklis III"]);
+    check("Izki Civilization", ["Uprfarvis I"]);
+    // maurader
+    check("Krithakkan Braves", ["Duracchus", "Reddor", "Talan"]);
+    // fallen empire
+    check("Buvhondon Forerunners", [
+      "6467-36367",
+      "Immuthin",
+      "NAME_Brother",
+      "NAME_Cradle",
+      "NAME_Mother",
+      "NAME_The_Preserve",
+      "Nietz",
+      "Nietz I",
+      "Nietz V",
+      "Nostea",
+      "Nostea I",
+      "Nostea IV",
+      "Tystra",
+      "Unur",
+      "VK1-44-D1",
+      "W112-951",
+      "Walmoro",
+      "Walmoro II",
+      "Walmoro IV",
+      "Zeldrah",
+      "Zom",
+      "Zom I",
+      "Zom IV",
+      "Zom Va"
+    ]);
   });
 });
