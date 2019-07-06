@@ -10,6 +10,7 @@ import { Player } from "./player";
 import { System, Hyperlane } from "./system";
 import { Planet } from "./planet";
 import { Country } from "./country";
+import { Pop } from "./pop";
 
 export class Model {
   static from(data: string | ArrayBuffer | Blob) {
@@ -24,6 +25,7 @@ export class Model {
   countries: { [id: string]: Country };
   systems: { [id: string]: System };
   planets: { [id: string]: Planet };
+  pops: { [id: string]: Pop };
 
   constructor(pairs: Pair[]) {
     const data = asDictionary(pairs);
@@ -49,6 +51,10 @@ export class Model {
     this.linkPlanetsController();
     this.linkPlanetsOwner();
     this.linkPlanetsSystem();
+
+    this.pops = this.getPops(asPairArray(data["pop"]));
+
+    this.linkPopsPlanet();
   }
 
   /*
@@ -150,6 +156,21 @@ export class Model {
     return result;
   }
 
+  private getPops(pairs: Pair[]) {
+    const result: { [id: string]: Pop } = {};
+
+    pairs.map(pair => {
+      if (pair.key === null) {
+        throw new Error();
+      }
+
+      const pop = new Pop(pair.key, asPairArray(pair.value));
+      result[pop.id] = pop;
+    });
+
+    return result;
+  }
+
   private linkPlayersCountry() {
     this.addForeignReference(
       this.players,
@@ -186,6 +207,16 @@ export class Model {
       "systemId",
       this.systems,
       "planets"
+    );
+  }
+
+  private linkPopsPlanet() {
+    this.addForeignReference(
+      this.pops,
+      "planet",
+      "planetId",
+      this.planets,
+      "pops"
     );
   }
 

@@ -76,7 +76,7 @@
 |          | used_species_portrait       |                                      |
 |          | used_symbols                |                                      |
 | Complete | version                     |                                      |
-|          | version_control_revision    |                                      |
+|          | version_control_revision    | Version in number form               |
 |          | war                         |                                      |
 
 ## Country
@@ -281,6 +281,26 @@
 | -------- | -------- | ----------- |
 | Complete | name     | Username    |
 | Complete | country  | Country id  |
+
+## Pop
+
+| Status   | Property                 | Description                                     |
+| -------- | ------------------------ | ----------------------------------------------- |
+| Complete | amenities_usage          | Amenities usage                                 |
+|          | can_migrate              |                                                 |
+| Complete | category                 | Employment category (worker, specialist, ruler) |
+| Complete | crime                    | Crime level                                     |
+| Complete | ethos                    | Ethic                                           |
+|          | flags                    |                                                 |
+|          | force_faction_evaluation |                                                 |
+| Complete | happiness                | Happiness                                       |
+| Complete | housing_usage            |                                                 |
+| Complete | job                      | Job                                             |
+| Complete | planet                   | Planet id                                       |
+| Partial  | pop_faction              | Faction id                                      |
+| Complete | power                    | Political power                                 |
+|          | promotion_date           |                                                 |
+| Partial  | species_index            | Species                                         |
 
 ## System
 

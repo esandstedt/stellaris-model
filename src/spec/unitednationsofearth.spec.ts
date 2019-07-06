@@ -152,4 +152,20 @@ describe("unitednationsofearth", () => {
       "Zom Va"
     ]);
   });
+
+  test("links pops to thier planets", () => {
+    Object.keys(model.pops)
+      .map(key => model.pops[key])
+      .forEach(pop => {
+        expect(pop.planetId).not.toBeUndefined();
+
+        if (typeof pop.planet === "undefined") {
+          expect(pop.planet).not.toBeUndefined();
+          return;
+        }
+
+        expect(pop.planet.id).toEqual(pop.planetId);
+        expect(pop.planet.pops.some(x => x === pop)).toEqual(true);
+      });
+  });
 });

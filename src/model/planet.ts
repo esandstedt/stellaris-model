@@ -2,6 +2,7 @@ import { Coordinate } from "./coordinate";
 import { Pair, asDictionary, asString, asPairArray } from "../compile";
 import { Country } from "./country";
 import { System } from "./system";
+import { Pop } from "./pop";
 
 export class Planet {
   amenities: number;
@@ -19,6 +20,8 @@ export class Planet {
   stability: number;
   systemId: string;
   system: System | undefined;
+
+  pops: Pop[] = [];
 
   constructor(public id: string, pairs: Pair[]) {
     const data = asDictionary(pairs);
