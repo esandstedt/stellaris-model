@@ -57,8 +57,7 @@ export class Model {
 
     this.leaders = this.getModels(
       asPairArray(data["leaders"]),
-      (id, pairs) => new Leader(id, pairs),
-      true
+      (id, pairs) => new Leader(id, pairs)
     );
 
     this.planets = this.getPlanets(asPairArray(data["planets"]));

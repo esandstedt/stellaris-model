@@ -30,10 +30,5 @@ export class Leader {
     this.name = asPairArray(data["name"])
       .map(p => asString(p.value))
       .join(" ");
-
-    console.log(data["name"]);
-    console.log(this.name);
-
-    console.log(data["roles"]);
   }
 }
