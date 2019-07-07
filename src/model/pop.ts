@@ -9,7 +9,7 @@ export class Pop {
   ethos: string | undefined;
   factionId: string | undefined;
   faction: Faction | undefined;
-  happiness: number;
+  happiness: number | undefined;
   housingUsage: number;
   job: string | undefined;
   planetId: string;
@@ -37,11 +37,14 @@ export class Pop {
       this.ethos = array[0];
     }
 
-    if (data["pop_faction"]) {
+    if (typeof data["pop_faction"] !== "undefined") {
       this.factionId = asString(data["pop_faction"]);
     }
 
-    this.happiness = parseFloat(asString(data["happiness"]));
+    if (typeof data["happiness"] !== "undefined") {
+      this.happiness = parseFloat(asString(data["happiness"]));
+    }
+
     this.housingUsage = parseFloat(asString(data["housing_usage"]));
 
     if (typeof data["job"] !== "undefined") {

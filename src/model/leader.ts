@@ -5,7 +5,7 @@ export class Leader {
   public age: number;
   public agenda: string;
   public leaderClass: string;
-  public countryId: string;
+  public countryId: string | undefined;
   public country: Country | undefined;
   public creatorId: string;
   public gender: string | undefined;
@@ -18,7 +18,11 @@ export class Leader {
     this.age = parseInt(asString(data["age"]));
     this.agenda = asString(data["agenda"]);
     this.leaderClass = asString(data["class"]);
-    this.countryId = asString(data["country"]);
+
+    if (data["country"]) {
+      this.countryId = asString(data["country"]);
+    }
+
     this.creatorId = asString(data["creator"]);
 
     if (typeof data["gender"] !== "undefined") {
