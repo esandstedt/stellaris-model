@@ -1,5 +1,6 @@
 import { asDictionary, Pair, asString, asPairArray } from "../compile";
 import { Planet } from "./planet";
+import { Faction } from "./faction";
 
 export class Pop {
   amenitiesUsage: number;
@@ -7,6 +8,7 @@ export class Pop {
   crime: number | undefined;
   ethos: string | undefined;
   factionId: string | undefined;
+  faction: Faction | undefined;
   happiness: number;
   housingUsage: number;
   job: string | undefined;

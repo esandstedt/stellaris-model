@@ -26,11 +26,6 @@ export class Planet {
   constructor(public id: string, pairs: Pair[]) {
     const data = asDictionary(pairs);
 
-    /*
-    const key = "coordinate";
-    if (data[key]) console.log(data[key]);
-     */
-
     this.amenities = parseFloat(asString(data["amenities"]));
     this.amenitiesUsage = parseFloat(asString(data["amenities_usage"]));
 

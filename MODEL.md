@@ -50,7 +50,7 @@
 | Complete | planets                     | List of planets                      |
 | Complete | player                      | List of human players                |
 |          | player_event                |                                      |
-|          | pop                         |                                      |
+| Complete | pop                         | List of pops                         |
 |          | pop_factions                |                                      |
 |          | random_count                |                                      |
 |          | random_log_day              |                                      |
@@ -190,6 +190,19 @@
 |          | victory_score                 |             |
 |          | war_allies                    |             |
 
+## Faction
+
+| Status   | Property         | Description                  |
+| -------- | ---------------- | ---------------------------- |
+| Complete | country          |                              |
+| Complete | faction_approval |                              |
+| Partial  | leader           |                              |
+| Ignored  | members          | (linked via property on Pop) |
+| Complete | name             |                              |
+| Ignored  | parameters       | (only has the country id)    |
+| Complete | support          |                              |
+| Complete | type             |                              |
+
 ## Planet
 
 | Status   | Property                  | Description                             |
@@ -297,7 +310,7 @@
 | Complete | housing_usage            |                                                 |
 | Complete | job                      | Job                                             |
 | Complete | planet                   | Planet id                                       |
-| Partial  | pop_faction              | Faction id                                      |
+| Complete | pop_faction              | Faction id                                      |
 | Complete | power                    | Political power                                 |
 |          | promotion_date           |                                                 |
 | Partial  | species_index            | Species                                         |

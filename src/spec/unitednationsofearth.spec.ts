@@ -153,7 +153,7 @@ describe("unitednationsofearth", () => {
     ]);
   });
 
-  test("links pops to thier planets", () => {
+  test("links pops to thier planet", () => {
     Object.keys(model.pops)
       .map(key => model.pops[key])
       .forEach(pop => {
@@ -166,6 +166,39 @@ describe("unitednationsofearth", () => {
 
         expect(pop.planet.id).toEqual(pop.planetId);
         expect(pop.planet.pops.some(x => x === pop)).toEqual(true);
+      });
+  });
+
+  test("links pops to their faction", () => {
+    Object.keys(model.pops)
+      .map(key => model.pops[key])
+      .forEach(pop => {
+        if (pop.factionId) {
+          if (typeof pop.faction === "undefined") {
+            expect(pop.faction).not.toBeUndefined();
+            return;
+          }
+          expect(pop.faction.id).toEqual(pop.factionId);
+          expect(pop.faction.pops.some(x => x === pop)).toEqual(true);
+        } else {
+          expect(pop.faction).toBeUndefined();
+        }
+      });
+  });
+
+  test("links factions to thier country", () => {
+    Object.keys(model.factions)
+      .map(key => model.factions[key])
+      .forEach(faction => {
+        expect(faction.countryId).not.toBeUndefined();
+
+        if (typeof faction.country === "undefined") {
+          expect(faction.country).not.toBeUndefined();
+          return;
+        }
+
+        expect(faction.country.id).toEqual(faction.countryId);
+        expect(faction.country.factions.some(x => x === faction)).toEqual(true);
       });
   });
 });

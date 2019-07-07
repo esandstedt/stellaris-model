@@ -11,6 +11,7 @@ import { System, Hyperlane } from "./system";
 import { Planet } from "./planet";
 import { Country } from "./country";
 import { Pop } from "./pop";
+import { Faction } from "./faction";
 
 export class Model {
   static from(data: string | ArrayBuffer | Blob) {
@@ -21,11 +22,13 @@ export class Model {
   name: string;
   date: string;
   requiredDlcs: string[];
-  players: { [name: string]: Player };
+
   countries: { [id: string]: Country };
-  systems: { [id: string]: System };
+  factions: { [id: string]: Faction };
   planets: { [id: string]: Planet };
+  players: { [name: string]: Player };
   pops: { [id: string]: Pop };
+  systems: { [id: string]: System };
 
   constructor(pairs: Pair[]) {
     const data = asDictionary(pairs);
@@ -38,23 +41,40 @@ export class Model {
       asString
     );
 
-    this.players = this.getPlayers(asPairArray(data["player"]));
+    var systemPairs = asPairArray(data["galactic_object"]);
+
     this.countries = this.getCountries(asPairArray(data["country"]));
 
-    var systemPairs = asPairArray(data["galactic_object"]);
-    this.systems = this.getSystems(systemPairs);
-    this.linkSystemsByHyperlanes(systemPairs);
+    this.factions = this.getModels(
+      asPairArray(data["pop_factions"]),
+      (id, pairs) => new Faction(id, pairs)
+    );
 
     this.planets = this.getPlanets(asPairArray(data["planets"]));
+    this.players = this.getPlayers(asPairArray(data["player"]));
 
+    this.pops = this.getModels(
+      asPairArray(data["pop"]),
+      (id, pairs) => new Pop(id, pairs)
+    );
+
+    this.systems = this.getSystems(systemPairs);
+
+    this.linkSystemsByHyperlanes(systemPairs);
     this.linkPlayersCountry();
     this.linkPlanetsController();
     this.linkPlanetsOwner();
     this.linkPlanetsSystem();
-
-    this.pops = this.getPops(asPairArray(data["pop"]));
-
+    this.linkPopsFaction();
     this.linkPopsPlanet();
+
+    this.addForeignReference(
+      this.factions,
+      "country",
+      "countryId",
+      this.countries,
+      "factions"
+    );
   }
 
   /*
@@ -156,17 +176,31 @@ export class Model {
     return result;
   }
 
-  private getPops(pairs: Pair[]) {
-    const result: { [id: string]: Pop } = {};
+  private getModels<T>(
+    pairs: Pair[],
+    createFunc: (id: string, pairs: Pair[]) => T,
+    logKeys = false
+  ) {
+    const result: { [id: string]: T } = {};
+
+    var keySet = new Set<string | null>();
 
     pairs.map(pair => {
       if (pair.key === null) {
         throw new Error();
       }
 
-      const pop = new Pop(pair.key, asPairArray(pair.value));
-      result[pop.id] = pop;
+      const modelPairs = asPairArray(pair.value);
+      modelPairs.forEach(p => keySet.add(p.key));
+      const model = createFunc(pair.key, modelPairs);
+      result[pair.key] = model;
     });
+
+    if (logKeys) {
+      const keyArray = Array.from(keySet);
+      keyArray.sort();
+      console.log(keyArray);
+    }
 
     return result;
   }
@@ -207,6 +241,16 @@ export class Model {
       "systemId",
       this.systems,
       "planets"
+    );
+  }
+
+  private linkPopsFaction() {
+    this.addForeignReference(
+      this.pops,
+      "faction",
+      "factionId",
+      this.factions,
+      "pops"
     );
   }
 
