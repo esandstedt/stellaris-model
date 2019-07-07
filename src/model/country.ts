@@ -3,6 +3,7 @@ import { Planet } from "./planet";
 import { Faction } from "./faction";
 
 export class Country {
+  public fleetSize: number;
   public name: string;
 
   public factions: Faction[] = [];
@@ -12,6 +13,7 @@ export class Country {
   constructor(public id: string, pairs: Pair[]) {
     var data = asDictionary(pairs);
 
+    this.fleetSize = parseInt(asString(data["fleet_size"]));
     this.name = asString(data["name"]);
   }
 }
