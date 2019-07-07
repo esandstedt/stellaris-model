@@ -38,7 +38,7 @@
 |          | last_killed_country_name    |                                      |
 |          | last_notification_id        |                                      |
 |          | last_refugee_country        |                                      |
-|          | leaders                     |                                      |
+| Complete | leaders                     |                                      |
 |          | market                      |                                      |
 |          | megastructures              |                                      |
 |          | message                     |                                      |
@@ -146,7 +146,7 @@
 |          | overlord                      |                                     |
 |          | owned_armies                  |                                     |
 |          | owned_fleets                  |                                     |
-|          | owned_leaders                 |                                     |
+| Ignored  | owned_leaders                 | (linked via Leader)                 |
 |          | owned_megastructures          |                                     |
 | Complete | owned_planets                 |                                     |
 |          | personality                   |                                     |
@@ -162,7 +162,7 @@
 |          | ruler_title                   |                                     |
 |          | ruler_title_female            |                                     |
 |          | sapient                       |                                     |
-|          | saved_leaders                 |                                     |
+| Ignored  | saved_leaders                 | (linked via Leader)                 |
 |          | sectors                       |                                     |
 |          | seen_bypass_types             |                                     |
 |          | sensor_range_fleets           |                                     |
@@ -192,16 +192,44 @@
 
 ## Faction
 
-| Status   | Property         | Description                  |
-| -------- | ---------------- | ---------------------------- |
-| Complete | country          |                              |
-| Complete | faction_approval |                              |
-| Partial  | leader           |                              |
-| Ignored  | members          | (linked via property on Pop) |
-| Complete | name             |                              |
-| Ignored  | parameters       | (only has the country id)    |
-| Complete | support          |                              |
-| Complete | type             |                              |
+| Status   | Property         | Description               |
+| -------- | ---------------- | ------------------------- |
+| Complete | country          |                           |
+| Complete | faction_approval |                           |
+| Complete | leader           |                           |
+| Ignored  | members          | (linked via Pop)          |
+| Complete | name             |                           |
+| Ignored  | parameters       | (only has the country id) |
+| Complete | support          |                           |
+| Complete | type             |                           |
+
+## Leader
+
+| Status   | Property           | Description          |
+| -------- | ------------------ | -------------------- |
+| Complete | age                |                      |
+| Complete | agenda             |                      |
+| Complete | class              |                      |
+| Complete | country            |                      |
+| Partial  | creator            |                      |
+|          | date               |                      |
+|          | date_added         |                      |
+|          | event_leader       |                      |
+|          | experience         |                      |
+|          | flags              |                      |
+| Complete | gender             |                      |
+|          | immortal           |                      |
+|          | leader_terms       |                      |
+| Complete | level              |                      |
+|          | location           |                      |
+|          | mandate            |                      |
+| Complete | name               |                      |
+| Ignored  | pop_faction        | (linked via Faction) |
+|          | portrait           |                      |
+|          | pre_ruler_class    |                      |
+|          | pre_ruler_location |                      |
+|          | roles              |                      |
+|          | species_index      |                      |
 
 ## Planet
 

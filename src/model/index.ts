@@ -12,6 +12,7 @@ import { Planet } from "./planet";
 import { Country } from "./country";
 import { Pop } from "./pop";
 import { Faction } from "./faction";
+import { Leader } from "./leader";
 
 export class Model {
   static from(data: string | ArrayBuffer | Blob) {
@@ -25,6 +26,7 @@ export class Model {
 
   countries: { [id: string]: Country };
   factions: { [id: string]: Faction };
+  leaders: { [id: string]: Leader };
   planets: { [id: string]: Planet };
   players: { [name: string]: Player };
   pops: { [id: string]: Pop };
@@ -51,6 +53,12 @@ export class Model {
     this.factions = this.getModels(
       asPairArray(data["pop_factions"]),
       (id, pairs) => new Faction(id, pairs)
+    );
+
+    this.leaders = this.getModels(
+      asPairArray(data["leaders"]),
+      (id, pairs) => new Leader(id, pairs),
+      true
     );
 
     this.planets = this.getPlanets(asPairArray(data["planets"]));
@@ -132,6 +140,25 @@ export class Model {
       (faction, country) => {
         faction.country = country;
         country.factions.push(faction);
+      }
+    );
+
+    this.addModelReference(
+      this.factions,
+      this.leaders,
+      x => x.leaderId,
+      (faction, leader) => {
+        faction.leader = leader;
+      }
+    );
+
+    this.addModelReference(
+      this.leaders,
+      this.countries,
+      x => x.countryId,
+      (leader, country) => {
+        leader.country = country;
+        country.leaders.push(leader);
       }
     );
   }
