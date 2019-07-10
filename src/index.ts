@@ -1,3 +1,5 @@
+import fs from "fs";
+
 import { ModelImpl, Model } from "./model";
 import { compile } from "./compile";
 
@@ -12,6 +14,15 @@ export { Pop } from "./model/pop";
 export { Species } from "./model/species";
 export { System, Hyperlane } from "./model/system";
 
-export function from(data: string | ArrayBuffer | Blob): Promise<Model> {
-  return compile(data).then(doc => new ModelImpl(doc));
+export function load(path: string): Promise<Model> {
+  return new Promise((resolve, reject) => {
+    fs.readFile(path, async (err, data) => {
+      if (err) {
+        reject(err);
+      }
+      const pairs = await compile(data.buffer);
+      const model = new ModelImpl(pairs);
+      resolve(model);
+    });
+  });
 }

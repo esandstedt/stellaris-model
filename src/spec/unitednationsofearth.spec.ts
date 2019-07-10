@@ -1,6 +1,6 @@
 import fs from "fs";
 
-import { from, Model } from "..";
+import { load, Model } from "..";
 import { FactionImpl } from "../model/faction";
 import { LeaderImpl } from "../model/leader";
 import { PopImpl } from "../model/pop";
@@ -12,7 +12,7 @@ describe("unitednationsofearth", () => {
   let model: Model;
   beforeAll(async () => {
     console.time("model");
-    model = await from(fs.readFileSync(filePath).buffer);
+    model = await load(filePath);
     console.timeEnd("model");
   });
 
