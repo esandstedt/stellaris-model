@@ -1,8 +1,6 @@
-import { Lexer, Token } from "./lexer";
-
-export class Pair {
-  constructor(public key: string | null, public value: Pair[] | string) {}
-}
+import { Lexer } from "./lexer";
+import { Token } from "./token";
+import { Pair } from ".";
 
 export function asString(pairsOrString: Pair[] | string): string {
   if (typeof pairsOrString === "undefined") {
@@ -45,7 +43,7 @@ export function asDictionary(
 export function asArray(
   pairs: Pair[],
   key: string | null = null
-): (Pair[] | string)[] {
+): Array<Pair[] | string> {
   const hasKeys = pairs.some(pair => pair.key !== key);
   if (hasKeys) {
     throw new Error("Can't create array from pair list with invalid keys.");
@@ -54,7 +52,7 @@ export function asArray(
 }
 
 export class Parser {
-  token: Token;
+  private token: Token;
   constructor(private lexer: Lexer) {
     this.token = this.lexer.getNextToken();
   }

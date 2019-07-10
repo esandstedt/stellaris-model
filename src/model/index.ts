@@ -1,7 +1,8 @@
 import { asDictionary, asArray, asString, Pair, asPairArray } from "../compile";
 
 import { Player, PlayerImpl } from "./player";
-import { System, Hyperlane, SystemImpl } from "./system";
+import { System, SystemImpl } from "./system";
+import { Hyperlane } from "./system/hyperlane";
 import { Planet, PlanetImpl } from "./planet";
 import { Country, CountryImpl } from "./country";
 import { Pop, PopImpl } from "./pop";
@@ -25,19 +26,18 @@ export interface Model {
 }
 
 export class ModelImpl implements Model {
-  version: string;
-  name: string;
-  date: string;
-  requiredDlcs: string[];
-
-  countries: { [id: string]: CountryImpl };
-  factions: { [id: string]: FactionImpl };
-  leaders: { [id: string]: LeaderImpl };
-  planets: { [id: string]: PlanetImpl };
-  players: { [name: string]: PlayerImpl };
-  pops: { [id: string]: PopImpl };
-  species: SpeciesImpl[];
-  systems: { [id: string]: SystemImpl };
+  public countries: { [id: string]: CountryImpl };
+  public date: string;
+  public factions: { [id: string]: FactionImpl };
+  public leaders: { [id: string]: LeaderImpl };
+  public name: string;
+  public planets: { [id: string]: PlanetImpl };
+  public players: { [name: string]: PlayerImpl };
+  public pops: { [id: string]: PopImpl };
+  public requiredDlcs: string[];
+  public species: SpeciesImpl[];
+  public systems: { [id: string]: SystemImpl };
+  public version: string;
 
   constructor(pairs: Pair[]) {
     const data = asDictionary(pairs);
@@ -50,21 +50,21 @@ export class ModelImpl implements Model {
       asString
     );
 
-    var systemPairs = asPairArray(data["galactic_object"]);
+    const systemPairs = asPairArray(data["galactic_object"]);
 
     this.countries = this.getModels(
       asPairArray(data["country"]),
-      (id, pairs) => new CountryImpl(id, pairs)
+      (id, p) => new CountryImpl(id, p)
     );
 
     this.factions = this.getModels(
       asPairArray(data["pop_factions"]),
-      (id, pairs) => new FactionImpl(id, pairs)
+      (id, p) => new FactionImpl(id, p)
     );
 
     this.leaders = this.getModels(
       asPairArray(data["leaders"]),
-      (id, pairs) => new LeaderImpl(id, pairs)
+      (id, p) => new LeaderImpl(id, p)
     );
 
     this.planets = this.getPlanets(asPairArray(data["planets"]));
@@ -72,14 +72,14 @@ export class ModelImpl implements Model {
 
     this.pops = this.getModels(
       asPairArray(data["pop"]),
-      (id, pairs) => new PopImpl(id, pairs)
+      (id, p) => new PopImpl(id, p)
     );
 
     this.species = this.getSpecies(asPairArray(data["species"]));
 
     this.systems = this.getModels(
       systemPairs,
-      (id, pairs) => new SystemImpl(id, pairs)
+      (id, p) => new SystemImpl(id, p)
     );
 
     this.linkSystemsByHyperlanes(systemPairs);
@@ -215,12 +215,9 @@ export class ModelImpl implements Model {
 
   private getModels<T>(
     pairs: Pair[],
-    createFunc: (id: string, pairs: Pair[]) => T,
-    logKeys = false
+    createFunc: (id: string, pairs: Pair[]) => T
   ) {
     const result: { [id: string]: T } = {};
-
-    var keySet = new Set<string | null>();
 
     pairs.map(pair => {
       if (pair.key === null) {
@@ -234,18 +231,9 @@ export class ModelImpl implements Model {
           throw new Error("unrecognized value");
         }
       } else {
-        const modelPairs = pair.value;
-        modelPairs.forEach(p => keySet.add(p.key));
-        const model = createFunc(pair.key, modelPairs);
-        result[pair.key] = model;
+        result[pair.key] = createFunc(pair.key, pair.value);
       }
     });
-
-    if (logKeys) {
-      const keyArray = Array.from(keySet);
-      keyArray.sort();
-      console.log(keyArray);
-    }
 
     return result;
   }
@@ -306,8 +294,8 @@ export class ModelImpl implements Model {
   private getPlanets(pairs: Pair[]) {
     const result: { [id: string]: PlanetImpl } = {};
 
-    var array = asArray(pairs, "planet");
-    if (array.length != 1) {
+    const array = asArray(pairs, "planet");
+    if (array.length !== 1) {
       throw new Error("unexpected array length");
     }
 
@@ -323,22 +311,8 @@ export class ModelImpl implements Model {
     return result;
   }
 
-  private getSpecies(pairs: Pair[], logKeys = false) {
-    const keys = new Set<string | null>();
-
-    const result = pairs.map(x => {
-      const modelPairs = asPairArray(x.value);
-      modelPairs.forEach(p => keys.add(p.key));
-      return new SpeciesImpl(modelPairs);
-    });
-
-    if (logKeys) {
-      const list = Array.from(keys);
-      list.sort();
-      console.log(list);
-    }
-
-    return result;
+  private getSpecies(pairs: Pair[]) {
+    return pairs.map(pair => new SpeciesImpl(asPairArray(pair.value)));
   }
 
   private linkSystemsByHyperlanes(pairs: Pair[]) {
@@ -349,7 +323,7 @@ export class ModelImpl implements Model {
 
       const system = this.systems[pair.key];
 
-      var systemData = asDictionary(asPairArray(pair.value));
+      const systemData = asDictionary(asPairArray(pair.value));
       if (systemData["hyperlane"]) {
         system.hyperlanes = asArray(asPairArray(systemData["hyperlane"]))
           .map(item => asDictionary(asPairArray(item)))

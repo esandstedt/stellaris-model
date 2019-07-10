@@ -1,11 +1,8 @@
-
-export class Token {
-  constructor(public type: string, public value: string = "") {}
-}
+import { Token } from "./token";
 
 export class Lexer {
+  private index: number = 0;
 
-  index: number = 0
   constructor(private text: string) {}
 
   public getNextToken(): Token {
@@ -34,7 +31,7 @@ export class Lexer {
   }
 
   private handleText(i: number) {
-    let j = i+1;
+    let j = i + 1;
     while (this.isText(this.text.charAt(j))) {
       j += 1;
     }
@@ -43,14 +40,14 @@ export class Lexer {
   }
 
   private handleEscapedText(i: number) {
-    let j = i+1;
+    let j = i + 1;
     while (true) {
-      let c = this.text.charAt(j);
+      const c = this.text.charAt(j);
       if (this.isEscape(c)) {
         // Skip the next character.
         j += 2;
       } else if (this.isDoubleQuote(c)) {
-        return this.text.substring(i+1, j);
+        return this.text.substring(i + 1, j);
       } else {
         j += 1;
       }
@@ -66,14 +63,16 @@ export class Lexer {
   }
 
   private isText(c: string) {
-    return (c >= "a" && c <= "z") ||
+    return (
+      (c >= "a" && c <= "z") ||
       (c >= "A" && c <= "Z") ||
       (c >= "0" && c <= "9") ||
       c === "_" ||
       c === ":" ||
       c === "." ||
       c === "@" ||
-      c === "-";
+      c === "-"
+    );
   }
 
   private isEscape(c: string) {
@@ -81,7 +80,6 @@ export class Lexer {
   }
 
   private isDoubleQuote(c: string) {
-    return c === "\"";
+    return c === '"';
   }
-
 }

@@ -19,20 +19,20 @@ export interface Pop {
 }
 
 export class PopImpl implements Pop {
-  amenitiesUsage: number;
-  category: string;
-  crime: number | undefined;
-  ethos: string | undefined;
-  factionId: string | undefined;
-  faction: Faction | undefined;
-  happiness: number | undefined;
-  housingUsage: number;
-  job: string | undefined;
-  planetId: string;
-  planet: Planet | undefined;
-  power: number | undefined;
-  speciesIndex: number;
-  species: Species | undefined;
+  public amenitiesUsage: number;
+  public category: string;
+  public crime: number | undefined;
+  public ethos: string | undefined;
+  public factionId: string | undefined;
+  public faction: Faction | undefined;
+  public happiness: number | undefined;
+  public housingUsage: number;
+  public job: string | undefined;
+  public planetId: string;
+  public planet: Planet | undefined;
+  public power: number | undefined;
+  public speciesIndex: number;
+  public species: Species | undefined;
 
   constructor(public id: string, pairs: Pair[]) {
     const data = asDictionary(pairs);
@@ -74,6 +74,6 @@ export class PopImpl implements Pop {
       this.power = parseFloat(asString(data["power"]));
     }
 
-    this.speciesIndex = parseInt(asString(data["species_index"]));
+    this.speciesIndex = parseInt(asString(data["species_index"]), 10);
   }
 }

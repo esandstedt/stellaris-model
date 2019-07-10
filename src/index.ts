@@ -12,7 +12,8 @@ export { Planet } from "./model/planet";
 export { Player } from "./model/player";
 export { Pop } from "./model/pop";
 export { Species } from "./model/species";
-export { System, Hyperlane } from "./model/system";
+export { System } from "./model/system";
+export { Hyperlane } from "./model/system/hyperlane";
 
 export function load(path: string): Promise<Model> {
   return new Promise((resolve, reject) => {

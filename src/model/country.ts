@@ -7,7 +7,7 @@ export interface Country {
   id: string;
   controlledPlanets: Planet[];
   factions: Faction[];
-  fleetSize: Number;
+  fleetSize: number;
   leaders: Leader[];
   name: string;
   ownedPlanets: Planet[];
@@ -22,9 +22,9 @@ export class CountryImpl implements Country {
   public ownedPlanets: Planet[] = [];
 
   constructor(public id: string, pairs: Pair[]) {
-    var data = asDictionary(pairs);
+    const data = asDictionary(pairs);
 
-    this.fleetSize = parseInt(asString(data["fleet_size"]));
+    this.fleetSize = parseInt(asString(data["fleet_size"]), 10);
     this.name = asString(data["name"]);
   }
 }

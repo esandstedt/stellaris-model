@@ -22,22 +22,22 @@ export interface Planet {
 }
 
 export class PlanetImpl {
-  amenities: number;
-  amenitiesUsage: number;
-  colonizeDate: string | undefined;
-  controllerId: string | undefined;
-  controller: Country | undefined;
-  coordinates: Coordinate;
-  crime: number;
-  ownerId: string | undefined;
-  owner: Country | undefined;
-  name: string;
-  planetClass: string;
-  size: number;
-  stability: number;
-  systemId: string;
-  system: System | undefined;
-  pops: Pop[] = [];
+  public amenities: number;
+  public amenitiesUsage: number;
+  public colonizeDate: string | undefined;
+  public controllerId: string | undefined;
+  public controller: Country | undefined;
+  public coordinates: Coordinate;
+  public crime: number;
+  public ownerId: string | undefined;
+  public owner: Country | undefined;
+  public name: string;
+  public planetClass: string;
+  public size: number;
+  public stability: number;
+  public systemId: string;
+  public system: System | undefined;
+  public pops: Pop[] = [];
 
   constructor(public id: string, pairs: Pair[]) {
     const data = asDictionary(pairs);
@@ -62,7 +62,7 @@ export class PlanetImpl {
 
     this.name = asString(data["name"]);
     this.planetClass = asString(data["planet_class"]);
-    this.size = parseInt(asString(data["planet_size"]));
+    this.size = parseInt(asString(data["planet_size"]), 10);
     this.stability = parseFloat(asString(data["stability"]));
 
     this.systemId = asString(

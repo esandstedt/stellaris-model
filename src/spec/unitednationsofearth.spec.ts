@@ -1,5 +1,3 @@
-import fs from "fs";
-
 import { load, Model } from "..";
 import { FactionImpl } from "../model/faction";
 import { LeaderImpl } from "../model/leader";
@@ -234,7 +232,7 @@ describe("unitednationsofearth", () => {
         }
 
         expect(leader.species).toBe(model.species[leader.speciesIndex]);
-        expect(leader.species.leaders.some(x => x == leader)).toBe(true);
+        expect(leader.species.leaders.some(x => x === leader)).toBe(true);
       });
   });
 
@@ -248,7 +246,7 @@ describe("unitednationsofearth", () => {
         }
 
         expect(pop.species).toBe(model.species[pop.speciesIndex]);
-        expect(pop.species.pops.some(x => x == pop)).toBe(true);
+        expect(pop.species.pops.some(x => x === pop)).toBe(true);
       });
   });
 });

@@ -1,5 +1,3 @@
-import fs from "fs";
-
 import { load, Model } from "..";
 
 const filePath = "savefiles/orderoftheeternalflame.sav";
@@ -12,5 +10,7 @@ describe("unitednationsofearth", () => {
     console.timeEnd("model");
   });
 
-  test("must contain at least one test", () => {});
+  test("must contain at least one test", () => {
+    expect(true).toBe(true);
+  });
 });

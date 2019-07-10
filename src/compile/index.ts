@@ -2,7 +2,8 @@ import { loadAsync } from "jszip";
 import { Lexer } from "./lexer";
 import { Parser } from "./parser";
 
-export { Pair, asArray, asDictionary, asString, asPairArray } from "./parser";
+export { asArray, asDictionary, asString, asPairArray } from "./parser";
+export { Pair } from "./pair";
 
 function readSavefileAsText(data: string | ArrayBuffer | Blob) {
   return loadAsync(data)

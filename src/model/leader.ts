@@ -30,7 +30,7 @@ export class LeaderImpl implements Leader {
   constructor(public id: string, pairs: Pair[]) {
     const data = asDictionary(pairs);
 
-    this.age = parseInt(asString(data["age"]));
+    this.age = parseInt(asString(data["age"]), 10);
     this.agenda = asString(data["agenda"]);
     this.leaderClass = asString(data["class"]);
 
@@ -44,12 +44,12 @@ export class LeaderImpl implements Leader {
       this.gender = asString(data["gender"]);
     }
 
-    this.level = parseInt(asString(data["level"]));
+    this.level = parseInt(asString(data["level"]), 10);
 
     this.name = asPairArray(data["name"])
       .map(p => asString(p.value))
       .join(" ");
 
-    this.speciesIndex = parseInt(asString(data["species_index"]));
+    this.speciesIndex = parseInt(asString(data["species_index"]), 10);
   }
 }

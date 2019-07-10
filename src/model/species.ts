@@ -42,7 +42,7 @@ export class SpeciesImpl implements Species {
     }
 
     if (data["base"]) {
-      this.baseIndex = parseInt(asString(data["base"]));
+      this.baseIndex = parseInt(asString(data["base"]), 10);
     }
 
     this.name = asString(data["name"]);
