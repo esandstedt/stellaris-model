@@ -7,7 +7,9 @@ const filePath = "savefiles/unitednationsofearth.sav";
 describe("unitednationsofearth", () => {
   let model: Model;
   beforeAll(async () => {
+    console.time("model");
     model = await Model.from(fs.readFileSync(filePath).buffer);
+    console.timeEnd("model");
   });
 
   function getCountryByName(name: string) {
@@ -199,6 +201,48 @@ describe("unitednationsofearth", () => {
 
         expect(faction.country.id).toEqual(faction.countryId);
         expect(faction.country.factions.some(x => x === faction)).toEqual(true);
+      });
+  });
+
+  test("links species to their home planet", () => {
+    model.species.forEach(species => {
+      if (species.homePlanetId) {
+        if (typeof species.homePlanet === "undefined") {
+          expect(species.homePlanet).not.toBeUndefined();
+          return;
+        }
+        expect(species.homePlanet.id).toEqual(species.homePlanetId);
+      } else {
+        expect(species.homePlanet).toBeUndefined();
+      }
+    });
+  });
+
+  test("links leaders to their species", () => {
+    Object.keys(model.leaders)
+      .map(key => model.leaders[key])
+      .forEach(leader => {
+        if (typeof leader.species === "undefined") {
+          expect(leader.species).not.toBeUndefined();
+          return;
+        }
+
+        expect(leader.species).toBe(model.species[leader.speciesIndex]);
+        expect(leader.species.leaders.some(x => x == leader)).toBe(true);
+      });
+  });
+
+  test("links pops to their species", () => {
+    Object.keys(model.pops)
+      .map(key => model.pops[key])
+      .forEach(pop => {
+        if (typeof pop.species === "undefined") {
+          expect(pop.species).not.toBeUndefined();
+          return;
+        }
+
+        expect(pop.species).toBe(model.species[pop.speciesIndex]);
+        expect(pop.species.pops.some(x => x == pop)).toBe(true);
       });
   });
 });

@@ -1,5 +1,6 @@
 import { asDictionary, Pair, asString, asPairArray } from "../compile";
 import { Country } from "./country";
+import { Species } from "./species";
 
 export class Leader {
   public age: number;
@@ -11,6 +12,8 @@ export class Leader {
   public gender: string | undefined;
   public level: number;
   public name: string;
+  public speciesIndex: number;
+  public species: Species | undefined;
 
   constructor(public id: string, pairs: Pair[]) {
     const data = asDictionary(pairs);
@@ -34,5 +37,7 @@ export class Leader {
     this.name = asPairArray(data["name"])
       .map(p => asString(p.value))
       .join(" ");
+
+    this.speciesIndex = parseInt(asString(data["species_index"]));
   }
 }

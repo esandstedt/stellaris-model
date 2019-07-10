@@ -1,6 +1,7 @@
 import { asDictionary, Pair, asString, asPairArray } from "../compile";
 import { Planet } from "./planet";
 import { Faction } from "./faction";
+import { Species } from "./species";
 
 export class Pop {
   amenitiesUsage: number;
@@ -16,6 +17,7 @@ export class Pop {
   planet: Planet | undefined;
   power: number | undefined;
   speciesIndex: number;
+  species: Species | undefined;
 
   constructor(public id: string, pairs: Pair[]) {
     const data = asDictionary(pairs);

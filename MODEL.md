@@ -63,7 +63,7 @@
 |          | ship_design                 |                                      |
 |          | ships                       |                                      |
 |          | slave_market_manager        |                                      |
-|          | species                     |                                      |
+| Complete | species                     |                                      |
 |          | starbases                   |                                      |
 |          | strike_craft                |                                      |
 |          | tick                        |                                      |
@@ -229,7 +229,7 @@
 |          | pre_ruler_class    |                      |
 |          | pre_ruler_location |                      |
 |          | roles              |                      |
-|          | species_index      |                      |
+| Complete | species_index      |                      |
 
 ## Planet
 
@@ -341,7 +341,24 @@
 | Complete | pop_faction              | Faction id                                      |
 | Complete | power                    | Political power                                 |
 |          | promotion_date           |                                                 |
-| Partial  | species_index            | Species                                         |
+| Complete | species_index            | Species                                         |
+
+## Species
+
+| Status   | Property    | Description |
+| -------- | ----------- | ----------- |
+| Complete | adjective   |             |
+| Partial  | base        |             |
+| Complete | class       |             |
+|          | flags       |             |
+| Complete | home_planet |             |
+| Complete | name        |             |
+|          | name_data   |             |
+|          | name_list   |             |
+| Complete | plural      |             |
+| Complete | portrait    |             |
+| Complete | sapient     |             |
+| Complete | traits      |             |
 
 ## System
 

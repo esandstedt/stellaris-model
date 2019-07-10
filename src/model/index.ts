@@ -13,6 +13,7 @@ import { Country } from "./country";
 import { Pop } from "./pop";
 import { Faction } from "./faction";
 import { Leader } from "./leader";
+import { Species } from "./species";
 
 export class Model {
   static from(data: string | ArrayBuffer | Blob) {
@@ -30,6 +31,7 @@ export class Model {
   planets: { [id: string]: Planet };
   players: { [name: string]: Player };
   pops: { [id: string]: Pop };
+  species: Species[];
   systems: { [id: string]: System };
 
   constructor(pairs: Pair[]) {
@@ -67,6 +69,8 @@ export class Model {
       asPairArray(data["pop"]),
       (id, pairs) => new Pop(id, pairs)
     );
+
+    this.species = this.getSpecies(asPairArray(data["species"]));
 
     this.systems = this.getModels(
       systemPairs,
@@ -160,6 +164,38 @@ export class Model {
         country.leaders.push(leader);
       }
     );
+
+    const speciesDict: { [index: string]: Species } = {};
+    this.species.forEach((s, i) => (speciesDict[i] = s));
+
+    this.addModelReference(
+      speciesDict,
+      this.planets,
+      x => x.homePlanetId,
+      (species, planet) => {
+        species.homePlanet = planet;
+      }
+    );
+
+    this.addSpeciesReference(
+      this.leaders,
+      this.species,
+      x => x.speciesIndex,
+      (leader, species) => {
+        leader.species = species;
+        species.leaders.push(leader);
+      }
+    );
+
+    this.addSpeciesReference(
+      this.pops,
+      this.species,
+      x => x.speciesIndex,
+      (pop, species) => {
+        pop.species = species;
+        species.pops.push(pop);
+      }
+    );
   }
 
   private getModels<T>(
@@ -218,6 +254,24 @@ export class Model {
       });
   }
 
+  private addSpeciesReference<T>(
+    modelSet: { [id: string]: T },
+    speciesArray: Species[],
+    indexGetter: (model: T) => number,
+    setter: (model: T, species: Species) => void
+  ) {
+    Object.keys(modelSet)
+      .map(key => modelSet[key])
+      .forEach(model => {
+        const species = speciesArray[indexGetter(model)];
+        if (species) {
+          setter(model, species);
+        } else {
+          throw new Error();
+        }
+      });
+  }
+
   private getPlayers(pairs: Pair[]): { [name: string]: Player } {
     const result: { [name: string]: Player } = {};
 
@@ -247,6 +301,24 @@ export class Model {
       const planet = new Planet(pair.key, asPairArray(pair.value));
       result[planet.id] = planet;
     });
+
+    return result;
+  }
+
+  private getSpecies(pairs: Pair[], logKeys = false) {
+    const keys = new Set<string | null>();
+
+    const result = pairs.map(x => {
+      const modelPairs = asPairArray(x.value);
+      modelPairs.forEach(p => keys.add(p.key));
+      return new Species(modelPairs);
+    });
+
+    if (logKeys) {
+      const list = Array.from(keys);
+      list.sort();
+      console.log(list);
+    }
 
     return result;
   }
