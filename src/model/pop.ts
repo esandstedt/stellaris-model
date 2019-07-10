@@ -3,7 +3,22 @@ import { Planet } from "./planet";
 import { Faction } from "./faction";
 import { Species } from "./species";
 
-export class Pop {
+export interface Pop {
+  id: string;
+  amenitiesUsage: number;
+  category: string;
+  crime: number | undefined;
+  ethos: string | undefined;
+  faction: Faction | undefined;
+  happiness: number | undefined;
+  housingUsage: number;
+  job: string | undefined;
+  planet: Planet | undefined;
+  power: number | undefined;
+  species: Species | undefined;
+}
+
+export class PopImpl implements Pop {
   amenitiesUsage: number;
   category: string;
   crime: number | undefined;

@@ -3,14 +3,23 @@ import { Planet } from "./planet";
 import { Faction } from "./faction";
 import { Leader } from "./leader";
 
-export class Country {
-  public fleetSize: number;
-  public name: string;
+export interface Country {
+  id: string;
+  controlledPlanets: Planet[];
+  factions: Faction[];
+  fleetSize: Number;
+  leaders: Leader[];
+  name: string;
+  ownedPlanets: Planet[];
+}
 
-  public leaders: Leader[] = [];
-  public factions: Faction[] = [];
-  public ownedPlanets: Planet[] = [];
+export class CountryImpl implements Country {
   public controlledPlanets: Planet[] = [];
+  public factions: Faction[] = [];
+  public fleetSize: number;
+  public leaders: Leader[] = [];
+  public name: string;
+  public ownedPlanets: Planet[] = [];
 
   constructor(public id: string, pairs: Pair[]) {
     var data = asDictionary(pairs);

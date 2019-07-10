@@ -2,14 +2,23 @@ import { Coordinate } from "./coordinate";
 import { asDictionary, Pair, asString, asPairArray, asArray } from "../compile";
 import { Planet } from "./planet";
 
-export class System {
+export interface System {
+  id: string;
   coordinate: Coordinate;
-  type: string;
+  hyperlanes: Hyperlane[];
   name: string;
+  planets: Planet[];
   starClass: string;
+  type: string;
+}
 
+export class SystemImpl implements System {
+  coordinate: Coordinate;
   hyperlanes: Hyperlane[] = [];
+  name: string;
   planets: Planet[] = [];
+  starClass: string;
+  type: string;
 
   constructor(public id: string, pairs: Pair[]) {
     var data = asDictionary(pairs);

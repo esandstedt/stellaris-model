@@ -4,7 +4,24 @@ import { Country } from "./country";
 import { System } from "./system";
 import { Pop } from "./pop";
 
-export class Planet {
+export interface Planet {
+  id: string;
+  amenities: number;
+  amenitiesUsage: number;
+  colonizeDate: string | undefined;
+  controller: Country | undefined;
+  coordinates: Coordinate;
+  crime: number;
+  owner: Country | undefined;
+  name: string;
+  planetClass: string;
+  size: number;
+  stability: number;
+  system: System | undefined;
+  pops: Pop[];
+}
+
+export class PlanetImpl {
   amenities: number;
   amenitiesUsage: number;
   colonizeDate: string | undefined;
@@ -12,15 +29,14 @@ export class Planet {
   controller: Country | undefined;
   coordinates: Coordinate;
   crime: number;
-  owner: Country | undefined;
   ownerId: string | undefined;
+  owner: Country | undefined;
   name: string;
   planetClass: string;
   size: number;
   stability: number;
   systemId: string;
   system: System | undefined;
-
   pops: Pop[] = [];
 
   constructor(public id: string, pairs: Pair[]) {

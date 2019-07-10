@@ -3,21 +3,36 @@ import { Planet } from "./planet";
 import { Leader } from "./leader";
 import { Pop } from "./pop";
 
-export class Species {
+export interface Species {
+  adjective: string | undefined;
+  base: Species | undefined;
+  children: Species[];
+  homePlanet: Planet | undefined;
+  leaders: Leader[];
+  name: string;
+  plural: string | undefined;
+  pops: Pop[];
+  portrait: string;
+  sapient: boolean;
+  speciesClass: string;
+  traits: string[];
+}
+
+export class SpeciesImpl implements Species {
   public adjective: string | undefined;
   public baseIndex: number | undefined;
   public base: Species | undefined;
-  public name: string;
+  public children: Species[] = [];
   public homePlanetId: string | undefined;
   public homePlanet: Planet | undefined;
+  public leaders: Leader[] = [];
+  public name: string;
   public plural: string | undefined;
+  public pops: Pop[] = [];
   public portrait: string;
   public sapient: boolean;
   public speciesClass: string;
   public traits: string[];
-
-  public leaders: Leader[] = [];
-  public pops: Pop[] = [];
 
   constructor(pairs: Pair[]) {
     const data = asDictionary(pairs);

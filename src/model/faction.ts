@@ -3,17 +3,27 @@ import { Country } from "./country";
 import { Pop } from "./pop";
 import { Leader } from "./leader";
 
-export class Faction {
+export interface Faction {
+  id: string;
+  approval: number | undefined;
+  country: Country | undefined;
+  leader: Leader | undefined;
+  name: string;
+  pops: Pop[];
+  support: number;
+  type: string;
+}
+
+export class FactionImpl implements Faction {
   public approval: number | undefined;
   public countryId: string;
   public country: Country | undefined;
   public leaderId: string;
   public leader: Leader | undefined;
   public name: string;
+  public pops: Pop[] = [];
   public support: number;
   public type: string;
-
-  public pops: Pop[] = [];
 
   constructor(public id: string, pairs: Pair[]) {
     const data = asDictionary(pairs);

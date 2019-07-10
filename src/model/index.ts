@@ -1,38 +1,43 @@
-import {
-  compile,
-  asDictionary,
-  asArray,
-  asString,
-  Pair,
-  asPairArray
-} from "../compile";
-import { Player } from "./player";
-import { System, Hyperlane } from "./system";
-import { Planet } from "./planet";
-import { Country } from "./country";
-import { Pop } from "./pop";
-import { Faction } from "./faction";
-import { Leader } from "./leader";
-import { Species } from "./species";
+import { asDictionary, asArray, asString, Pair, asPairArray } from "../compile";
 
-export class Model {
-  static from(data: string | ArrayBuffer | Blob) {
-    return compile(data).then(doc => new Model(doc));
-  }
+import { Player, PlayerImpl } from "./player";
+import { System, Hyperlane, SystemImpl } from "./system";
+import { Planet, PlanetImpl } from "./planet";
+import { Country, CountryImpl } from "./country";
+import { Pop, PopImpl } from "./pop";
+import { Faction, FactionImpl } from "./faction";
+import { Leader, LeaderImpl } from "./leader";
+import { Species, SpeciesImpl } from "./species";
 
+export interface Model {
+  countries: { [id: string]: Country };
+  date: string;
+  factions: { [id: string]: Faction };
+  leaders: { [id: string]: Leader };
+  name: string;
+  planets: { [id: string]: Planet };
+  players: { [name: string]: Player };
+  pops: { [id: string]: Pop };
+  requiredDlcs: string[];
+  species: Species[];
+  systems: { [id: string]: System };
+  version: string;
+}
+
+export class ModelImpl implements Model {
   version: string;
   name: string;
   date: string;
   requiredDlcs: string[];
 
-  countries: { [id: string]: Country };
-  factions: { [id: string]: Faction };
-  leaders: { [id: string]: Leader };
-  planets: { [id: string]: Planet };
-  players: { [name: string]: Player };
-  pops: { [id: string]: Pop };
-  species: Species[];
-  systems: { [id: string]: System };
+  countries: { [id: string]: CountryImpl };
+  factions: { [id: string]: FactionImpl };
+  leaders: { [id: string]: LeaderImpl };
+  planets: { [id: string]: PlanetImpl };
+  players: { [name: string]: PlayerImpl };
+  pops: { [id: string]: PopImpl };
+  species: SpeciesImpl[];
+  systems: { [id: string]: SystemImpl };
 
   constructor(pairs: Pair[]) {
     const data = asDictionary(pairs);
@@ -49,17 +54,17 @@ export class Model {
 
     this.countries = this.getModels(
       asPairArray(data["country"]),
-      (id, pairs) => new Country(id, pairs)
+      (id, pairs) => new CountryImpl(id, pairs)
     );
 
     this.factions = this.getModels(
       asPairArray(data["pop_factions"]),
-      (id, pairs) => new Faction(id, pairs)
+      (id, pairs) => new FactionImpl(id, pairs)
     );
 
     this.leaders = this.getModels(
       asPairArray(data["leaders"]),
-      (id, pairs) => new Leader(id, pairs)
+      (id, pairs) => new LeaderImpl(id, pairs)
     );
 
     this.planets = this.getPlanets(asPairArray(data["planets"]));
@@ -67,14 +72,14 @@ export class Model {
 
     this.pops = this.getModels(
       asPairArray(data["pop"]),
-      (id, pairs) => new Pop(id, pairs)
+      (id, pairs) => new PopImpl(id, pairs)
     );
 
     this.species = this.getSpecies(asPairArray(data["species"]));
 
     this.systems = this.getModels(
       systemPairs,
-      (id, pairs) => new System(id, pairs)
+      (id, pairs) => new SystemImpl(id, pairs)
     );
 
     this.linkSystemsByHyperlanes(systemPairs);
@@ -165,7 +170,7 @@ export class Model {
       }
     );
 
-    const speciesDict: { [index: string]: Species } = {};
+    const speciesDict: { [index: string]: SpeciesImpl } = {};
     this.species.forEach((s, i) => (speciesDict[i] = s));
 
     this.addModelReference(
@@ -194,6 +199,16 @@ export class Model {
       (pop, species) => {
         pop.species = species;
         species.pops.push(pop);
+      }
+    );
+
+    this.addSpeciesReference(
+      speciesDict,
+      this.species,
+      x => x.baseIndex,
+      (species, base) => {
+        species.base = base;
+        base.children.push(species);
       }
     );
   }
@@ -256,29 +271,32 @@ export class Model {
 
   private addSpeciesReference<T>(
     modelSet: { [id: string]: T },
-    speciesArray: Species[],
-    indexGetter: (model: T) => number,
-    setter: (model: T, species: Species) => void
+    speciesArray: SpeciesImpl[],
+    indexGetter: (model: T) => number | undefined,
+    setter: (model: T, species: SpeciesImpl) => void
   ) {
     Object.keys(modelSet)
       .map(key => modelSet[key])
       .forEach(model => {
-        const species = speciesArray[indexGetter(model)];
-        if (species) {
-          setter(model, species);
-        } else {
-          throw new Error();
+        const index = indexGetter(model);
+        if (typeof index !== "undefined") {
+          const species = speciesArray[index];
+          if (species) {
+            setter(model, species);
+          } else {
+            throw new Error();
+          }
         }
       });
   }
 
-  private getPlayers(pairs: Pair[]): { [name: string]: Player } {
-    const result: { [name: string]: Player } = {};
+  private getPlayers(pairs: Pair[]): { [name: string]: PlayerImpl } {
+    const result: { [name: string]: PlayerImpl } = {};
 
     asArray(pairs)
       .map(asPairArray)
       .forEach(item => {
-        const player = new Player(item);
+        const player = new PlayerImpl(item);
         result[player.name] = player;
       });
 
@@ -286,7 +304,7 @@ export class Model {
   }
 
   private getPlanets(pairs: Pair[]) {
-    const result: { [id: string]: Planet } = {};
+    const result: { [id: string]: PlanetImpl } = {};
 
     var array = asArray(pairs, "planet");
     if (array.length != 1) {
@@ -298,7 +316,7 @@ export class Model {
         throw new Error();
       }
 
-      const planet = new Planet(pair.key, asPairArray(pair.value));
+      const planet = new PlanetImpl(pair.key, asPairArray(pair.value));
       result[planet.id] = planet;
     });
 
@@ -311,7 +329,7 @@ export class Model {
     const result = pairs.map(x => {
       const modelPairs = asPairArray(x.value);
       modelPairs.forEach(p => keys.add(p.key));
-      return new Species(modelPairs);
+      return new SpeciesImpl(modelPairs);
     });
 
     if (logKeys) {
