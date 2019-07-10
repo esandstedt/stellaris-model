@@ -1,10 +1,6 @@
 {
-  "extends": ["tslint:recommended", "tslint-config-prettier"],
+  "extends": ["../../tslint.json"],
   "rules": {
-    "interface-name": false,
-    "no-string-literal": false,
-    "ordered-imports": false,
-
     "no-console": false
   }
 }
