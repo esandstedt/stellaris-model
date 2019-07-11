@@ -90,103 +90,103 @@ export class ModelImpl implements Model {
 
     this.linkSystemsByHyperlanes(systemPairs);
 
-    this.addModelReference(
-      this.players.getAll(),
-      id => this.countries.get(id),
-      x => x.countryId,
+    this.link(
+      this.players,
+      this.countries,
+      player => player.countryId,
       (player, country) => (player.country = country)
     );
 
-    this.addModelReference(
-      this.planets.getAll(),
-      id => this.countries.get(id),
-      x => x.controllerId,
+    this.link(
+      this.planets,
+      this.countries,
+      planet => planet.controllerId,
       (planet, country) => {
         planet.controller = country;
         country.controlledPlanets.push(planet);
       }
     );
 
-    this.addModelReference(
-      this.planets.getAll(),
-      id => this.countries.get(id),
-      x => x.ownerId,
+    this.link(
+      this.planets,
+      this.countries,
+      planet => planet.ownerId,
       (planet, country) => {
         planet.owner = country;
         country.ownedPlanets.push(planet);
       }
     );
 
-    this.addModelReference(
-      this.planets.getAll(),
-      id => this.systems.get(id),
-      x => x.systemId,
+    this.link(
+      this.planets,
+      this.systems,
+      planet => planet.systemId,
       (planet, system) => {
         planet.system = system;
         system.planets.push(planet);
       }
     );
 
-    this.addModelReference(
-      this.pops.getAll(),
-      id => this.factions.get(id),
-      x => x.factionId,
+    this.link(
+      this.pops,
+      this.factions,
+      pop => pop.factionId,
       (pop, faction) => {
         pop.faction = faction;
         faction.pops.push(pop);
       }
     );
 
-    this.addModelReference(
-      this.pops.getAll(),
-      id => this.planets.get(id),
-      x => x.planetId,
+    this.link(
+      this.pops,
+      this.planets,
+      pop => pop.planetId,
       (pop, planet) => {
         pop.planet = planet;
         planet.pops.push(pop);
       }
     );
 
-    this.addModelReference(
-      this.factions.getAll(),
-      id => this.countries.get(id),
-      x => x.countryId,
+    this.link(
+      this.factions,
+      this.countries,
+      faction => faction.countryId,
       (faction, country) => {
         faction.country = country;
         country.factions.push(faction);
       }
     );
 
-    this.addModelReference(
-      this.factions.getAll(),
-      id => this.leaders.get(id),
-      x => x.leaderId,
+    this.link(
+      this.factions,
+      this.leaders,
+      faction => faction.leaderId,
       (faction, leader) => {
         faction.leader = leader;
       }
     );
 
-    this.addModelReference(
-      this.leaders.getAll(),
-      id => this.countries.get(id),
-      x => x.countryId,
+    this.link(
+      this.leaders,
+      this.countries,
+      leader => leader.countryId,
       (leader, country) => {
         leader.country = country;
         country.leaders.push(leader);
       }
     );
 
-    this.addModelReference(
+    this.link(
       this.species,
-      id => this.planets.get(id),
-      x => x.homePlanetId,
+      this.planets,
+      species => species.homePlanetId,
       (species, planet) => {
         species.homePlanet = planet;
       }
     );
 
-    this.addSpeciesReference(
-      this.leaders.getAll(),
+    this.linkSpecies(
+      this.leaders,
       this.species,
       x => x.speciesIndex,
       (leader, species) => {
@@ -195,8 +195,8 @@ export class ModelImpl implements Model {
       }
     );
 
-    this.addSpeciesReference(
-      this.pops.getAll(),
+    this.linkSpecies(
+      this.pops,
       this.species,
       x => x.speciesIndex,
       (pop, species) => {
@@ -205,7 +205,7 @@ export class ModelImpl implements Model {
       }
     );
 
-    this.addSpeciesReference(
+    this.linkSpecies(
       this.species,
       this.species,
       x => x.baseIndex,
@@ -214,31 +214,6 @@ export class ModelImpl implements Model {
         base.children.push(species);
       }
     );
-  }
-
-  private getModels<T>(
-    pairs: Pair[],
-    createFunc: (id: string, pairs: Pair[]) => T
-  ) {
-    const result: { [id: string]: T } = {};
-
-    pairs.map(pair => {
-      if (pair.key === null) {
-        throw new Error();
-      }
-
-      if (typeof pair.value === "string") {
-        if (pair.value === "none") {
-          // Ignore
-        } else {
-          throw new Error("unrecognized value");
-        }
-      } else {
-        result[pair.key] = createFunc(pair.key, pair.value);
-      }
-    });
-
-    return result;
   }
 
   private getCollection<T>(
@@ -273,16 +248,20 @@ export class ModelImpl implements Model {
     return new Collection(array, idFunc);
   }
 
-  private addModelReference<T1, T2>(
-    models: T1[],
-    referenceGetter: (key: string) => T2,
+  private link<T1, T2>(
+    models: Collection<T1> | T1[],
+    referenceCollection: Collection<T2>,
     keyGetter: (model: T1) => string | undefined,
     setter: (model: T1, reference: T2) => void
   ) {
+    if (models instanceof Collection) {
+      models = models.getAll();
+    }
+
     models.forEach(model => {
-      const key = keyGetter(model);
+      var key = keyGetter(model);
       if (typeof key !== "undefined") {
-        const reference = referenceGetter(key);
+        const reference = referenceCollection.get(key);
         if (reference) {
           setter(model, reference);
         }
@@ -290,12 +269,16 @@ export class ModelImpl implements Model {
     });
   }
 
-  private addSpeciesReference<T>(
-    models: T[],
+  private linkSpecies<T>(
+    models: Collection<T> | T[],
     speciesArray: SpeciesImpl[],
     indexGetter: (model: T) => number | undefined,
     setter: (model: T, species: SpeciesImpl) => void
   ) {
+    if (models instanceof Collection) {
+      models = models.getAll();
+    }
+
     models.forEach(model => {
       const index = indexGetter(model);
       if (typeof index !== "undefined") {
@@ -324,15 +307,16 @@ export class ModelImpl implements Model {
       throw new Error("unexpected array length");
     }
 
-    const planets = asPairArray(array[0]).map(pair => {
-      if (pair.key === null) {
-        throw new Error();
-      }
+    return new Collection(
+      asPairArray(array[0]).map(pair => {
+        if (pair.key === null) {
+          throw new Error();
+        }
 
-      return new PlanetImpl(pair.key, asPairArray(pair.value));
-    });
-
-    return new Collection(planets, planet => planet.id);
+        return new PlanetImpl(pair.key, asPairArray(pair.value));
+      }),
+      planet => planet.id
+    );
   }
 
   private getSpecies(pairs: Pair[]) {
