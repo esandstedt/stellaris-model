@@ -2,7 +2,7 @@ import { load, Model } from "..";
 
 const filePath = "savefiles/orderoftheeternalflame.sav";
 
-describe("unitednationsofearth", () => {
+describe("orderoftheeternalflame", () => {
   let model: Model;
   beforeAll(async () => {
     console.time("model");
