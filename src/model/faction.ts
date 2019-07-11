@@ -6,8 +6,8 @@ import { Leader } from "./leader";
 export interface Faction {
   id: string;
   approval: number | undefined;
-  country: Country | undefined;
-  leader: Leader | undefined;
+  country: Country;
+  leader: Leader;
   name: string;
   pops: Pop[];
   support: number;
@@ -16,10 +16,31 @@ export interface Faction {
 
 export class FactionImpl implements Faction {
   public approval: number | undefined;
+
   public countryId: string;
-  public country: Country | undefined;
+  public _country: Country | undefined;
+  get country(): Country {
+    if (typeof this._country === "undefined") {
+      throw new Error();
+    }
+    return this._country;
+  }
+  set country(value: Country) {
+    this._country = value;
+  }
+
   public leaderId: string;
-  public leader: Leader | undefined;
+  public _leader: Leader | undefined;
+  get leader(): Leader {
+    if (typeof this._leader === "undefined") {
+      throw new Error();
+    }
+    return this._leader;
+  }
+  set leader(value: Leader) {
+    this._leader = value;
+  }
+
   public name: string;
   public pops: Pop[] = [];
   public support: number;

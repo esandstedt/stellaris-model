@@ -13,9 +13,9 @@ export interface Pop {
   happiness: number | undefined;
   housingUsage: number;
   job: string | undefined;
-  planet: Planet | undefined;
+  planet: Planet;
   power: number | undefined;
-  species: Species | undefined;
+  species: Species;
 }
 
 export class PopImpl implements Pop {
@@ -28,11 +28,32 @@ export class PopImpl implements Pop {
   public happiness: number | undefined;
   public housingUsage: number;
   public job: string | undefined;
+
   public planetId: string;
-  public planet: Planet | undefined;
+  private _planet: Planet | undefined;
+  get planet(): Planet {
+    if (typeof this._planet === "undefined") {
+      throw new Error();
+    }
+    return this._planet;
+  }
+  set planet(value: Planet) {
+    this._planet = value;
+  }
+
   public power: number | undefined;
+
   public speciesIndex: number;
-  public species: Species | undefined;
+  private _species: Species | undefined;
+  get species(): Species {
+    if (typeof this._species === "undefined") {
+      throw new Error();
+    }
+    return this._species;
+  }
+  set species(value: Species) {
+    this._species = value;
+  }
 
   constructor(public id: string, pairs: Pair[]) {
     const data = asDictionary(pairs);

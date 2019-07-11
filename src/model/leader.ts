@@ -11,7 +11,7 @@ export interface Leader {
   gender: string | undefined;
   level: number;
   name: string;
-  species: Species | undefined;
+  species: Species;
 }
 
 export class LeaderImpl implements Leader {
@@ -24,8 +24,18 @@ export class LeaderImpl implements Leader {
   public gender: string | undefined;
   public level: number;
   public name: string;
+
   public speciesIndex: number;
-  public species: Species | undefined;
+  private _species: Species | undefined;
+  get species(): Species {
+    if (typeof this._species === "undefined") {
+      throw new Error();
+    }
+    return this._species;
+  }
+  set species(value: Species) {
+    this._species = value;
+  }
 
   constructor(public id: string, pairs: Pair[]) {
     const data = asDictionary(pairs);

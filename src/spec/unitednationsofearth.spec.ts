@@ -249,4 +249,10 @@ describe("unitednationsofearth", () => {
         expect(pop.species.pops.some(x => x === pop)).toBe(true);
       });
   });
+
+  test("all factions have a leader", () => {
+    Object.keys(model.factions)
+      .map(key => model.factions[key])
+      .forEach(faction => expect(faction.leader).not.toBeUndefined());
+  });
 });

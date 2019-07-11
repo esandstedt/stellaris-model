@@ -17,7 +17,7 @@ export interface Planet {
   planetClass: string;
   size: number;
   stability: number;
-  system: System | undefined;
+  system: System;
   pops: Pop[];
 }
 
@@ -35,8 +35,19 @@ export class PlanetImpl {
   public planetClass: string;
   public size: number;
   public stability: number;
+
   public systemId: string;
-  public system: System | undefined;
+  public _system: System | undefined;
+  get system(): System {
+    if (typeof this._system === "undefined") {
+      throw new Error();
+    }
+    return this._system;
+  }
+  set system(value: System) {
+    this._system = value;
+  }
+
   public pops: Pop[] = [];
 
   constructor(public id: string, pairs: Pair[]) {

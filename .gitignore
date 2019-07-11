@@ -1,7 +1,5 @@
 node_modules/
-
-# build ts files
-dist/**/*
+dist/
 
 # my own test file
 src/run.ts
