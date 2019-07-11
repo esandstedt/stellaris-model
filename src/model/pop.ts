@@ -28,32 +28,32 @@ export class PopImpl implements Pop {
   public happiness: number | undefined;
   public housingUsage: number;
   public job: string | undefined;
-
   public planetId: string;
-  private _planet: Planet | undefined;
+  public power: number | undefined;
+  public speciesIndex: number;
+
   get planet(): Planet {
-    if (typeof this._planet === "undefined") {
+    if (typeof this.planetInstance === "undefined") {
       throw new Error();
     }
-    return this._planet;
+    return this.planetInstance;
   }
   set planet(value: Planet) {
-    this._planet = value;
+    this.planetInstance = value;
   }
 
-  public power: number | undefined;
-
-  public speciesIndex: number;
-  private _species: Species | undefined;
   get species(): Species {
-    if (typeof this._species === "undefined") {
+    if (typeof this.speciesInstance === "undefined") {
       throw new Error();
     }
-    return this._species;
+    return this.speciesInstance;
   }
   set species(value: Species) {
-    this._species = value;
+    this.speciesInstance = value;
   }
+
+  private planetInstance: Planet | undefined;
+  private speciesInstance: Species | undefined;
 
   constructor(public id: string, pairs: Pair[]) {
     const data = asDictionary(pairs);

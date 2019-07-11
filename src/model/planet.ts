@@ -35,20 +35,20 @@ export class PlanetImpl {
   public planetClass: string;
   public size: number;
   public stability: number;
-
   public systemId: string;
-  public _system: System | undefined;
+  public pops: Pop[] = [];
+
   get system(): System {
-    if (typeof this._system === "undefined") {
+    if (typeof this.systemInstance === "undefined") {
       throw new Error();
     }
-    return this._system;
+    return this.systemInstance;
   }
   set system(value: System) {
-    this._system = value;
+    this.systemInstance = value;
   }
 
-  public pops: Pop[] = [];
+  private systemInstance: System | undefined;
 
   constructor(public id: string, pairs: Pair[]) {
     const data = asDictionary(pairs);

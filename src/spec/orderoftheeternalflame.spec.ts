@@ -10,10 +10,6 @@ describe("unitednationsofearth", () => {
     console.timeEnd("model");
   });
 
-  test("must contain at least one test", () => {
-    expect(true).toBe(true);
-  });
-
   test("all pops have a species", () => {
     Object.keys(model.pops)
       .map(key => model.pops[key])

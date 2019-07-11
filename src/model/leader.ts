@@ -24,18 +24,19 @@ export class LeaderImpl implements Leader {
   public gender: string | undefined;
   public level: number;
   public name: string;
-
   public speciesIndex: number;
-  private _species: Species | undefined;
+
   get species(): Species {
-    if (typeof this._species === "undefined") {
+    if (typeof this.speciesInstance === "undefined") {
       throw new Error();
     }
-    return this._species;
+    return this.speciesInstance;
   }
   set species(value: Species) {
-    this._species = value;
+    this.speciesInstance = value;
   }
+
+  private speciesInstance: Species | undefined;
 
   constructor(public id: string, pairs: Pair[]) {
     const data = asDictionary(pairs);
