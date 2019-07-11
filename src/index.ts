@@ -4,6 +4,7 @@ import { ModelImpl, Model } from "./model";
 import { compile } from "./compile";
 
 export { Model } from "./model";
+export { Collection } from "./model/collection";
 export { Coordinate } from "./model/coordinate";
 export { Country } from "./model/country";
 export { Faction } from "./model/faction";

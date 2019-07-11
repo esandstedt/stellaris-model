@@ -15,21 +15,15 @@ describe("unitednationsofearth", () => {
   });
 
   function getCountryByName(name: string) {
-    return Object.keys(model.countries)
-      .map(key => model.countries[key])
-      .filter(x => x.name === name)[0];
+    return model.countries.getAll().filter(x => x.name === name)[0];
   }
 
   function getPlanetByName(name: string) {
-    return Object.keys(model.planets)
-      .map(key => model.planets[key])
-      .filter(planet => planet.name === name)[0];
+    return model.planets.getAll().filter(planet => planet.name === name)[0];
   }
 
   function getSystemByName(name: string) {
-    return Object.keys(model.systems)
-      .map(key => model.systems[key])
-      .filter(x => x.name === name)[0];
+    return model.systems.getAll().filter(x => x.name === name)[0];
   }
 
   test("loads savefile name", () => {
@@ -45,21 +39,21 @@ describe("unitednationsofearth", () => {
   });
 
   test("loads player", () => {
-    const keys = Object.keys(model.players);
+    const keys = model.players.getAll().map(player => player.name);
     expect(keys).toEqual(["Goose"]);
   });
 
   test("links player to their country", () => {
-    const player = model.players["Goose"];
+    const player = model.players.get("Goose");
 
-    const country = model.countries["0"];
+    const country = model.countries.get("0");
     expect(country.name).toEqual("United Nations of Earth");
 
     expect(player.country).toBe(country);
   });
 
   test("links country to their owned planets", () => {
-    const country = model.players["Goose"].country;
+    const country = model.players.get("Goose").country;
 
     if (typeof country === "undefined") {
       expect(true).toBe(false);
@@ -158,8 +152,9 @@ describe("unitednationsofearth", () => {
   });
 
   test("links pops to thier planet", () => {
-    Object.keys(model.pops)
-      .map(key => model.pops[key] as PopImpl)
+    model.pops
+      .getAll()
+      .map(pop => pop as PopImpl)
       .forEach(pop => {
         expect(pop.planetId).not.toBeUndefined();
 
@@ -174,8 +169,9 @@ describe("unitednationsofearth", () => {
   });
 
   test("links pops to their faction", () => {
-    Object.keys(model.pops)
-      .map(key => model.pops[key] as PopImpl)
+    model.pops
+      .getAll()
+      .map(pop => pop as PopImpl)
       .forEach(pop => {
         if (pop.factionId) {
           if (typeof pop.faction === "undefined") {
@@ -191,8 +187,9 @@ describe("unitednationsofearth", () => {
   });
 
   test("links factions to thier country", () => {
-    Object.keys(model.factions)
-      .map(key => model.factions[key] as FactionImpl)
+    model.factions
+      .getAll()
+      .map(faction => faction as FactionImpl)
       .forEach(faction => {
         expect(faction.countryId).not.toBeUndefined();
 
@@ -223,8 +220,9 @@ describe("unitednationsofearth", () => {
   });
 
   test("links leaders to their species", () => {
-    Object.keys(model.leaders)
-      .map(key => model.leaders[key] as LeaderImpl)
+    model.leaders
+      .getAll()
+      .map(leader => leader as LeaderImpl)
       .forEach(leader => {
         if (typeof leader.species === "undefined") {
           expect(leader.species).not.toBeUndefined();
@@ -237,8 +235,9 @@ describe("unitednationsofearth", () => {
   });
 
   test("links pops to their species", () => {
-    Object.keys(model.pops)
-      .map(key => model.pops[key] as PopImpl)
+    model.pops
+      .getAll()
+      .map(pop => pop as PopImpl)
       .forEach(pop => {
         if (typeof pop.species === "undefined") {
           expect(pop.species).not.toBeUndefined();
@@ -251,8 +250,9 @@ describe("unitednationsofearth", () => {
   });
 
   test("all factions have a leader", () => {
-    Object.keys(model.factions)
-      .map(key => model.factions[key])
+    model.factions
+      .getAll()
+      .map(faction => faction as FactionImpl)
       .forEach(faction => expect(faction.leader).not.toBeUndefined());
   });
 });
