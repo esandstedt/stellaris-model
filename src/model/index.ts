@@ -259,7 +259,7 @@ export class ModelImpl implements Model {
     }
 
     models.forEach(model => {
-      var key = keyGetter(model);
+      const key = keyGetter(model);
       if (typeof key !== "undefined") {
         const reference = referenceCollection.get(key);
         if (reference) {
