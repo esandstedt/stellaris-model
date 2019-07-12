@@ -71,8 +71,18 @@ export class ModelImpl implements Model {
       leader => leader.id
     );
 
-    this.planets = this.getPlanets(asPairArray(data["planets"]));
-    this.players = this.getPlayers(asPairArray(data["player"]));
+    this.planets = this.getCollection(
+      asPairArray(asDictionary(asPairArray(data["planets"]))["planet"]),
+      (id, p) => new PlanetImpl(id, p),
+      planet => planet.id
+    );
+
+    this.players = new Collection(
+      asArray(asPairArray(data["player"]))
+        .map(asPairArray)
+        .map(item => new PlayerImpl(item)),
+      player => player.name
+    );
 
     this.pops = this.getCollection(
       asPairArray(data["pop"]),
@@ -80,7 +90,9 @@ export class ModelImpl implements Model {
       pop => pop.id
     );
 
-    this.species = this.getSpecies(asPairArray(data["species"]));
+    this.species = asPairArray(data["species"]).map(
+      pair => new SpeciesImpl(asPairArray(pair.value))
+    );
 
     this.systems = this.getCollection(
       systemPairs,
@@ -290,37 +302,6 @@ export class ModelImpl implements Model {
         }
       }
     });
-  }
-
-  private getPlayers(pairs: Pair[]): Collection<PlayerImpl> {
-    return new Collection(
-      asArray(pairs)
-        .map(asPairArray)
-        .map(item => new PlayerImpl(item)),
-      player => player.name
-    );
-  }
-
-  private getPlanets(pairs: Pair[]): Collection<PlanetImpl> {
-    const array = asArray(pairs, "planet");
-    if (array.length !== 1) {
-      throw new Error("unexpected array length");
-    }
-
-    return new Collection(
-      asPairArray(array[0]).map(pair => {
-        if (pair.key === null) {
-          throw new Error();
-        }
-
-        return new PlanetImpl(pair.key, asPairArray(pair.value));
-      }),
-      planet => planet.id
-    );
-  }
-
-  private getSpecies(pairs: Pair[]) {
-    return pairs.map(pair => new SpeciesImpl(asPairArray(pair.value)));
   }
 
   private linkSystemsByHyperlanes(pairs: Pair[]) {

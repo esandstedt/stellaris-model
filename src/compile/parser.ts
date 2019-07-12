@@ -26,15 +26,31 @@ export function asDictionary(
   pairs: Pair[]
 ): { [key: string]: Pair[] | string } {
   const result: { [key: string]: Pair[] | string } = {};
+  const keyCounts: { [key: string]: number } = {};
 
   pairs.forEach(pair => {
     if (pair.key === null) {
       throw new Error(
         "Can't create dictionary from pair list with any null keys."
       );
-    } else {
-      result[pair.key] = pair.value;
     }
+
+    if (typeof keyCounts[pair.key] === "undefined") {
+      keyCounts[pair.key] = 0;
+    }
+
+    if (keyCounts[pair.key] === 0) {
+      result[pair.key] = pair.value;
+    } else if (keyCounts[pair.key] === 1) {
+      result[pair.key] = [
+        new Pair(null, result[pair.key]),
+        new Pair(null, pair.value)
+      ];
+    } else {
+      (result[pair.key] as Pair[]).push(new Pair(null, pair.value));
+    }
+
+    keyCounts[pair.key] += 1;
   });
 
   return result;
