@@ -56,11 +56,8 @@ export function asDictionary(
   return result;
 }
 
-export function asArray(
-  pairs: Pair[],
-  key: string | null = null
-): Array<Pair[] | string> {
-  const hasKeys = pairs.some(pair => pair.key !== key);
+export function asArray(pairs: Pair[]): Array<Pair[] | string> {
+  const hasKeys = pairs.some(pair => pair.key !== null);
   if (hasKeys) {
     throw new Error("Can't create array from pair list with invalid keys.");
   }

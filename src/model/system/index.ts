@@ -1,11 +1,5 @@
 import { Coordinate } from "../coordinate";
-import {
-  asDictionary,
-  Pair,
-  asString,
-  asPairArray,
-  asArray
-} from "../../compile";
+import { asDictionary, Pair, asString, asPairArray } from "../../compile";
 import { Planet } from "../planet";
 import { Hyperlane } from "../..";
 
