@@ -255,4 +255,16 @@ describe("unitednationsofearth", () => {
       .map(faction => faction as FactionImpl)
       .forEach(faction => expect(faction.leader).not.toBeUndefined());
   });
+
+  test("all wormholes have a system", () => {
+    model.wormholes
+      .getAll()
+      .forEach(wormhole => expect(wormhole.system).not.toBeUndefined());
+  });
+
+  test("all wormholes have a link", () => {
+    model.wormholes.getAll().forEach(wormhole => {
+      expect(wormhole.link).not.toBeUndefined();
+    });
+  });
 });

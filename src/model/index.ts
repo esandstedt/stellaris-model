@@ -10,6 +10,7 @@ import { Pop, PopImpl } from "./pop";
 import { Faction, FactionImpl } from "./faction";
 import { Leader, LeaderImpl } from "./leader";
 import { Species, SpeciesImpl } from "./species";
+import { WormholeImpl, Wormhole } from "./wormhole";
 
 export interface Model {
   countries: Collection<Country>;
@@ -24,6 +25,7 @@ export interface Model {
   species: Species[];
   systems: Collection<System>;
   version: string;
+  wormholes: Collection<Wormhole>;
 }
 
 export class ModelImpl implements Model {
@@ -39,6 +41,7 @@ export class ModelImpl implements Model {
   public species: SpeciesImpl[];
   public systems: Collection<SystemImpl>;
   public version: string;
+  public wormholes: Collection<WormholeImpl>;
 
   constructor(pairs: Pair[]) {
     const data = asDictionary(pairs);
@@ -98,6 +101,16 @@ export class ModelImpl implements Model {
       systemPairs,
       (id, p) => new SystemImpl(id, p),
       system => system.id
+    );
+
+    const bypasses = asDictionary(asPairArray(data["bypasses"]));
+
+    this.wormholes = this.getCollection(
+      asPairArray(data["natural_wormholes"]),
+      (_, p) => {
+        return new WormholeImpl(p, bypasses);
+      },
+      wormhole => wormhole.id
     );
 
     this.linkSystemsByHyperlanes(systemPairs);
@@ -225,6 +238,20 @@ export class ModelImpl implements Model {
         species.base = base;
         base.children.push(species);
       }
+    );
+
+    this.link(
+      this.wormholes,
+      this.wormholes,
+      x => x.linkId,
+      (wormhole, link) => (wormhole.link = link)
+    );
+
+    this.link(
+      this.wormholes,
+      this.systems,
+      x => x.systemId,
+      (wormhole, system) => (wormhole.system = system)
     );
   }
 
