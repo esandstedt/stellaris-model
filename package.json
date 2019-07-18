@@ -1,6 +1,6 @@
 {
   "name": "@esandstedt/stellaris-model",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "description": "",
   "main": "dist/index",
   "types": "dist/index",
@@ -23,7 +23,7 @@
   "devDependencies": {
     "@types/jest": "^24.0.15",
     "@types/jszip": "^3.1.6",
-    "@types/node": "^10.14.12",
+    "@types/node": "^10.14.13",
     "jest": "^24.8.0",
     "prettier": "^1.18.2",
     "ts-jest": "^24.0.2",
