@@ -111,7 +111,7 @@
 |          | employable_pops               |                                     |
 |          | events                        |                                     |
 |          | faction                       | Unknown (not a list of faction ids) |
-|          | flag                          |                                     |
+| Complete | flag                          |                                     |
 |          | flags                         |                                     |
 | Complete | fleet_size                    |                                     |
 |          | fleet_template_manager        |                                     |
@@ -189,6 +189,14 @@
 |          | victory_rank                  |                                     |
 |          | victory_score                 |                                     |
 |          | war_allies                    |                                     |
+
+## Country -> Flag
+
+| Status   | Property   | Description |
+| -------- | ---------- | ----------- |
+| Complete | background |             |
+| Complete | colors     |             |
+| Complete | icon       |             |
 
 ## Faction
 
