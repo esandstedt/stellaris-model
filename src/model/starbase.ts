@@ -44,8 +44,6 @@ export class StarbaseImpl implements Starbase {
   constructor(public id: string, pairs: Pair[]) {
     const data = asDictionary(pairs);
 
-    //console.log(JSON.stringify(data["owner"]));
-
     if (typeof data["buildings"] !== "undefined") {
       this.buildings = asPairArray(data["buildings"]).map(x =>
         asString(x.value)
