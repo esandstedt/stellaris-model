@@ -18,6 +18,7 @@ export class FactionImpl implements Faction {
   public approval: number | undefined;
   public countryId: string;
   public leaderId: string | undefined;
+  public leader: Leader | undefined;
   public name: string;
   public pops: Pop[] = [];
   public support: number;
@@ -33,18 +34,7 @@ export class FactionImpl implements Faction {
     this.countryInstance = value;
   }
 
-  get leader(): Leader {
-    if (typeof this.leaderInstance === "undefined") {
-      throw new Error();
-    }
-    return this.leaderInstance;
-  }
-  set leader(value: Leader) {
-    this.leaderInstance = value;
-  }
-
   private countryInstance: Country | undefined;
-  private leaderInstance: Leader | undefined;
 
   constructor(public id: string, pairs: Pair[]) {
     const data = asDictionary(pairs);
