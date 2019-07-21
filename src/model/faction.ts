@@ -7,7 +7,7 @@ export interface Faction {
   id: string;
   approval: number | undefined;
   country: Country;
-  leader: Leader;
+  leader: Leader | undefined;
   name: string;
   pops: Pop[];
   support: number;
@@ -17,7 +17,7 @@ export interface Faction {
 export class FactionImpl implements Faction {
   public approval: number | undefined;
   public countryId: string;
-  public leaderId: string;
+  public leaderId: string | undefined;
   public name: string;
   public pops: Pop[] = [];
   public support: number;
@@ -54,7 +54,11 @@ export class FactionImpl implements Faction {
     }
 
     this.countryId = asString(data["country"]);
-    this.leaderId = asString(data["leader"]);
+
+    if (typeof data["leader"] !== "undefined") {
+      this.leaderId = asString(data["leader"]);
+    }
+
     this.name = asString(data["name"]);
     this.support = parseFloat(asString(data["support"]));
     this.type = asString(data["type"]);
