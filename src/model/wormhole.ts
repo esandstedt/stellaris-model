@@ -1,5 +1,5 @@
 import { Pair, asDictionary, asString, asPairArray } from "../compile";
-import { System } from "..";
+import { System, Coordinate } from "..";
 
 export interface Wormhole {
   id: string;
@@ -9,6 +9,7 @@ export interface Wormhole {
 
 export class WormholeImpl implements Wormhole {
   public id: string;
+  public coordinate: Coordinate;
   public linkId: string;
   public systemId: string;
 
@@ -41,9 +42,11 @@ export class WormholeImpl implements Wormhole {
     this.id = asString(data["bypass"]);
 
     const bypass = asDictionary(asPairArray(bypasses[this.id]));
-    const coordinate = asDictionary(asPairArray(data["coordinate"]));
+
+    const coordinatePairs = asPairArray(data["coordinate"]);
+    this.coordinate = new Coordinate(coordinatePairs);
 
     this.linkId = asString(bypass["linked_to"]);
-    this.systemId = asString(coordinate["origin"]);
+    this.systemId = asString(asDictionary(coordinatePairs)["origin"]);
   }
 }

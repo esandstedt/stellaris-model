@@ -267,4 +267,41 @@ describe("unitednationsofearth", () => {
       expect(wormhole.link).not.toBeUndefined();
     });
   });
+
+  test("all starbases have a system", () => {
+    model.starbases.getAll().forEach(starbase => {
+      expect(starbase.system).not.toBeUndefined();
+    });
+  });
+
+  test("all starbases have an owner", () => {
+    model.starbases.getAll().forEach(starbase => {
+      const { owner } = starbase;
+
+      expect(owner).not.toBeUndefined();
+      expect(owner.starbases.some(x => x === starbase)).toBe(true);
+    });
+  });
+
+  test("starbases and systems link correctly", () => {
+    model.starbases.getAll().forEach(starbase => {
+      const { system } = starbase;
+
+      expect(system).not.toBeUndefined();
+
+      if (typeof system.starbase === "undefined") {
+        expect(system.starbase).not.toBeUndefined();
+      }
+
+      expect(system.starbase).toBe(starbase);
+    });
+
+    model.systems.getAll().forEach(system => {
+      const { starbase } = system;
+
+      if (typeof starbase !== "undefined") {
+        expect(starbase.system).toBe(system);
+      }
+    });
+  });
 });

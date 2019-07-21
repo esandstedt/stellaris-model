@@ -3,6 +3,7 @@ import { Planet } from "../planet";
 import { Faction } from "../faction";
 import { Leader } from "../leader";
 import { Flag } from "./flag";
+import { Starbase } from "../starbase";
 
 export interface Country {
   id: string;
@@ -13,6 +14,7 @@ export interface Country {
   leaders: Leader[];
   name: string;
   ownedPlanets: Planet[];
+  starbases: Starbase[];
 }
 
 export class CountryImpl implements Country {
@@ -23,6 +25,7 @@ export class CountryImpl implements Country {
   public leaders: Leader[] = [];
   public name: string;
   public ownedPlanets: Planet[] = [];
+  public starbases: Starbase[] = [];
 
   constructor(public id: string, pairs: Pair[]) {
     const data = asDictionary(pairs);

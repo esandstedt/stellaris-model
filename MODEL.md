@@ -6,7 +6,7 @@
 |          | ambient_object              |                                      |
 |          | archaeological_sites        |                                      |
 |          | army                        |                                      |
-|          | bypasses                    |                                      |
+| Partial  | bypasses                    |                                      |
 |          | clusters                    |                                      |
 | Complete | country                     | Dictionary of countries              |
 | Complete | date                        | In-game date                         |
@@ -45,7 +45,7 @@
 |          | missile                     |                                      |
 | Complete | name                        | Name shown when opening the savefile |
 |          | name_list                   |                                      |
-|          | natural_wormholes           |                                      |
+| Complete | natural_wormholes           |                                      |
 |          | nebula                      |                                      |
 | Complete | planets                     | List of planets                      |
 | Complete | player                      | List of human players                |
@@ -64,7 +64,7 @@
 |          | ships                       |                                      |
 |          | slave_market_manager        |                                      |
 | Complete | species                     |                                      |
-|          | starbases                   |                                      |
+| Complete | starbases                   |                                      |
 |          | strike_craft                |                                      |
 |          | tick                        |                                      |
 |          | trade_deal                  |                                      |
@@ -368,6 +368,22 @@
 | Complete | sapient     |             |
 | Complete | traits      |             |
 
+## Starbase
+
+| Status   | Property                    | Description |
+| -------- | --------------------------- | ----------- |
+| Complete | level                       |             |
+| Complete | modules                     |             |
+| Complete | buildings                   |             |
+|          | next_build_item_id          |             |
+|          | next_shipyard_build_item_id |             |
+|          | ship_design                 |             |
+|          | station                     |             |
+| Complete | system                      |             |
+| Complete | owner                       |             |
+|          | shipyard_build_queue_item   |             |
+|          | build_queue_item            |             |
+
 ## System
 
 | Status   | Property               | Description                                              |
@@ -394,7 +410,7 @@
 |          | planet                 | Primary star id?                                         |
 |          | sector                 | Sector id                                                |
 | Complete | star_class             | The system's star class                                  |
-|          | starbase               | Starbase id                                              |
+| Complete | starbase               | Starbase id                                              |
 |          | trade_collection       | Unknown (complex)                                        |
 |          | trade_hub              | Amount and source of trade value collected in the system |
 |          | trade_piracy           | Unknown (complex)                                        |

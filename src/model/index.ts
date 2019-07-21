@@ -11,6 +11,7 @@ import { Faction, FactionImpl } from "./faction";
 import { Leader, LeaderImpl } from "./leader";
 import { Species, SpeciesImpl } from "./species";
 import { WormholeImpl, Wormhole } from "./wormhole";
+import { Starbase, StarbaseImpl } from "./starbase";
 
 export interface Model {
   countries: Collection<Country>;
@@ -23,6 +24,7 @@ export interface Model {
   pops: Collection<Pop>;
   requiredDlcs: string[];
   species: Species[];
+  starbases: Collection<Starbase>;
   systems: Collection<System>;
   version: string;
   wormholes: Collection<Wormhole>;
@@ -39,6 +41,7 @@ export class ModelImpl implements Model {
   public pops: Collection<PopImpl>;
   public requiredDlcs: string[];
   public species: SpeciesImpl[];
+  public starbases: Collection<StarbaseImpl>;
   public systems: Collection<SystemImpl>;
   public version: string;
   public wormholes: Collection<WormholeImpl>;
@@ -95,6 +98,12 @@ export class ModelImpl implements Model {
 
     this.species = asPairArray(data["species"]).map(
       pair => new SpeciesImpl(asPairArray(pair.value))
+    );
+
+    this.starbases = this.getCollection(
+      asPairArray(data["starbases"]),
+      (id, p) => new StarbaseImpl(id, p),
+      base => base.id
     );
 
     this.systems = this.getCollection(
@@ -252,6 +261,34 @@ export class ModelImpl implements Model {
       this.systems,
       x => x.systemId,
       (wormhole, system) => (wormhole.system = system)
+    );
+
+    this.link(
+      this.starbases,
+      this.systems,
+      x => x.systemId,
+      (starbase, system) => {
+        starbase.system = system;
+      }
+    );
+
+    this.link(
+      this.starbases,
+      this.countries,
+      x => x.ownerId,
+      (starbase, country) => {
+        starbase.owner = country;
+        country.starbases.push(starbase);
+      }
+    );
+
+    this.link(
+      this.systems,
+      this.starbases,
+      x => x.starbaseId,
+      (system, starbase) => {
+        system.starbase = starbase;
+      }
     );
   }
 

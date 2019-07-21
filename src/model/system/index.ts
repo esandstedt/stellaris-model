@@ -2,6 +2,7 @@ import { Coordinate } from "../coordinate";
 import { asDictionary, Pair, asString, asPairArray } from "../../compile";
 import { Planet } from "../planet";
 import { Hyperlane } from "../..";
+import { Starbase } from "../starbase";
 
 export interface System {
   id: string;
@@ -9,6 +10,7 @@ export interface System {
   hyperlanes: Hyperlane[];
   name: string;
   planets: Planet[];
+  starbase: Starbase | undefined;
   starClass: string;
   type: string;
 }
@@ -18,6 +20,8 @@ export class SystemImpl implements System {
   public hyperlanes: Hyperlane[] = [];
   public name: string;
   public planets: Planet[] = [];
+  public starbaseId: string | undefined;
+  public starbase: Starbase | undefined;
   public starClass: string;
   public type: string;
 
@@ -27,6 +31,12 @@ export class SystemImpl implements System {
     this.coordinate = new Coordinate(asPairArray(data["coordinate"]));
     this.type = asString(data["type"]);
     this.name = asString(data["name"]);
+
+    const starbaseId = asString(data["starbase"]);
+    if (starbaseId !== "4294967295") {
+      this.starbaseId = starbaseId;
+    }
+
     this.starClass = asString(data["star_class"]);
   }
 }
