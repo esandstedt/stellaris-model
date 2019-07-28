@@ -13,8 +13,10 @@ export interface Country {
   fleetSize: number;
   leaders: Leader[];
   name: string;
+  overlord: Country | undefined;
   ownedPlanets: Planet[];
   starbases: Starbase[];
+  subjects: Country[];
 }
 
 export class CountryImpl implements Country {
@@ -24,11 +26,18 @@ export class CountryImpl implements Country {
   public fleetSize: number;
   public leaders: Leader[] = [];
   public name: string;
+  public overlordId: string | undefined;
+  public overlord: Country | undefined;
   public ownedPlanets: Planet[] = [];
   public starbases: Starbase[] = [];
+  public subjects: Country[] = [];
 
   constructor(public id: string, pairs: Pair[]) {
     const data = asDictionary(pairs);
+
+    if (data["overlord"]) {
+      this.overlordId = asString(data["overlord"]);
+    }
 
     this.flag = new Flag(asPairArray(data["flag"]));
     this.fleetSize = parseInt(asString(data["fleet_size"]), 10);

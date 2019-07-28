@@ -290,6 +290,16 @@ export class ModelImpl implements Model {
         system.starbase = starbase;
       }
     );
+
+    this.link(
+      this.countries,
+      this.countries,
+      x => x.overlordId,
+      (country, overlord) => {
+        country.overlord = overlord;
+        overlord.subjects.push(country);
+      }
+    );
   }
 
   private getCollection<T>(
