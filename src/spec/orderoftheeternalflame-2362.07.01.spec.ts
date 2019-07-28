@@ -39,7 +39,7 @@ describe("orderoftheeternalflame-2362.07.01", () => {
       }
 
       expect(country.overlord).toBe(overlord);
-      expect(overlord.subjects.some(x => x == country)).toBe(true);
+      expect(overlord.subjects.some(x => x === country)).toBe(true);
     });
   });
 });
