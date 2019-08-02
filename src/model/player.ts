@@ -1,10 +1,5 @@
-import { Country } from "./country";
 import { asDictionary, Pair, asString } from "../compile";
-
-export interface Player {
-  country: Country | undefined;
-  name: string;
-}
+import { Country, Player } from "./interfaces";
 
 export class PlayerImpl implements Player {
   public countryId: string | undefined;

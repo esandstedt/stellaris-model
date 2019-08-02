@@ -45,18 +45,32 @@ describe("unitednationsofearth", () => {
 
   test("links player to their country", () => {
     const player = model.players.get("Goose");
+    if (typeof player === "undefined") {
+      expect(player).not.toBeUndefined();
+      return;
+    }
 
     const country = model.countries.get("0");
+    if (typeof country === "undefined") {
+      expect(country).not.toBeUndefined();
+      return;
+    }
+
     expect(country.name).toEqual("United Nations of Earth");
 
     expect(player.country).toBe(country);
   });
 
   test("links country to their owned planets", () => {
-    const country = model.players.get("Goose").country;
+    const player = model.players.get("Goose");
+    if (typeof player === "undefined") {
+      expect(player).not.toBeUndefined();
+      return;
+    }
 
+    const country = player.country;
     if (typeof country === "undefined") {
-      expect(true).toBe(false);
+      expect(country).not.toBeUndefined();
       return;
     }
 

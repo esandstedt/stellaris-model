@@ -1,6 +1,6 @@
 {
   "name": "@esandstedt/stellaris-model",
-  "version": "0.3.3",
+  "version": "0.3.4",
   "description": "",
   "main": "dist/index",
   "types": "dist/index",
@@ -14,12 +14,13 @@
     "format": "prettier --write \"src/**/*.ts\" \"src/**/*.js\"",
     "lint": "tslint -p tsconfig.json",
     "prepare": "npm run build",
-    "prepublishOnly": "npm test && npm run lint",
+    "prepublishOnly": "npm test && npm run lint && typedoc",
     "start": "node dist/run.js",
     "test": "npx jest"
   },
   "author": "",
   "license": "ISC",
+  "homepage": "https://github.com/esandstedt/stellaris-model#readme",
   "devDependencies": {
     "@types/jest": "^24.0.15",
     "@types/jszip": "^3.1.6",
@@ -30,6 +31,7 @@
     "ts-node": "^7.0.1",
     "tslint": "^5.18.0",
     "tslint-config-prettier": "^1.18.0",
+    "typedoc": "^0.15.0",
     "typescript": "^3.5.3"
   },
   "dependencies": {

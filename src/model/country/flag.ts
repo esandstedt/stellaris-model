@@ -1,6 +1,7 @@
 import { asDictionary, Pair, asPairArray, asString } from "../../compile";
+import { Flag } from "../interfaces";
 
-export class Flag {
+export class FlagImpl implements Flag {
   public background: {
     category: string;
     file: string;

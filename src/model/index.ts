@@ -1,34 +1,17 @@
 import { asDictionary, asArray, asString, Pair, asPairArray } from "../compile";
 import { Collection } from "./collection";
-
-import { Player, PlayerImpl } from "./player";
-import { System, SystemImpl } from "./system";
-import { Hyperlane } from "./system/hyperlane";
-import { Planet, PlanetImpl } from "./planet";
-import { Country, CountryImpl } from "./country";
-import { Pop, PopImpl } from "./pop";
-import { Faction, FactionImpl } from "./faction";
-import { Leader, LeaderImpl } from "./leader";
-import { Species, SpeciesImpl } from "./species";
-import { WormholeImpl, Wormhole } from "./wormhole";
-import { Starbase, StarbaseImpl } from "./starbase";
-
-export interface Model {
-  countries: Collection<Country>;
-  date: string;
-  factions: Collection<Faction>;
-  leaders: Collection<Leader>;
-  name: string;
-  planets: Collection<Planet>;
-  players: Collection<Player>;
-  pops: Collection<Pop>;
-  requiredDlcs: string[];
-  species: Species[];
-  starbases: Collection<Starbase>;
-  systems: Collection<System>;
-  version: string;
-  wormholes: Collection<Wormhole>;
-}
+import { CountryImpl } from "./country";
+import { FactionImpl } from "./faction";
+import { Model } from "./interfaces";
+import { LeaderImpl } from "./leader";
+import { SystemImpl } from "./system";
+import { HyperlaneImpl } from "./system/hyperlane";
+import { PlanetImpl } from "./planet";
+import { PlayerImpl } from "./player";
+import { PopImpl } from "./pop";
+import { SpeciesImpl } from "./species";
+import { StarbaseImpl } from "./starbase";
+import { WormholeImpl } from "./wormhole";
 
 export class ModelImpl implements Model {
   public countries: Collection<CountryImpl>;
@@ -386,18 +369,27 @@ export class ModelImpl implements Model {
 
       const system = this.systems.get(pair.key);
 
+      if (typeof system === "undefined") {
+        throw new Error();
+      }
+
       const systemData = asDictionary(asPairArray(pair.value));
       if (systemData["hyperlane"]) {
         system.hyperlanes = asArray(asPairArray(systemData["hyperlane"]))
           .map(item => asDictionary(asPairArray(item)))
-          .map(
-            data =>
-              new Hyperlane(
-                system,
-                this.systems.get(asString(data["to"])),
-                parseFloat(asString(data["length"]))
-              )
-          );
+          .map(data => {
+            const to = this.systems.get(asString(data["to"]));
+
+            if (typeof to === "undefined") {
+              throw new Error();
+            }
+
+            return new HyperlaneImpl(
+              system,
+              to,
+              parseFloat(asString(data["length"]))
+            );
+          });
       } else {
         system.hyperlanes = [];
       }

@@ -1,18 +1,5 @@
 import { asDictionary, Pair, asString, asPairArray } from "../compile";
-import { Country } from "./country";
-import { Species } from "./species";
-
-export interface Leader {
-  id: string;
-  age: number;
-  agenda: string;
-  leaderClass: string;
-  country: Country | undefined;
-  gender: string | undefined;
-  level: number;
-  name: string;
-  species: Species;
-}
+import { Country, Leader, Species } from "./interfaces";
 
 export class LeaderImpl implements Leader {
   public age: number;

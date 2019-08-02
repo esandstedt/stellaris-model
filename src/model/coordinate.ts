@@ -1,6 +1,7 @@
 import { asDictionary, asString, Pair } from "../compile";
+import { Coordinate } from "./interfaces";
 
-export class Coordinate {
+export class CoordinateImpl implements Coordinate {
   public x: number;
   public y: number;
 

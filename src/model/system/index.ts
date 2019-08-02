@@ -1,22 +1,9 @@
-import { Coordinate } from "../coordinate";
+import { CoordinateImpl } from "../coordinate";
 import { asDictionary, Pair, asString, asPairArray } from "../../compile";
-import { Planet } from "../planet";
-import { Hyperlane } from "../..";
-import { Starbase } from "../starbase";
-
-export interface System {
-  id: string;
-  coordinate: Coordinate;
-  hyperlanes: Hyperlane[];
-  name: string;
-  planets: Planet[];
-  starbase: Starbase | undefined;
-  starClass: string;
-  type: string;
-}
+import { Hyperlane, Planet, Starbase, System } from "../interfaces";
 
 export class SystemImpl implements System {
-  public coordinate: Coordinate;
+  public coordinate: CoordinateImpl;
   public hyperlanes: Hyperlane[] = [];
   public name: string;
   public planets: Planet[] = [];
@@ -28,7 +15,7 @@ export class SystemImpl implements System {
   constructor(public id: string, pairs: Pair[]) {
     const data = asDictionary(pairs);
 
-    this.coordinate = new Coordinate(asPairArray(data["coordinate"]));
+    this.coordinate = new CoordinateImpl(asPairArray(data["coordinate"]));
     this.type = asString(data["type"]);
     this.name = asString(data["name"]);
 

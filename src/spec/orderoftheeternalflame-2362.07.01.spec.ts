@@ -28,10 +28,17 @@ describe("orderoftheeternalflame-2362.07.01", () => {
 
     data.forEach(({ countryId, overlordId }) => {
       const country = model.countries.get(countryId);
-      expect(country).not.toBeUndefined();
+
+      if (typeof country === "undefined") {
+        expect(country).not.toBeUndefined();
+        return;
+      }
 
       const overlord = model.countries.get(overlordId);
-      expect(overlord).not.toBeUndefined();
+      if (typeof overlord === "undefined") {
+        expect(overlord).not.toBeUndefined();
+        return;
+      }
 
       if (typeof country.overlord === "undefined") {
         expect(country.overlord).not.toBeUndefined();

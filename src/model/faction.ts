@@ -1,18 +1,5 @@
 import { Pair, asDictionary, asString } from "../compile";
-import { Country } from "./country";
-import { Pop } from "./pop";
-import { Leader } from "./leader";
-
-export interface Faction {
-  id: string;
-  approval: number | undefined;
-  country: Country;
-  leader: Leader | undefined;
-  name: string;
-  pops: Pop[];
-  support: number;
-  type: string;
-}
+import { Country, Faction, Leader, Pop } from "./interfaces";
 
 export class FactionImpl implements Faction {
   public approval: number | undefined;

@@ -1,0 +1,7 @@
+{
+  "excludePrivate": true,
+  "mode": "file",
+  "out": "docs/html",
+  "src": ["src/model/interfaces.ts", "src/model/collection.ts"],
+  "theme": "docs/theme"
+}

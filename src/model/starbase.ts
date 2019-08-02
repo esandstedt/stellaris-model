@@ -1,15 +1,5 @@
 import { Pair, asDictionary, asString, asPairArray } from "../compile";
-import { System } from "./system";
-import { Country } from "..";
-
-export interface Starbase {
-  id: string;
-  buildings: string[];
-  level: string;
-  modules: string[];
-  owner: Country;
-  system: System;
-}
+import { Country, Starbase, System } from "./interfaces";
 
 export class StarbaseImpl implements Starbase {
   public buildings: string[];

@@ -1,22 +1,5 @@
 import { Pair, asDictionary, asString, asPairArray } from "../compile";
-import { Planet } from "./planet";
-import { Leader } from "./leader";
-import { Pop } from "./pop";
-
-export interface Species {
-  adjective: string | undefined;
-  base: Species | undefined;
-  children: Species[];
-  homePlanet: Planet | undefined;
-  leaders: Leader[];
-  name: string;
-  plural: string | undefined;
-  pops: Pop[];
-  portrait: string;
-  sapient: boolean;
-  speciesClass: string;
-  traits: string[];
-}
+import { Leader, Planet, Pop, Species } from "./interfaces";
 
 export class SpeciesImpl implements Species {
   public adjective: string | undefined;
