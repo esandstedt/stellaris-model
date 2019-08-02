@@ -21,7 +21,7 @@ export class Collection<T> {
 
   /**
    * Returns the entry with given key.
-   * Returns undefined if no entry was found with the given key.
+   * Returns undefined if no entry was found.
    */
   public get(key: string): T | undefined {
     return this.map[key];
