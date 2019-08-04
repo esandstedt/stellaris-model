@@ -12,12 +12,14 @@ export interface Model {
   countries: Collection<Country>;
   date: string;
   factions: Collection<Faction>;
+  fleets: Collection<Fleet>;
   leaders: Collection<Leader>;
   name: string;
   planets: Collection<Planet>;
   players: Collection<Player>;
   pops: Collection<Pop>;
   requiredDlcs: string[];
+  ships: Collection<Ship>;
   species: Species[];
   starbases: Collection<Starbase>;
   systems: Collection<System>;
@@ -35,6 +37,7 @@ export interface Country {
   controlledPlanets: Planet[];
   factions: Faction[];
   flag: Flag;
+  fleets: Fleet[];
   fleetSize: number;
   leaders: Leader[];
   name: string;
@@ -65,6 +68,16 @@ export interface Flag {
     category: string;
     file: string;
   };
+}
+
+export interface Fleet {
+  id: string;
+  isCivilian: boolean;
+  isStation: boolean;
+  militaryPower: number;
+  name: string;
+  owner: Country;
+  ships: Ship[];
 }
 
 export interface Hyperlane {
@@ -120,6 +133,13 @@ export interface Pop {
   planet: Planet;
   power: number | undefined;
   species: Species;
+}
+
+export interface Ship {
+  id: string;
+  experience: number;
+  fleet: Fleet;
+  name: string;
 }
 
 export interface Species {

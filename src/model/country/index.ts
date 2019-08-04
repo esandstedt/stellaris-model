@@ -1,11 +1,19 @@
 import { asDictionary, Pair, asString, asPairArray } from "../../compile";
 import { FlagImpl } from "./flag";
-import { Country, Faction, Leader, Planet, Starbase } from "../interfaces";
+import {
+  Country,
+  Faction,
+  Leader,
+  Planet,
+  Starbase,
+  Fleet
+} from "../interfaces";
 
 export class CountryImpl implements Country {
   public controlledPlanets: Planet[] = [];
   public factions: Faction[] = [];
   public flag: FlagImpl;
+  public fleets: Fleet[] = [];
   public fleetSize: number;
   public leaders: Leader[] = [];
   public name: string;

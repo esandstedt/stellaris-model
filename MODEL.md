@@ -14,7 +14,7 @@
 |          | deposit                     |                                      |
 |          | fired_events                |                                      |
 |          | flags                       |                                      |
-|          | fleet                       |                                      |
+| Complete | fleet                       |                                      |
 |          | fleet_template              |                                      |
 | Complete | galactic_object             | Dictionary of star systems           |
 |          | galaxy                      |                                      |
@@ -61,7 +61,7 @@
 |          | saved_event_target          |                                      |
 |          | sectors                     |                                      |
 |          | ship_design                 |                                      |
-|          | ships                       |                                      |
+| Complete | ships                       |                                      |
 |          | slave_market_manager        |                                      |
 | Complete | species                     |                                      |
 | Complete | starbases                   |                                      |
@@ -211,6 +211,44 @@
 | Complete | support          |                           |
 | Complete | type             |                           |
 
+## Fleet
+
+| Status   | Property                 | Description |
+| -------- | ------------------------ | ----------- |
+|          | action_initialized       |             |
+|          | actions                  |             |
+|          | aggro_range              |             |
+|          | aggro_range_measure_from |             |
+|          | auto_movement            |             |
+| Complete | civilian                 |             |
+|          | combat                   |             |
+|          | current_order            |             |
+|          | flags                    |             |
+|          | fleet_stance             |             |
+|          | fleet_stats              |             |
+|          | fleet_template           |             |
+|          | friends_should_follow    |             |
+|          | ground_support_stance    |             |
+|          | has_custom_name          |             |
+|          | hit_points               |             |
+|          | incoming_merges          |             |
+|          | mia                      |             |
+|          | mia_from                 |             |
+|          | mia_type                 |             |
+| Complete | military_power           |             |
+|          | missile                  |             |
+|          | mission                  |             |
+|          | movement_manager         |             |
+| Complete | name                     |             |
+|          | order                    |             |
+|          | order_id                 |             |
+| Complete | owner                    |             |
+|          | previous_owner           |             |
+|          | return_date              |             |
+|          | settings                 |             |
+|          | ships                    |             |
+| Complete | station                  |             |
+
 ## Leader
 
 | Status   | Property           | Description          |
@@ -350,6 +388,54 @@
 | Complete | power                    | Political power                                 |
 |          | promotion_date           |                                                 |
 | Complete | species_index            | Species                                         |
+
+## Ship
+
+| Status   | Property             | Description |
+| -------- | -------------------- | ----------- |
+|          | armor_hitpoints      |             |
+|          | army                 |             |
+|          | aura_modifier        |             |
+|          | auras                |             |
+|          | combat_action        |             |
+|          | coordinate           |             |
+|          | created_this_update  |             |
+|          | design_upgrade       |             |
+|          | disable_at_health    |             |
+|          | disabled             |             |
+|          | disabled_by_event    |             |
+|          | enable_at_health     |             |
+| Complete | experience           |             |
+|          | flags                |             |
+| Complete | fleet                |             |
+|          | formation_pos        |             |
+|          | forward_x            |             |
+|          | forward_y            |             |
+|          | graphical_culture    |             |
+|          | hitpoints            |             |
+|          | homepop              |             |
+|          | is_being_repaired    |             |
+|          | key                  |             |
+|          | kill_target          |             |
+|          | last_damage          |             |
+|          | leader               |             |
+|          | max_armor_hitpoints  |             |
+|          | max_hitpoints        |             |
+|          | max_shield_hitpoints |             |
+| Complete | name                 |             |
+|          | next_weapon_index    |             |
+|          | post_move_angle      |             |
+|          | reserve              |             |
+|          | rotation             |             |
+|          | section              |             |
+|          | shield_hitpoints     |             |
+|          | ship_design          |             |
+|          | ship_modifier        |             |
+|          | speed                |             |
+|          | target_coordinate    |             |
+|          | targeting            |             |
+|          | upgradable           |             |
+|          | upgrade_progress     |             |
 
 ## Species
 

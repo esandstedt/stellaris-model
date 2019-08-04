@@ -318,4 +318,22 @@ describe("unitednationsofearth", () => {
       }
     });
   });
+
+  test("all fleets have an owner", () => {
+    model.fleets.getAll().forEach(fleet => {
+      const { owner } = fleet;
+
+      expect(owner).not.toBeUndefined();
+      expect(owner.fleets.some(x => x === fleet)).toBe(true);
+    });
+  });
+
+  test("all ships have a fleet", () => {
+    model.ships.getAll().forEach(ship => {
+      const { fleet } = ship;
+
+      expect(fleet).not.toBeUndefined();
+      expect(fleet.ships.some(x => x === ship)).toBe(true);
+    });
+  });
 });

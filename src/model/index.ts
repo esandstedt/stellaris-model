@@ -12,17 +12,21 @@ import { PopImpl } from "./pop";
 import { SpeciesImpl } from "./species";
 import { StarbaseImpl } from "./starbase";
 import { WormholeImpl } from "./wormhole";
+import { FleetImpl } from "./fleet";
+import { ShipImpl } from "./ship";
 
 export class ModelImpl implements Model {
   public countries: Collection<CountryImpl>;
   public date: string;
   public factions: Collection<FactionImpl>;
+  public fleets: Collection<FleetImpl>;
   public leaders: Collection<LeaderImpl>;
   public name: string;
   public planets: Collection<PlanetImpl>;
   public players: Collection<PlayerImpl>;
   public pops: Collection<PopImpl>;
   public requiredDlcs: string[];
+  public ships: Collection<ShipImpl>;
   public species: SpeciesImpl[];
   public starbases: Collection<StarbaseImpl>;
   public systems: Collection<SystemImpl>;
@@ -54,6 +58,12 @@ export class ModelImpl implements Model {
       faction => faction.id
     );
 
+    this.fleets = this.getCollection(
+      asPairArray(data["fleet"]),
+      (id, p) => new FleetImpl(id, p),
+      fleet => fleet.id
+    );
+
     this.leaders = this.getCollection(
       asPairArray(data["leaders"]),
       (id, p) => new LeaderImpl(id, p),
@@ -77,6 +87,12 @@ export class ModelImpl implements Model {
       asPairArray(data["pop"]),
       (id, p) => new PopImpl(id, p),
       pop => pop.id
+    );
+
+    this.ships = this.getCollection(
+      asPairArray(data["ships"]),
+      (id, p) => new ShipImpl(id, p),
+      ship => ship.id
     );
 
     this.species = asPairArray(data["species"]).map(
@@ -281,6 +297,26 @@ export class ModelImpl implements Model {
       (country, overlord) => {
         country.overlord = overlord;
         overlord.subjects.push(country);
+      }
+    );
+
+    this.link(
+      this.fleets,
+      this.countries,
+      x => x.ownerId,
+      (fleet, owner) => {
+        fleet.owner = owner;
+        owner.fleets.push(fleet);
+      }
+    );
+
+    this.link(
+      this.ships,
+      this.fleets,
+      x => x.fleetId,
+      (ship, fleet) => {
+        ship.fleet = fleet;
+        fleet.ships.push(ship);
       }
     );
   }
