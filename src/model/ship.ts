@@ -4,7 +4,6 @@ import { Ship, Fleet, Leader } from "./interfaces";
 export class ShipImpl implements Ship {
   public experience: number;
   public fleetId: string;
-  public leaderId: string | undefined;
   public leader: Leader | undefined;
   public name: string;
 
@@ -30,10 +29,6 @@ export class ShipImpl implements Ship {
     }
 
     this.fleetId = asString(data["fleet"]);
-
-    if (data["leader"]) {
-      this.leaderId = asString(data["leader"]);
-    }
 
     if (typeof data["name"] !== "undefined") {
       this.name = asString(data["name"]);

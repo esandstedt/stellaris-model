@@ -11,6 +11,7 @@ export class LeaderImpl implements Leader {
   public gender: string | undefined;
   public level: number;
   public name: string;
+  public shipId: string | undefined;
   public speciesIndex: number;
 
   get species(): Species {
@@ -47,6 +48,15 @@ export class LeaderImpl implements Leader {
     this.name = asPairArray(data["name"])
       .map(p => asString(p.value))
       .join(" ");
+
+    if (typeof data["location"] !== "undefined") {
+      const location = asDictionary(asPairArray(data["location"]));
+
+      const locationType = asString(location["type"]);
+      if (locationType === "ship") {
+        this.shipId = asString(location["id"]);
+      }
+    }
 
     this.speciesIndex = parseInt(asString(data["species_index"]), 10);
   }

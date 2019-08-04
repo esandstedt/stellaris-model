@@ -6,9 +6,9 @@ import { SpeciesImpl } from "../model/species";
 import { Leader } from "../model/interfaces";
 import { Collection } from "../model/collection";
 
-const filePath = "savefiles/unitednationsofearth.sav";
+const filePath = "savefiles/unitednationsofearth-2247.07.11.sav";
 
-describe("unitednationsofearth", () => {
+describe("unitednationsofearth-2247.07.11", () => {
   let model: Model;
   beforeAll(async () => {
     console.time("model");
@@ -33,11 +33,11 @@ describe("unitednationsofearth", () => {
   });
 
   test("loads savefile date", () => {
-    expect(model.date).toEqual("2246.12.11");
+    expect(model.date).toEqual("2247.07.11");
   });
 
   test("loads savefile version", () => {
-    expect(model.version).toEqual("Wolfe v2.3.2");
+    expect(model.version).toEqual("Wolfe v2.3.3");
   });
 
   test("loads player", () => {
@@ -78,7 +78,7 @@ describe("unitednationsofearth", () => {
 
     const planetNames = new Set(country.ownedPlanets.map(x => x.name));
     expect(planetNames).toEqual(
-      new Set(["Earth", "Oda", "Asgard", "Tokugawa"])
+      new Set(["Earth", "Oda", "Asgard", "Tokugawa", "Dune"])
     );
 
     country.ownedPlanets.forEach(planet => {
@@ -385,7 +385,7 @@ describe("unitednationsofearth", () => {
     const fleets = (player.country as Country).fleets.filter(
       x => !x.isStation && x.isCivilian
     );
-    expect(fleets.length).toBe(9);
+    expect(fleets.length).toBe(8);
 
     // Lookup by name
     const collection = new Collection(fleets, x => x.name);
@@ -424,8 +424,6 @@ describe("unitednationsofearth", () => {
     checkFleet("UNS Newton", "Sol", "Mohammad Abbas");
     checkFleet("UNS Lagrange", "Rurius", "Antonietta Gambadori");
     checkFleet("UNS Santa Maria", "NAME_Alpha_Centauri", "Alma Adwam");
-    checkFleet("UNS James Cook", "Zantaris Black Hole", "Badru Bankole");
-    // Colony fleet
-    checkFleet("UNS Jamaica", "Ebrxinda");
+    checkFleet("UNS James Cook", "Baranik", "Badru Bankole");
   });
 });

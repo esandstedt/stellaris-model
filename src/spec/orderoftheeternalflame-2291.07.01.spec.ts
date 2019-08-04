@@ -1,4 +1,4 @@
-import { load, Model } from "..";
+import { load, Model, Leader } from "..";
 
 const filePath = "savefiles/orderoftheeternalflame-2291.07.01.sav";
 
@@ -40,5 +40,18 @@ describe("orderoftheeternalflame-2291.07.01", () => {
     model.factions
       .getAll()
       .forEach(faction => expect(faction.leader).not.toBeUndefined());
+  });
+
+  test("leaders are only linked to one ship", () => {
+    const leaderIdSet = new Set<string>();
+
+    model.ships
+      .getAll()
+      .filter(x => typeof x.leader !== "undefined")
+      .forEach(ship => {
+        const { id } = ship.leader as Leader;
+        expect(leaderIdSet.has(id)).toBe(false);
+        leaderIdSet.add(id);
+      });
   });
 });

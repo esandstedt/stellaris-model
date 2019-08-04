@@ -2,7 +2,7 @@ import { asDictionary, asArray, asString, Pair, asPairArray } from "../compile";
 import { Collection } from "./collection";
 import { CountryImpl } from "./country";
 import { FactionImpl } from "./faction";
-import { Model } from "./interfaces";
+import { Model, Leader } from "./interfaces";
 import { LeaderImpl } from "./leader";
 import { SystemImpl } from "./system";
 import { HyperlaneImpl } from "./system/hyperlane";
@@ -321,20 +321,20 @@ export class ModelImpl implements Model {
     );
 
     this.link(
-      this.ships,
-      this.leaders,
-      x => x.leaderId,
-      (ship, leader) => {
-        ship.leader = leader;
-      }
-    );
-
-    this.link(
       this.fleets,
       this.systems,
       x => x.systemId,
       (fleet, system) => {
         fleet.system = system;
+      }
+    );
+
+    this.link(
+      this.leaders,
+      this.ships,
+      x => x.shipId,
+      (leader, ship) => {
+        ship.leader = leader;
       }
     );
   }
