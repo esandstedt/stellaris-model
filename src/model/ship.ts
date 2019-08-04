@@ -19,7 +19,7 @@ export class ShipImpl implements Ship {
   private fleetInstance: Fleet | undefined;
 
   constructor(public id: string, pairs: Pair[]) {
-    var data = asDictionary(pairs);
+    const data = asDictionary(pairs);
 
     if (typeof data["experience"] !== "undefined") {
       this.experience = parseFloat(asString(data["experience"]));

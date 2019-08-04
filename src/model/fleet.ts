@@ -22,7 +22,7 @@ export class FleetImpl implements Fleet {
   private ownerInstance: Country | undefined;
 
   constructor(public id: string, pairs: Pair[]) {
-    var data = asDictionary(pairs);
+    const data = asDictionary(pairs);
 
     if (typeof data["civilian"] !== "undefined") {
       this.isCivilian = asString(data["civilian"]) === "yes";
