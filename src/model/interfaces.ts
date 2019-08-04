@@ -78,6 +78,7 @@ export interface Fleet {
   name: string;
   owner: Country;
   ships: Ship[];
+  system: System;
 }
 
 export interface Hyperlane {
@@ -139,6 +140,7 @@ export interface Ship {
   id: string;
   experience: number;
   fleet: Fleet;
+  leader: Leader | undefined;
   name: string;
 }
 

@@ -319,6 +319,24 @@ export class ModelImpl implements Model {
         fleet.ships.push(ship);
       }
     );
+
+    this.link(
+      this.ships,
+      this.leaders,
+      x => x.leaderId,
+      (ship, leader) => {
+        ship.leader = leader;
+      }
+    );
+
+    this.link(
+      this.fleets,
+      this.systems,
+      x => x.systemId,
+      (fleet, system) => {
+        fleet.system = system;
+      }
+    );
   }
 
   private getCollection<T>(

@@ -1,9 +1,11 @@
 import { Pair, asDictionary, asString } from "../compile";
-import { Ship, Fleet } from "./interfaces";
+import { Ship, Fleet, Leader } from "./interfaces";
 
 export class ShipImpl implements Ship {
   public experience: number;
   public fleetId: string;
+  public leaderId: string | undefined;
+  public leader: Leader | undefined;
   public name: string;
 
   get fleet(): Fleet {
@@ -28,6 +30,10 @@ export class ShipImpl implements Ship {
     }
 
     this.fleetId = asString(data["fleet"]);
+
+    if (data["leader"]) {
+      this.leaderId = asString(data["leader"]);
+    }
 
     if (typeof data["name"] !== "undefined") {
       this.name = asString(data["name"]);

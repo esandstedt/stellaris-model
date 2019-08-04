@@ -238,7 +238,7 @@
 | Complete | military_power           |             |
 |          | missile                  |             |
 |          | mission                  |             |
-|          | movement_manager         |             |
+| Partial  | movement_manager         |             |
 | Complete | name                     |             |
 |          | order                    |             |
 |          | order_id                 |             |
@@ -418,7 +418,7 @@
 |          | key                  |             |
 |          | kill_target          |             |
 |          | last_damage          |             |
-|          | leader               |             |
+| Complete | leader               |             |
 |          | max_armor_hitpoints  |             |
 |          | max_hitpoints        |             |
 |          | max_shield_hitpoints |             |

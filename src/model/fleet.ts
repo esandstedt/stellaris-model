@@ -1,5 +1,5 @@
-import { asDictionary, Pair, asString } from "../compile";
-import { Fleet, Country, Ship } from "./interfaces";
+import { asDictionary, Pair, asString, asPairArray } from "../compile";
+import { Fleet, Country, System, Ship } from "./interfaces";
 
 export class FleetImpl implements Fleet {
   public isCivilian: boolean;
@@ -8,6 +8,7 @@ export class FleetImpl implements Fleet {
   public name: string;
   public ownerId: string;
   public ships: Ship[] = [];
+  public systemId: string;
 
   get owner(): Country {
     if (typeof this.ownerInstance === "undefined") {
@@ -19,7 +20,18 @@ export class FleetImpl implements Fleet {
     this.ownerInstance = value;
   }
 
+  get system(): System {
+    if (typeof this.systemInstance === "undefined") {
+      throw new Error();
+    }
+    return this.systemInstance;
+  }
+  set system(value: System) {
+    this.systemInstance = value;
+  }
+
   private ownerInstance: Country | undefined;
+  private systemInstance: System | undefined;
 
   constructor(public id: string, pairs: Pair[]) {
     const data = asDictionary(pairs);
@@ -39,5 +51,12 @@ export class FleetImpl implements Fleet {
     this.militaryPower = parseFloat(asString(data["military_power"]));
     this.name = asString(data["name"]);
     this.ownerId = asString(data["owner"]);
+
+    // const combat = asDictionary(asPairArray(data["combat"]));
+    const movementManager = asDictionary(asPairArray(data["movement_manager"]));
+
+    this.systemId = asString(
+      asDictionary(asPairArray(movementManager["coordinate"]))["origin"]
+    );
   }
 }

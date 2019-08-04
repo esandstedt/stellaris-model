@@ -1,8 +1,10 @@
-import { load, Model } from "..";
+import { load, Model, Player, Country, Fleet } from "..";
 import { FactionImpl } from "../model/faction";
 import { LeaderImpl } from "../model/leader";
 import { PopImpl } from "../model/pop";
 import { SpeciesImpl } from "../model/species";
+import { Leader } from "../model/interfaces";
+import { Collection } from "../model/collection";
 
 const filePath = "savefiles/unitednationsofearth.sav";
 
@@ -335,5 +337,95 @@ describe("unitednationsofearth", () => {
       expect(fleet).not.toBeUndefined();
       expect(fleet.ships.some(x => x === ship)).toBe(true);
     });
+  });
+
+  test("loads player's military fleets correctly", () => {
+    const player = model.players.get("Goose") as Player;
+    expect(player).not.toBeUndefined();
+
+    const fleets = (player.country as Country).fleets.filter(
+      x => !x.isStation && !x.isCivilian
+    );
+    expect(fleets.length).toBe(1);
+
+    const fleet = fleets[0];
+    expect(fleet).not.toBeUndefined();
+
+    const { ships, system } = fleet;
+    const leaders = fleet.ships
+      .map(x => x.leader)
+      .filter(x => typeof x !== "undefined") as Leader[];
+
+    expect(system).not.toBeUndefined();
+    expect(system.name).toEqual("Sol");
+
+    expect(leaders.length).toBe(1);
+    expect(leaders[0].name).toEqual("Jean Gagne");
+
+    expect(ships.length).toEqual(12);
+    const shipNames = new Set(ships.map(x => x.name));
+    expect(shipNames.has("UNS Tapir")).toBe(true);
+    expect(shipNames.has("UNS Semiramis")).toBe(true);
+    expect(shipNames.has("UNS Baracca")).toBe(true);
+    expect(shipNames.has("UNS Caldwell")).toBe(true);
+    expect(shipNames.has("UNS Pata")).toBe(true);
+    expect(shipNames.has("UNS Khanda")).toBe(true);
+    expect(shipNames.has("UNS Meihong")).toBe(true);
+    expect(shipNames.has("UNS MacLachlan")).toBe(true);
+    expect(shipNames.has("UNS Adler")).toBe(true);
+    expect(shipNames.has("UNS Haifeng")).toBe(true);
+    expect(shipNames.has("UNS Hellcat")).toBe(true);
+    expect(shipNames.has("UNS Wolverine")).toBe(true);
+  });
+
+  test("loads player's civilian fleets correctly", () => {
+    const player = model.players.get("Goose") as Player;
+    expect(player).not.toBeUndefined();
+
+    const fleets = (player.country as Country).fleets.filter(
+      x => !x.isStation && x.isCivilian
+    );
+    expect(fleets.length).toBe(9);
+
+    // Lookup by name
+    const collection = new Collection(fleets, x => x.name);
+
+    function checkFleet(
+      shipName: string,
+      systemName: string,
+      leaderName?: string
+    ) {
+      const fleet = collection.get(shipName) as Fleet;
+      expect(fleet).not.toBeUndefined();
+      expect(fleet.system.name).toEqual(systemName);
+      expect(fleet.ships.length).toEqual(1);
+      expect(fleet.ships[0].name).toEqual(shipName);
+
+      const leaders = fleet.ships
+        .map(x => x.leader)
+        .filter(x => typeof x !== "undefined")
+        .map(x => x as Leader);
+
+      if (typeof leaderName !== "undefined") {
+        expect(leaders.length).toEqual(1);
+        const leader = leaders[0];
+        expect(leader.name).toEqual(leaderName);
+      } else {
+        expect(leaders.length).toEqual(0);
+      }
+    }
+
+    // Construction fleets
+    checkFleet("UNS Rubicon", "Baranik");
+    checkFleet("UNS Volga", "Dirmius");
+    checkFleet("UNS Amazon", "Lawam");
+    checkFleet("UNS India", "Sol");
+    // Science fleets
+    checkFleet("UNS Newton", "Sol", "Mohammad Abbas");
+    checkFleet("UNS Lagrange", "Rurius", "Antonietta Gambadori");
+    checkFleet("UNS Santa Maria", "NAME_Alpha_Centauri", "Alma Adwam");
+    checkFleet("UNS James Cook", "Zantaris Black Hole", "Badru Bankole");
+    // Colony fleet
+    checkFleet("UNS Jamaica", "Ebrxinda");
   });
 });
