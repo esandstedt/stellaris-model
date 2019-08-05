@@ -52,11 +52,15 @@ export class ModelImpl implements Model {
       country => country.id
     );
 
-    this.factions = this.getCollection(
-      asPairArray(data["pop_factions"]),
-      (id, p) => new FactionImpl(id, p),
-      faction => faction.id
-    );
+    if (typeof data["pop_factions"] !== "undefined") {
+      this.factions = this.getCollection(
+        asPairArray(data["pop_factions"]),
+        (id, p) => new FactionImpl(id, p),
+        faction => faction.id
+      );
+    } else {
+      this.factions = new Collection<FactionImpl>([], faction => faction.id);
+    }
 
     this.fleets = this.getCollection(
       asPairArray(data["fleet"]),

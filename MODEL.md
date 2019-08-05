@@ -267,7 +267,7 @@
 |          | immortal           |                      |
 |          | leader_terms       |                      |
 | Complete | level              |                      |
-|          | location           |                      |
+| Partial  | location           |                      |
 |          | mandate            |                      |
 | Complete | name               |                      |
 | Ignored  | pop_faction        | (linked via Faction) |
