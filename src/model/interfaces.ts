@@ -76,7 +76,7 @@ export interface Fleet {
   isStation: boolean;
   militaryPower: number;
   name: string;
-  owner: Country;
+  owner: Country | undefined;
   ships: Ship[];
   system: System;
 }

@@ -323,8 +323,7 @@ describe("unitednationsofearth-2247.07.11", () => {
 
   test("all fleets have an owner", () => {
     model.fleets.getAll().forEach(fleet => {
-      const { owner } = fleet;
-
+      const owner = fleet.owner as Country;
       expect(owner).not.toBeUndefined();
       expect(owner.fleets.some(x => x === fleet)).toBe(true);
     });

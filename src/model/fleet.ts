@@ -6,19 +6,10 @@ export class FleetImpl implements Fleet {
   public isStation: boolean;
   public militaryPower: number;
   public name: string;
-  public ownerId: string;
+  public ownerId: string | undefined;
+  public owner: Country | undefined;
   public ships: Ship[] = [];
   public systemId: string;
-
-  get owner(): Country {
-    if (typeof this.ownerInstance === "undefined") {
-      throw new Error();
-    }
-    return this.ownerInstance;
-  }
-  set owner(value: Country) {
-    this.ownerInstance = value;
-  }
 
   get system(): System {
     if (typeof this.systemInstance === "undefined") {
@@ -30,7 +21,6 @@ export class FleetImpl implements Fleet {
     this.systemInstance = value;
   }
 
-  private ownerInstance: Country | undefined;
   private systemInstance: System | undefined;
 
   constructor(public id: string, pairs: Pair[]) {
@@ -50,7 +40,10 @@ export class FleetImpl implements Fleet {
 
     this.militaryPower = parseFloat(asString(data["military_power"]));
     this.name = asString(data["name"]);
-    this.ownerId = asString(data["owner"]);
+
+    if (typeof data["owner"] !== "undefined") {
+      this.ownerId = asString(data["owner"]);
+    }
 
     // const combat = asDictionary(asPairArray(data["combat"]));
     const movementManager = asDictionary(asPairArray(data["movement_manager"]));
