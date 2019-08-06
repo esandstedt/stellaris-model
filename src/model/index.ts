@@ -15,6 +15,7 @@ import { WormholeImpl } from "./wormhole";
 import { FleetImpl } from "./fleet";
 import { ShipImpl } from "./ship";
 import { ArmyImpl } from "./army";
+import { ShipDesignImpl } from "./ship-design";
 
 export class ModelImpl implements Model {
   public armies: Collection<ArmyImpl>;
@@ -29,6 +30,7 @@ export class ModelImpl implements Model {
   public pops: Collection<PopImpl>;
   public requiredDlcs: string[];
   public ships: Collection<ShipImpl>;
+  public shipDesigns: Collection<ShipDesignImpl>;
   public species: SpeciesImpl[];
   public starbases: Collection<StarbaseImpl>;
   public systems: Collection<SystemImpl>;
@@ -103,6 +105,12 @@ export class ModelImpl implements Model {
       data["ships"],
       (id, p) => new ShipImpl(id, p),
       ship => ship.id
+    );
+
+    this.shipDesigns = this.getCollection(
+      data["ship_design"],
+      (id, p) => new ShipDesignImpl(id, p),
+      design => design.id
     );
 
     this.species = asPairArray(data["species"]).map(
@@ -412,6 +420,16 @@ export class ModelImpl implements Model {
       x => x.speciesIndex,
       (army, species) => {
         army.species = species;
+      }
+    );
+
+    this.link(
+      this.ships,
+      this.shipDesigns,
+      x => x.designId,
+      (ship, design) => {
+        ship.design = design;
+        design.ships.push(ship);
       }
     );
   }

@@ -21,6 +21,7 @@ export interface Model {
   pops: Collection<Pop>;
   requiredDlcs: string[];
   ships: Collection<Ship>;
+  shipDesigns: Collection<ShipDesign>;
   species: Species[];
   starbases: Collection<Starbase>;
   systems: Collection<System>;
@@ -190,10 +191,17 @@ export interface Pop {
 export interface Ship {
   id: string;
   army: Army | undefined;
+  design: ShipDesign;
   experience: number;
   fleet: Fleet;
   leader: Leader | undefined;
   name: string;
+}
+
+export interface ShipDesign {
+  id: string;
+  ships: Ship[];
+  type: string;
 }
 
 export interface Species {

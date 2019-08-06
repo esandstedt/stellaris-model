@@ -447,13 +447,28 @@
 |          | rotation             |                                            |
 |          | section              |                                            |
 |          | shield_hitpoints     |                                            |
-|          | ship_design          |                                            |
+| Complete | ship_design          |                                            |
 |          | ship_modifier        |                                            |
 |          | speed                |                                            |
 |          | target_coordinate    |                                            |
 |          | targeting            |                                            |
 |          | upgradable           |                                            |
 |          | upgrade_progress     |                                            |
+
+## ShipDesign
+
+| Status   | Property                | Description   |
+| -------- | ----------------------- | ------------- |
+|          | alliance_ship_design    |               |
+|          | allow_buildable_trigger |               |
+|          | auto_gen_design         |               |
+|          | is_event_design         |               |
+|          | is_special_buildable    |               |
+| Complete | name                    |               |
+|          | required_component      |               |
+|          | section                 |               |
+| Complete | ship_size               | The ship type |
+|          | use_design_name         |               |
 
 ## Species
 

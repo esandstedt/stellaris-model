@@ -55,4 +55,10 @@ describe("orderoftheeternalflame-2362.07.01", () => {
       .getAll()
       .forEach(army => expect(army.owner).not.toBeUndefined());
   });
+
+  test("all ships have a design", () => {
+    model.ships
+      .getAll()
+      .forEach(ship => expect(ship.design).not.toBeUndefined());
+  });
 });
