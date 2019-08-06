@@ -17,7 +17,7 @@ export class FlagImpl implements Flag {
   constructor(pairs: Pair[]) {
     const data = asDictionary(pairs);
 
-    const background = asDictionary(asPairArray(data["background"]));
+    const background = asDictionary(data["background"]);
     this.background = {
       category: asString(background["category"]),
       file: asString(background["file"])
@@ -27,7 +27,7 @@ export class FlagImpl implements Flag {
       .map(x => asString(x.value))
       .filter(x => x !== "null");
 
-    const icon = asDictionary(asPairArray(data["icon"]));
+    const icon = asDictionary(data["icon"]);
     this.icon = {
       category: asString(icon["category"]),
       file: asString(icon["file"])

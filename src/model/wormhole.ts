@@ -36,7 +36,7 @@ export class WormholeImpl implements Wormhole {
 
     this.id = asString(data["bypass"]);
 
-    const bypass = asDictionary(asPairArray(bypasses[this.id]));
+    const bypass = asDictionary(bypasses[this.id]);
 
     const coordinatePairs = asPairArray(data["coordinate"]);
     this.coordinate = new CoordinateImpl(coordinatePairs);

@@ -45,11 +45,11 @@ export class FleetImpl implements Fleet {
       this.ownerId = asString(data["owner"]);
     }
 
-    // const combat = asDictionary(asPairArray(data["combat"]));
-    const movementManager = asDictionary(asPairArray(data["movement_manager"]));
+    // const combat = asDictionary(data["combat"]);
+    const movementManager = asDictionary(data["movement_manager"]);
 
     this.systemId = asString(
-      asDictionary(asPairArray(movementManager["coordinate"]))["origin"]
+      asDictionary(movementManager["coordinate"])["origin"]
     );
   }
 }

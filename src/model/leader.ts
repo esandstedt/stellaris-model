@@ -64,7 +64,7 @@ export class LeaderImpl implements Leader {
     this.portrait = asString(data["portrait"]);
 
     if (typeof data["location"] !== "undefined") {
-      const location = asDictionary(asPairArray(data["location"]));
+      const location = asDictionary(data["location"]);
 
       const locationType = asString(location["type"]);
       if (locationType === "ship") {

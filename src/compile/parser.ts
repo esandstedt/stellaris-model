@@ -2,33 +2,33 @@ import { Lexer } from "./lexer";
 import { Token } from "./token";
 import { Pair } from ".";
 
-export function asString(pairsOrString: Pair[] | string): string {
-  if (typeof pairsOrString === "undefined") {
+export function asString(input: Pair[] | string): string {
+  if (typeof input === "string") {
+    return input;
+  } else if (typeof input === "undefined") {
     throw new Error("Could not convert undefined to string.");
-  } else if (typeof pairsOrString === "string") {
-    return pairsOrString;
   } else {
     throw new Error("Could not convert pair array to string.");
   }
 }
 
-export function asPairArray(pairsOrString: Pair[] | string): Pair[] {
-  if (typeof pairsOrString === "undefined") {
+export function asPairArray(input: Pair[] | string): Pair[] {
+  if (typeof input === "undefined") {
     throw new Error("Could not convert undefined to pair array.");
-  } else if (typeof pairsOrString === "string") {
+  } else if (typeof input === "string") {
     throw new Error("Could not convert string to pair array.");
   } else {
-    return pairsOrString;
+    return input;
   }
 }
 
 export function asDictionary(
-  pairs: Pair[]
+  input: Pair[] | string
 ): { [key: string]: Pair[] | string } {
   const result: { [key: string]: Pair[] | string } = {};
   const keyCounts: { [key: string]: number } = {};
 
-  pairs.forEach(pair => {
+  asPairArray(input).forEach(pair => {
     if (pair.key === null) {
       throw new Error(
         "Can't create dictionary from pair list with any null keys."
@@ -56,11 +56,14 @@ export function asDictionary(
   return result;
 }
 
-export function asArray(pairs: Pair[]): Array<Pair[] | string> {
+export function asArray(input: Pair[] | string): Array<Pair[] | string> {
+  const pairs = asPairArray(input);
+
   const hasKeys = pairs.some(pair => pair.key !== null);
   if (hasKeys) {
     throw new Error("Can't create array from pair list with invalid keys.");
   }
+
   return pairs.map(pair => pair.value);
 }
 

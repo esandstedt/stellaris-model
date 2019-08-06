@@ -2,7 +2,7 @@ import { asDictionary, asArray, asString, Pair, asPairArray } from "../compile";
 import { Collection } from "./collection";
 import { CountryImpl } from "./country";
 import { FactionImpl } from "./faction";
-import { Model, Leader } from "./interfaces";
+import { Model } from "./interfaces";
 import { LeaderImpl } from "./leader";
 import { SystemImpl } from "./system";
 import { HyperlaneImpl } from "./system/hyperlane";
@@ -42,27 +42,25 @@ export class ModelImpl implements Model {
     this.name = asString(data["name"]);
     this.date = asString(data["date"]);
 
-    this.requiredDlcs = asArray(asPairArray(data["required_dlcs"])).map(
-      asString
-    );
+    this.requiredDlcs = asArray(data["required_dlcs"]).map(asString);
 
     const systemPairs = asPairArray(data["galactic_object"]);
 
     this.armies = this.getCollection(
-      asPairArray(data["army"]),
+      data["army"],
       (id, p) => new ArmyImpl(id, p),
       army => army.id
     );
 
     this.countries = this.getCollection(
-      asPairArray(data["country"]),
+      data["country"],
       (id, p) => new CountryImpl(id, p),
       country => country.id
     );
 
     if (typeof data["pop_factions"] !== "undefined") {
       this.factions = this.getCollection(
-        asPairArray(data["pop_factions"]),
+        data["pop_factions"],
         (id, p) => new FactionImpl(id, p),
         faction => faction.id
       );
@@ -71,38 +69,38 @@ export class ModelImpl implements Model {
     }
 
     this.fleets = this.getCollection(
-      asPairArray(data["fleet"]),
+      data["fleet"],
       (id, p) => new FleetImpl(id, p),
       fleet => fleet.id
     );
 
     this.leaders = this.getCollection(
-      asPairArray(data["leaders"]),
+      data["leaders"],
       (id, p) => new LeaderImpl(id, p),
       leader => leader.id
     );
 
     this.planets = this.getCollection(
-      asPairArray(asDictionary(asPairArray(data["planets"]))["planet"]),
+      asDictionary(data["planets"])["planet"],
       (id, p) => new PlanetImpl(id, p),
       planet => planet.id
     );
 
     this.players = new Collection(
-      asArray(asPairArray(data["player"]))
+      asArray(data["player"])
         .map(asPairArray)
-        .map(item => new PlayerImpl(item)),
+        .map(p => new PlayerImpl(p)),
       player => player.name
     );
 
     this.pops = this.getCollection(
-      asPairArray(data["pop"]),
+      data["pop"],
       (id, p) => new PopImpl(id, p),
       pop => pop.id
     );
 
     this.ships = this.getCollection(
-      asPairArray(data["ships"]),
+      data["ships"],
       (id, p) => new ShipImpl(id, p),
       ship => ship.id
     );
@@ -112,7 +110,7 @@ export class ModelImpl implements Model {
     );
 
     this.starbases = this.getCollection(
-      asPairArray(data["starbases"]),
+      data["starbases"],
       (id, p) => new StarbaseImpl(id, p),
       base => base.id
     );
@@ -123,10 +121,10 @@ export class ModelImpl implements Model {
       system => system.id
     );
 
-    const bypasses = asDictionary(asPairArray(data["bypasses"]));
+    const bypasses = asDictionary(data["bypasses"]);
 
     this.wormholes = this.getCollection(
-      asPairArray(data["natural_wormholes"]),
+      data["natural_wormholes"],
       (_, p) => {
         return new WormholeImpl(p, bypasses);
       },
@@ -419,11 +417,11 @@ export class ModelImpl implements Model {
   }
 
   private getCollection<T>(
-    pairs: Pair[],
+    input: Pair[] | string,
     createFunc: (id: string, pairs: Pair[]) => T,
     idFunc: (item: T) => string
   ): Collection<T> {
-    const array: T[] = pairs
+    const array: T[] = asPairArray(input)
       .map(pair => {
         if (pair.key === null) {
           throw new Error();
@@ -506,10 +504,10 @@ export class ModelImpl implements Model {
         throw new Error();
       }
 
-      const systemData = asDictionary(asPairArray(pair.value));
+      const systemData = asDictionary(pair.value);
       if (systemData["hyperlane"]) {
-        system.hyperlanes = asArray(asPairArray(systemData["hyperlane"]))
-          .map(item => asDictionary(asPairArray(item)))
+        system.hyperlanes = asArray(systemData["hyperlane"])
+          .map(item => asDictionary(item))
           .map(data => {
             const to = this.systems.get(asString(data["to"]));
 

@@ -57,8 +57,6 @@ export class PlanetImpl implements Planet {
     this.size = parseInt(asString(data["planet_size"]), 10);
     this.stability = parseFloat(asString(data["stability"]));
 
-    this.systemId = asString(
-      asDictionary(asPairArray(data["coordinate"]))["origin"]
-    );
+    this.systemId = asString(asDictionary(data["coordinate"])["origin"]);
   }
 }
