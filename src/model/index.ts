@@ -14,8 +14,10 @@ import { StarbaseImpl } from "./starbase";
 import { WormholeImpl } from "./wormhole";
 import { FleetImpl } from "./fleet";
 import { ShipImpl } from "./ship";
+import { ArmyImpl } from "./army";
 
 export class ModelImpl implements Model {
+  public armies: Collection<ArmyImpl>;
   public countries: Collection<CountryImpl>;
   public date: string;
   public factions: Collection<FactionImpl>;
@@ -45,6 +47,12 @@ export class ModelImpl implements Model {
     );
 
     const systemPairs = asPairArray(data["galactic_object"]);
+
+    this.armies = this.getCollection(
+      asPairArray(data["army"]),
+      (id, p) => new ArmyImpl(id, p),
+      army => army.id
+    );
 
     this.countries = this.getCollection(
       asPairArray(data["country"]),
@@ -338,7 +346,74 @@ export class ModelImpl implements Model {
       this.ships,
       x => x.shipId,
       (leader, ship) => {
+        leader.ship = ship;
         ship.leader = leader;
+      }
+    );
+
+    this.link(
+      this.armies,
+      this.countries,
+      x => x.ownerId,
+      (army, owner) => {
+        army.owner = owner;
+        owner.armies.push(army);
+      }
+    );
+
+    this.link(
+      this.armies,
+      this.ships,
+      x => x.shipId,
+      (army, ship) => {
+        army.ship = ship;
+        ship.army = army;
+      }
+    );
+
+    this.link(
+      this.armies,
+      this.planets,
+      x => x.homeId,
+      (army, home) => {
+        army.home = home;
+      }
+    );
+
+    this.link(
+      this.armies,
+      this.leaders,
+      x => x.leaderId,
+      (army, leader) => {
+        army.leader = leader;
+        leader.army = army;
+      }
+    );
+
+    this.link(
+      this.armies,
+      this.planets,
+      x => x.planetId,
+      (army, planet) => {
+        army.planet = planet;
+      }
+    );
+
+    this.link(
+      this.armies,
+      this.pops,
+      x => x.popId,
+      (army, pop) => {
+        army.pop = pop;
+      }
+    );
+
+    this.linkSpecies(
+      this.armies,
+      this.species,
+      x => x.speciesIndex,
+      (army, species) => {
+        army.species = species;
       }
     );
   }

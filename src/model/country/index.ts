@@ -6,10 +6,12 @@ import {
   Leader,
   Planet,
   Starbase,
-  Fleet
+  Fleet,
+  Army
 } from "../interfaces";
 
 export class CountryImpl implements Country {
+  public armies: Army[] = [];
   public controlledPlanets: Planet[] = [];
   public factions: Faction[] = [];
   public flag: FlagImpl;

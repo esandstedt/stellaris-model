@@ -5,7 +5,7 @@
 |          | alliance                    |                                      |
 |          | ambient_object              |                                      |
 |          | archaeological_sites        |                                      |
-|          | army                        |                                      |
+| Complete | army                        |                                      |
 | Partial  | bypasses                    |                                      |
 |          | clusters                    |                                      |
 | Complete | country                     | Dictionary of countries              |
@@ -78,6 +78,24 @@
 | Complete | version                     |                                      |
 |          | version_control_revision    | Version in number form               |
 |          | war                         |                                      |
+
+## Army
+
+| Status   | Property      | Description |
+| -------- | ------------- | ----------- |
+| Complete | experience    |             |
+| Complete | health        |             |
+| Complete | home_planet   |             |
+| Complete | leader        |             |
+| Complete | max_health    |             |
+| Complete | morale        |             |
+| Complete | name          |             |
+| Complete | owner         |             |
+| Complete | planet        |             |
+| Complete | pop           |             |
+| Complete | ship          |             |
+| Complete | species_index |             |
+| Complete | type          |             |
 
 ## Country
 
@@ -258,20 +276,20 @@
 | Complete | class              |                      |
 | Complete | country            |                      |
 | Partial  | creator            |                      |
-|          | date               |                      |
-|          | date_added         |                      |
+| Complete | date               |                      |
+| Ignored  | date_added         | (using date instead) |
 |          | event_leader       |                      |
-|          | experience         |                      |
+| Complete | experience         |                      |
 |          | flags              |                      |
 | Complete | gender             |                      |
-|          | immortal           |                      |
+| Complete | immortal           |                      |
 |          | leader_terms       |                      |
 | Complete | level              |                      |
 | Partial  | location           |                      |
 |          | mandate            |                      |
 | Complete | name               |                      |
 | Ignored  | pop_faction        | (linked via Faction) |
-|          | portrait           |                      |
+| Complete | portrait           |                      |
 |          | pre_ruler_class    |                      |
 |          | pre_ruler_location |                      |
 |          | roles              |                      |
@@ -391,51 +409,51 @@
 
 ## Ship
 
-| Status   | Property             | Description                                         |
-| -------- | -------------------- | --------------------------------------------------- |
-|          | armor_hitpoints      |                                                     |
-|          | army                 |                                                     |
-|          | aura_modifier        |                                                     |
-|          | auras                |                                                     |
-|          | combat_action        |                                                     |
-|          | coordinate           |                                                     |
-|          | created_this_update  |                                                     |
-|          | design_upgrade       |                                                     |
-|          | disable_at_health    |                                                     |
-|          | disabled             |                                                     |
-|          | disabled_by_event    |                                                     |
-|          | enable_at_health     |                                                     |
-| Complete | experience           |                                                     |
-|          | flags                |                                                     |
-| Complete | fleet                |                                                     |
-|          | formation_pos        |                                                     |
-|          | forward_x            |                                                     |
-|          | forward_y            |                                                     |
-|          | graphical_culture    |                                                     |
-|          | hitpoints            |                                                     |
-|          | homepop              |                                                     |
-|          | is_being_repaired    |                                                     |
-|          | key                  |                                                     |
-|          | kill_target          |                                                     |
-|          | last_damage          |                                                     |
-| Ignored  | leader               | Inconsistent data, so using leader location instead |
-|          | max_armor_hitpoints  |                                                     |
-|          | max_hitpoints        |                                                     |
-|          | max_shield_hitpoints |                                                     |
-| Complete | name                 |                                                     |
-|          | next_weapon_index    |                                                     |
-|          | post_move_angle      |                                                     |
-|          | reserve              |                                                     |
-|          | rotation             |                                                     |
-|          | section              |                                                     |
-|          | shield_hitpoints     |                                                     |
-|          | ship_design          |                                                     |
-|          | ship_modifier        |                                                     |
-|          | speed                |                                                     |
-|          | target_coordinate    |                                                     |
-|          | targeting            |                                                     |
-|          | upgradable           |                                                     |
-|          | upgrade_progress     |                                                     |
+| Status   | Property             | Description                                |
+| -------- | -------------------- | ------------------------------------------ |
+|          | armor_hitpoints      |                                            |
+| Ignored  | army                 | (linked via Army)                          |
+|          | aura_modifier        |                                            |
+|          | auras                |                                            |
+|          | combat_action        |                                            |
+|          | coordinate           |                                            |
+|          | created_this_update  |                                            |
+|          | design_upgrade       |                                            |
+|          | disable_at_health    |                                            |
+|          | disabled             |                                            |
+|          | disabled_by_event    |                                            |
+|          | enable_at_health     |                                            |
+| Complete | experience           |                                            |
+|          | flags                |                                            |
+| Complete | fleet                |                                            |
+|          | formation_pos        |                                            |
+|          | forward_x            |                                            |
+|          | forward_y            |                                            |
+|          | graphical_culture    |                                            |
+|          | hitpoints            |                                            |
+|          | homepop              |                                            |
+|          | is_being_repaired    |                                            |
+|          | key                  |                                            |
+|          | kill_target          |                                            |
+|          | last_damage          |                                            |
+| Ignored  | leader               | Inconsistent data, so using Leader instead |
+|          | max_armor_hitpoints  |                                            |
+|          | max_hitpoints        |                                            |
+|          | max_shield_hitpoints |                                            |
+| Complete | name                 |                                            |
+|          | next_weapon_index    |                                            |
+|          | post_move_angle      |                                            |
+|          | reserve              |                                            |
+|          | rotation             |                                            |
+|          | section              |                                            |
+|          | shield_hitpoints     |                                            |
+|          | ship_design          |                                            |
+|          | ship_modifier        |                                            |
+|          | speed                |                                            |
+|          | target_coordinate    |                                            |
+|          | targeting            |                                            |
+|          | upgradable           |                                            |
+|          | upgrade_progress     |                                            |
 
 ## Species
 

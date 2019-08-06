@@ -49,4 +49,10 @@ describe("orderoftheeternalflame-2362.07.01", () => {
       expect(overlord.subjects.some(x => x === country)).toBe(true);
     });
   });
+
+  test("all armies have an owner", () => {
+    model.armies
+      .getAll()
+      .forEach(army => expect(army.owner).not.toBeUndefined());
+  });
 });

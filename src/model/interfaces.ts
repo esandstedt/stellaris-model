@@ -9,6 +9,7 @@ export function load(path: string): Promise<Model> {
 }
 
 export interface Model {
+  armies: Collection<Army>;
   countries: Collection<Country>;
   date: string;
   factions: Collection<Faction>;
@@ -27,6 +28,42 @@ export interface Model {
   wormholes: Collection<Wormhole>;
 }
 
+export interface Army {
+  id: string;
+  experience: number;
+  health: number;
+  home: Planet | undefined;
+  leader: Leader | undefined;
+  maxHealth: number;
+  morale: number;
+  owner: Country;
+  name: string;
+  planet: Planet | undefined;
+  pop: Pop | undefined;
+  ship: Ship | undefined;
+  species: Species | undefined;
+  type: ArmyType;
+}
+
+export enum ArmyType {
+  Assault,
+  Clone,
+  Defense,
+  GeneWarrior,
+  MachineAssault2,
+  MachineAssault3,
+  MachineDefense,
+  Occupation,
+  Postatomic,
+  Primitive,
+  Psionic,
+  Robotic,
+  RoboticDefense,
+  Shroud,
+  Slave,
+  Xenomorph
+}
+
 export interface Coordinate {
   x: number;
   y: number;
@@ -34,6 +71,7 @@ export interface Coordinate {
 
 export interface Country {
   id: string;
+  armies: Army[];
   controlledPlanets: Planet[];
   factions: Faction[];
   flag: Flag;
@@ -91,12 +129,25 @@ export interface Leader {
   id: string;
   age: number;
   agenda: string;
-  leaderClass: string;
+  army: Army | undefined;
   country: Country | undefined;
+  date: string;
+  experience: number;
   gender: string | undefined;
+  immortal: boolean;
   level: number;
   name: string;
+  portrait: string;
   species: Species;
+  type: LeaderType;
+}
+
+export enum LeaderType {
+  Admiral,
+  General,
+  Governor,
+  Scientist,
+  Ruler
 }
 
 export interface Planet {
@@ -138,6 +189,7 @@ export interface Pop {
 
 export interface Ship {
   id: string;
+  army: Army | undefined;
   experience: number;
   fleet: Fleet;
   leader: Leader | undefined;

@@ -1,8 +1,9 @@
 import { Pair, asDictionary, asString } from "../compile";
-import { Ship, Fleet, Leader } from "./interfaces";
+import { Ship, Fleet, Leader, Army } from "./interfaces";
 
 export class ShipImpl implements Ship {
   public experience: number;
+  public army: Army | undefined;
   public fleetId: string;
   public leader: Leader | undefined;
   public name: string;
