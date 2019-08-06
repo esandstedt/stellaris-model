@@ -43,26 +43,7 @@ export interface Army {
   pop: Pop | undefined;
   ship: Ship | undefined;
   species: Species | undefined;
-  type: ArmyType;
-}
-
-export enum ArmyType {
-  Assault,
-  Clone,
-  Defense,
-  GeneWarrior,
-  MachineAssault2,
-  MachineAssault3,
-  MachineDefense,
-  Occupation,
-  Postatomic,
-  Primitive,
-  Psionic,
-  Robotic,
-  RoboticDefense,
-  Shroud,
-  Slave,
-  Xenomorph
+  type: string;
 }
 
 export interface Coordinate {

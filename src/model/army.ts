@@ -1,7 +1,6 @@
 import { asDictionary, Pair, asString } from "../compile";
 import {
   Army,
-  ArmyType,
   Country,
   Ship,
   Planet,
@@ -29,7 +28,7 @@ export class ArmyImpl implements Army {
   public ship: Ship | undefined;
   public speciesIndex: number | undefined;
   public species: Species | undefined;
-  public type: ArmyType;
+  public type: string;
 
   get owner(): Country {
     if (typeof this.ownerInstance === "undefined") {
@@ -83,29 +82,6 @@ export class ArmyImpl implements Army {
       this.popId = asString(data["pop"]);
     }
 
-    const typeString = asString(data["type"]);
-    this.type = ARMYTYPE_MAPPING[typeString];
-    if (typeof this.type === "undefined") {
-      throw new Error(`unrecognized army type "${typeString}"`);
-    }
+    this.type = asString(data["type"]);
   }
 }
-
-const ARMYTYPE_MAPPING: { [key: string]: ArmyType } = {
-  assault_army: ArmyType.Assault,
-  clone_army: ArmyType.Clone,
-  defense_army: ArmyType.Defense,
-  gene_warrior_army: ArmyType.GeneWarrior,
-  machine_assault_2: ArmyType.MachineAssault2,
-  machine_assault_3: ArmyType.MachineAssault3,
-  machine_defense: ArmyType.MachineDefense,
-  occupation_army: ArmyType.Occupation,
-  postatomic_army: ArmyType.Postatomic,
-  primitive_army: ArmyType.Primitive,
-  psionic_army: ArmyType.Psionic,
-  robotic_army: ArmyType.Robotic,
-  robotic_defense_army: ArmyType.RoboticDefense,
-  shroud_army: ArmyType.Shroud,
-  slave_army: ArmyType.Slave,
-  xenomorph_army: ArmyType.Xenomorph
-};
