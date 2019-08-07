@@ -2,7 +2,7 @@
 
 | Status   | Property                    | Description                          |
 | -------- | --------------------------- | ------------------------------------ |
-|          | alliance                    |                                      |
+| Complete | alliance                    |                                      |
 |          | ambient_object              |                                      |
 |          | archaeological_sites        |                                      |
 | Complete | army                        |                                      |
