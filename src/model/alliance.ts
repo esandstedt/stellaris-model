@@ -1,8 +1,6 @@
 import { Pair, asDictionary, asString } from "../compile";
 import { Country, Alliance } from "./interfaces";
 
-export const keys = new Set<string>();
-
 export class AllianceImpl implements Alliance {
   public date: string;
   public leaderId: string;
@@ -25,13 +23,7 @@ export class AllianceImpl implements Alliance {
     const data = asDictionary(pairs);
 
     this.date = asString(data["start_date"]);
-
     this.leaderId = asString(data["leader"]);
-
     this.name = asString(data["name"]);
-
-    pairs.forEach(({ key }) => {
-      if (key) keys.add(key);
-    });
   }
 }

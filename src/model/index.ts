@@ -17,7 +17,7 @@ import { ShipImpl } from "./ship";
 import { ArmyImpl } from "./army";
 import { ShipDesignImpl } from "./ship-design";
 import { SectorImpl } from "./sector";
-import { AllianceImpl, keys } from "./alliance";
+import { AllianceImpl } from "./alliance";
 
 export class ModelImpl implements Model {
   public alliances: Collection<AllianceImpl>;
