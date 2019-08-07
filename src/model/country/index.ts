@@ -8,10 +8,13 @@ import {
   Starbase,
   Fleet,
   Army,
-  Sector
+  Sector,
+  Alliance
 } from "../interfaces";
 
 export class CountryImpl implements Country {
+  public allianceId: string | undefined;
+  public alliance: Alliance | undefined;
   public armies: Army[] = [];
   public capitalId: string | undefined;
   public capital: Planet | undefined;
@@ -31,6 +34,10 @@ export class CountryImpl implements Country {
 
   constructor(public id: string, pairs: Pair[]) {
     const data = asDictionary(pairs);
+
+    if (typeof data["alliance"] !== "undefined") {
+      this.allianceId = asString(data["alliance"]);
+    }
 
     if (typeof data["capital"] !== "undefined") {
       this.capitalId = asString(data["capital"]);

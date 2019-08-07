@@ -17,8 +17,10 @@ import { ShipImpl } from "./ship";
 import { ArmyImpl } from "./army";
 import { ShipDesignImpl } from "./ship-design";
 import { SectorImpl } from "./sector";
+import { AllianceImpl, keys } from "./alliance";
 
 export class ModelImpl implements Model {
+  public alliances: Collection<AllianceImpl>;
   public armies: Collection<ArmyImpl>;
   public countries: Collection<CountryImpl>;
   public date: string;
@@ -49,6 +51,12 @@ export class ModelImpl implements Model {
     this.requiredDlcs = asArray(data["required_dlcs"]).map(asString);
 
     const systemPairs = asPairArray(data["galactic_object"]);
+
+    this.alliances = this.getCollection(
+      data["alliance"],
+      (id, p) => new AllianceImpl(id, p),
+      alliance => alliance.id
+    );
 
     this.armies = this.getCollection(
       data["army"],
@@ -486,6 +494,25 @@ export class ModelImpl implements Model {
       x => x.capitalId,
       (country, capital) => {
         country.capital = capital;
+      }
+    );
+
+    this.link(
+      this.alliances,
+      this.countries,
+      x => x.leaderId,
+      (alliance, leader) => {
+        alliance.leader = leader;
+      }
+    );
+
+    this.link(
+      this.countries,
+      this.alliances,
+      x => x.allianceId,
+      (country, alliance) => {
+        country.alliance = alliance;
+        alliance.members.push(country);
       }
     );
   }

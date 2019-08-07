@@ -67,4 +67,19 @@ describe("orderoftheeternalflame-2362.07.01", () => {
       .getAll()
       .forEach(sector => expect(sector.capital).not.toBeUndefined());
   });
+
+  test("all alliances have members and a leader", () => {
+    model.alliances.getAll().forEach(alliance => {
+      expect(2 <= alliance.members.length).toBe(true);
+
+      alliance.members.forEach(country => {
+        expect(country.alliance).toBe(alliance);
+      });
+
+      const memberSet = new Set(alliance.members);
+
+      expect(alliance.leader).not.toBeUndefined();
+      expect(memberSet.has(alliance.leader)).toBe(true);
+    });
+  });
 });

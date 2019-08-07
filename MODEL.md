@@ -79,6 +79,17 @@
 |          | version_control_revision    | Version in number form               |
 |          | war                         |                                      |
 
+## Alliance
+
+| Status   | Property    | Description          |
+| -------- | ----------- | -------------------- |
+|          | associates  |                      |
+| Complete | leader      |                      |
+| Ignored  | members     | (linked via Country) |
+| Complete | name        |                      |
+|          | ship_design |                      |
+| Complete | start_date  |                      |
+
 ## Army
 
 | Status   | Property      | Description |
@@ -105,7 +116,7 @@
 |          | adjective                     |                                     |
 |          | advisor_voice_type            |                                     |
 |          | ai                            |                                     |
-|          | alliance                      |                                     |
+| Complete | alliance                      |                                     |
 |          | ascension_perks               |                                     |
 |          | associated_alliance           |                                     |
 |          | auto_ship_designs             |                                     |

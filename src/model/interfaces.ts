@@ -9,6 +9,7 @@ export function load(path: string): Promise<Model> {
 }
 
 export interface Model {
+  alliances: Collection<Alliance>;
   armies: Collection<Army>;
   countries: Collection<Country>;
   date: string;
@@ -28,6 +29,13 @@ export interface Model {
   systems: Collection<System>;
   version: string;
   wormholes: Collection<Wormhole>;
+}
+
+export interface Alliance {
+  id: string;
+  leader: Country;
+  members: Country[];
+  name: string;
 }
 
 export interface Army {
@@ -54,6 +62,7 @@ export interface Coordinate {
 
 export interface Country {
   id: string;
+  alliance: Alliance | undefined;
   armies: Army[];
   controlledPlanets: Planet[];
   factions: Faction[];
