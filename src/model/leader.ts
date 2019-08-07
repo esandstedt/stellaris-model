@@ -1,5 +1,13 @@
 import { asDictionary, Pair, asString, asPairArray } from "../compile";
-import { Country, Leader, Species, Army, LeaderType, Ship } from "./interfaces";
+import {
+  Country,
+  Leader,
+  Species,
+  Army,
+  LeaderType,
+  Ship,
+  Sector
+} from "./interfaces";
 
 export class LeaderImpl implements Leader {
   public age: number;
@@ -14,6 +22,7 @@ export class LeaderImpl implements Leader {
   public level: number;
   public name: string;
   public portrait: string;
+  public sector: Sector | undefined;
   public shipId: string | undefined;
   public ship: Ship | undefined;
   public speciesIndex: number;

@@ -59,8 +59,8 @@
 | Complete | required_dlcs               | List of required DLCs                |
 |          | rim_galactic_objects        |                                      |
 |          | saved_event_target          |                                      |
-|          | sectors                     |                                      |
-|          | ship_design                 |                                      |
+| Complete | sectors                     |                                      |
+| Complete | ship_design                 |                                      |
 | Complete | ships                       |                                      |
 |          | slave_market_manager        |                                      |
 | Complete | species                     |                                      |
@@ -112,7 +112,7 @@
 |          | branch_office_planets         |                                     |
 |          | budget                        |                                     |
 |          | built_species                 |                                     |
-|          | capital                       |                                     |
+| Complete | capital                       |                                     |
 |          | city_graphical_culture        |                                     |
 |          | color_index                   |                                     |
 |          | control_groups                |                                     |
@@ -407,6 +407,18 @@
 |          | promotion_date           |                                                 |
 | Complete | species_index            | Species                                         |
 
+## Sector
+
+| Status   | Property      | Description         |
+| -------- | ------------- | ------------------- |
+| Complete | governor      |                     |
+| Complete | local_capital |                     |
+| Complete | name          |                     |
+| Complete | owner         |                     |
+|          | resources     |                     |
+| Ignored  | systems       | (linked via System) |
+| Complete | type          |                     |
+
 ## Ship
 
 | Status   | Property             | Description                                |
@@ -527,7 +539,7 @@
 |          | natural_wormholes      | List of wormhole ids                                     |
 |          | outer_radius           | Unknown (number)                                         |
 |          | planet                 | Primary star id?                                         |
-|          | sector                 | Sector id                                                |
+| Complete | sector                 | Sector id                                                |
 | Complete | star_class             | The system's star class                                  |
 | Complete | starbase               | Starbase id                                              |
 |          | trade_collection       | Unknown (complex)                                        |

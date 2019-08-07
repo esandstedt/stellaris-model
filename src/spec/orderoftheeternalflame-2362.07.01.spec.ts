@@ -61,4 +61,10 @@ describe("orderoftheeternalflame-2362.07.01", () => {
       .getAll()
       .forEach(ship => expect(ship.design).not.toBeUndefined());
   });
+
+  test("all sectors have a capital", () => {
+    model.sectors
+      .getAll()
+      .forEach(sector => expect(sector.capital).not.toBeUndefined());
+  });
 });

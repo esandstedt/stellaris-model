@@ -7,11 +7,14 @@ import {
   Planet,
   Starbase,
   Fleet,
-  Army
+  Army,
+  Sector
 } from "../interfaces";
 
 export class CountryImpl implements Country {
   public armies: Army[] = [];
+  public capitalId: string | undefined;
+  public capital: Planet | undefined;
   public controlledPlanets: Planet[] = [];
   public factions: Faction[] = [];
   public flag: FlagImpl;
@@ -22,11 +25,16 @@ export class CountryImpl implements Country {
   public overlordId: string | undefined;
   public overlord: Country | undefined;
   public ownedPlanets: Planet[] = [];
+  public sectors: Sector[] = [];
   public starbases: Starbase[] = [];
   public subjects: Country[] = [];
 
   constructor(public id: string, pairs: Pair[]) {
     const data = asDictionary(pairs);
+
+    if (typeof data["capital"] !== "undefined") {
+      this.capitalId = asString(data["capital"]);
+    }
 
     if (data["overlord"]) {
       this.overlordId = asString(data["overlord"]);

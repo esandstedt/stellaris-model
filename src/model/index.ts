@@ -16,6 +16,7 @@ import { FleetImpl } from "./fleet";
 import { ShipImpl } from "./ship";
 import { ArmyImpl } from "./army";
 import { ShipDesignImpl } from "./ship-design";
+import { SectorImpl } from "./sector";
 
 export class ModelImpl implements Model {
   public armies: Collection<ArmyImpl>;
@@ -29,6 +30,7 @@ export class ModelImpl implements Model {
   public players: Collection<PlayerImpl>;
   public pops: Collection<PopImpl>;
   public requiredDlcs: string[];
+  public sectors: Collection<SectorImpl>;
   public ships: Collection<ShipImpl>;
   public shipDesigns: Collection<ShipDesignImpl>;
   public species: SpeciesImpl[];
@@ -99,6 +101,12 @@ export class ModelImpl implements Model {
       data["pop"],
       (id, p) => new PopImpl(id, p),
       pop => pop.id
+    );
+
+    this.sectors = this.getCollection(
+      data["sectors"],
+      (id, p) => new SectorImpl(id, p),
+      sector => sector.id
     );
 
     this.ships = this.getCollection(
@@ -430,6 +438,54 @@ export class ModelImpl implements Model {
       (ship, design) => {
         ship.design = design;
         design.ships.push(ship);
+      }
+    );
+
+    this.link(
+      this.sectors,
+      this.leaders,
+      x => x.governorId,
+      (sector, governor) => {
+        sector.governor = governor;
+        governor.sector = sector;
+      }
+    );
+
+    this.link(
+      this.sectors,
+      this.countries,
+      x => x.ownerId,
+      (sector, owner) => {
+        sector.owner = owner;
+        owner.sectors.push(sector);
+      }
+    );
+
+    this.link(
+      this.systems,
+      this.sectors,
+      x => x.sectorId,
+      (system, sector) => {
+        system.sector = sector;
+        sector.systems.push(system);
+      }
+    );
+
+    this.link(
+      this.sectors,
+      this.planets,
+      x => x.capitalId,
+      (sector, capital) => {
+        sector.capital = capital;
+      }
+    );
+
+    this.link(
+      this.countries,
+      this.planets,
+      x => x.capitalId,
+      (country, capital) => {
+        country.capital = capital;
       }
     );
   }

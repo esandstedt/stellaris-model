@@ -20,6 +20,7 @@ export interface Model {
   players: Collection<Player>;
   pops: Collection<Pop>;
   requiredDlcs: string[];
+  sectors: Collection<Sector>;
   ships: Collection<Ship>;
   shipDesigns: Collection<ShipDesign>;
   species: Species[];
@@ -120,6 +121,7 @@ export interface Leader {
   level: number;
   name: string;
   portrait: string;
+  sector: Sector | undefined;
   species: Species;
   type: LeaderType;
 }
@@ -167,6 +169,20 @@ export interface Pop {
   planet: Planet;
   power: number | undefined;
   species: Species;
+}
+
+export interface Sector {
+  id: string;
+  capital: Planet;
+  governor: Leader | undefined;
+  name: string;
+  owner: Country | undefined;
+  type: SectorType;
+}
+
+export enum SectorType {
+  Core,
+  Normal
 }
 
 export interface Ship {
