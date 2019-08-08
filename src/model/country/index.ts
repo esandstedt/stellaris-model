@@ -79,7 +79,7 @@ export class CountryImpl implements Country {
     }
 
     if (typeof data["empire_size"] !== "undefined") {
-      this.empireSize = parseInt(asString(data["empire_size"]));
+      this.empireSize = parseInt(asString(data["empire_size"]), 10);
     } else {
       this.empireSize = 0;
     }
@@ -97,21 +97,21 @@ export class CountryImpl implements Country {
 }
 
 const ETHIC_MAPPING: { [key: string]: Ethic } = {
-  ethic_gestalt_consciousness: Ethic.GestaltConsciousness,
   ethic_authoritarian: Ethic.Authoritarian,
-  ethic_fanatic_authoritarian: Ethic.FanaticAuthoritarian,
   ethic_egalitarian: Ethic.Egalitarian,
+  ethic_fanatic_authoritarian: Ethic.FanaticAuthoritarian,
   ethic_fanatic_egalitarian: Ethic.FanaticEgalitarian,
-  ethic_materialist: Ethic.Materialist,
   ethic_fanatic_materialist: Ethic.FanaticMaterialist,
-  ethic_militarist: Ethic.Militarist,
   ethic_fanatic_militarist: Ethic.FanaticMilitarist,
-  ethic_pacifist: Ethic.Pacifist,
   ethic_fanatic_pacifist: Ethic.FanaticPacifist,
-  ethic_spiritualist: Ethic.Spiritualist,
   ethic_fanatic_spiritualist: Ethic.FanaticSpiritualist,
-  ethic_xenophile: Ethic.Xenophile,
   ethic_fanatic_xenophile: Ethic.FanaticXenophile,
-  ethic_xenophobe: Ethic.Xenophobe,
-  ethic_fanatic_xenophobe: Ethic.FanaticXenophobe
+  ethic_fanatic_xenophobe: Ethic.FanaticXenophobe,
+  ethic_gestalt_consciousness: Ethic.GestaltConsciousness,
+  ethic_materialist: Ethic.Materialist,
+  ethic_militarist: Ethic.Militarist,
+  ethic_pacifist: Ethic.Pacifist,
+  ethic_spiritualist: Ethic.Spiritualist,
+  ethic_xenophile: Ethic.Xenophile,
+  ethic_xenophobe: Ethic.Xenophobe
 };

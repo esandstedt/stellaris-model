@@ -529,7 +529,7 @@ export class ModelImpl implements Model {
       .getAll()
       .filter(
         leader =>
-          leader.type == LeaderType.Ruler &&
+          leader.type === LeaderType.Ruler &&
           typeof leader.country !== "undefined" &&
           leader.country.ruler !== leader
       )
