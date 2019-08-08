@@ -110,114 +110,114 @@
 
 ## Country
 
-| Status   | Property                      | Description                         |
-| -------- | ----------------------------- | ----------------------------------- |
-|          | active_policies               |                                     |
-|          | adjective                     |                                     |
-|          | advisor_voice_type            |                                     |
-|          | ai                            |                                     |
-| Complete | alliance                      |                                     |
-|          | ascension_perks               |                                     |
-|          | associated_alliance           |                                     |
-|          | auto_ship_designs             |                                     |
-|          | branch_office_planets         |                                     |
-|          | budget                        |                                     |
-|          | built_species                 |                                     |
-| Complete | capital                       |                                     |
-|          | city_graphical_culture        |                                     |
-|          | color_index                   |                                     |
-|          | control_groups                |                                     |
-| Complete | controlled_planets            |                                     |
-|          | custom_name                   |                                     |
-|          | customization                 |                                     |
-|          | democratic_election           |                                     |
-|          | economy_power                 |                                     |
-|          | edicts                        |                                     |
-|          | ethos                         |                                     |
-|          | emigration                    |                                     |
-|          | empire_cohesion               |                                     |
-|          | empire_size                   |                                     |
-|          | employable_pops               |                                     |
-|          | events                        |                                     |
-|          | faction                       | Unknown (not a list of faction ids) |
-| Complete | flag                          |                                     |
-|          | flags                         |                                     |
-| Complete | fleet_size                    |                                     |
-|          | fleet_template_manager        |                                     |
-|          | given_value                   |                                     |
-|          | government                    |                                     |
-|          | government_date               |                                     |
-|          | graphical_culture             |                                     |
-|          | has_advisor                   |                                     |
-|          | highest_intel_level           |                                     |
-|          | hyperlane_systems             |                                     |
-|          | immigration                   |                                     |
-|          | initialized                   |                                     |
-|          | intel                         |                                     |
-|          | intel_level                   |                                     |
-|          | is_affected_by_war_exhaustion |                                     |
-|          | last_activated_relic          |                                     |
-|          | last_alliance_name            |                                     |
-|          | last_changed_country_type     |                                     |
-|          | last_date_at_war              |                                     |
-|          | last_date_war_lost            |                                     |
-|          | last_date_was_human           |                                     |
-|          | location                      |                                     |
-|          | military_power                |                                     |
-|          | modules                       |                                     |
-| Complete | name                          | Name                                |
-|          | name_list                     |                                     |
-|          | neighbor_rivals               |                                     |
-|          | new_colonies                  |                                     |
-|          | next_election                 |                                     |
-|          | next_transport_fleet_number   |                                     |
-|          | num_upgraded_starbase         |                                     |
-|          | overlord                      |                                     |
-|          | owned_armies                  |                                     |
-|          | owned_fleets                  |                                     |
-| Ignored  | owned_leaders                 | (linked via Leader)                 |
-|          | owned_megastructures          |                                     |
-| Complete | owned_planets                 |                                     |
-|          | personality                   |                                     |
-|          | policy_flags                  |                                     |
-|          | random_name_variables         |                                     |
-|          | regnal_numbers                |                                     |
-|          | rejected_actions              |                                     |
-|          | relations_manager             |                                     |
-|          | relics                        |                                     |
-|          | restricted_systems            |                                     |
-|          | room                          |                                     |
-|          | ruler                         |                                     |
-|          | ruler_title                   |                                     |
-|          | ruler_title_female            |                                     |
-|          | sapient                       |                                     |
-| Ignored  | saved_leaders                 | (linked via Leader)                 |
-|          | sectors                       |                                     |
-|          | seen_bypass_types             |                                     |
-|          | sensor_range_fleets           |                                     |
-|          | ship_design                   |                                     |
-|          | ship_names                    |                                     |
-|          | ship_prefix                   |                                     |
-|          | shown_message_types           |                                     |
-|          | species_index                 |                                     |
-|          | starbase_capacity             |                                     |
-|          | starting_system               |                                     |
-|          | subject_date                  |                                     |
-|          | subject_type                  |                                     |
-|          | subjects                      |                                     |
-|          | surveyed                      |                                     |
-|          | tech_power                    |                                     |
-|          | tech_status                   |                                     |
-|          | terra_incognita               |                                     |
-|          | timed_modifier                |                                     |
-|          | traditions                    |                                     |
-|          | type                          |                                     |
-|          | usable_bypasses               |                                     |
-|          | variables                     |                                     |
-|          | visited_objects               |                                     |
-|          | victory_rank                  |                                     |
-|          | victory_score                 |                                     |
-|          | war_allies                    |                                     |
+| Status   | Property                      | Description                          |
+| -------- | ----------------------------- | ------------------------------------ |
+|          | active_policies               |                                      |
+| Complete | adjective                     |                                      |
+|          | advisor_voice_type            |                                      |
+|          | ai                            |                                      |
+| Complete | alliance                      |                                      |
+|          | ascension_perks               |                                      |
+|          | associated_alliance           |                                      |
+|          | auto_ship_designs             |                                      |
+|          | branch_office_planets         |                                      |
+|          | budget                        |                                      |
+|          | built_species                 |                                      |
+| Complete | capital                       |                                      |
+|          | city_graphical_culture        |                                      |
+|          | color_index                   |                                      |
+|          | control_groups                |                                      |
+| Complete | controlled_planets            |                                      |
+|          | custom_name                   |                                      |
+|          | customization                 |                                      |
+|          | democratic_election           |                                      |
+| Complete | economy_power                 |                                      |
+|          | edicts                        |                                      |
+| Complete | ethos                         |                                      |
+|          | emigration                    |                                      |
+|          | empire_cohesion               |                                      |
+| Complete | empire_size                   |                                      |
+|          | employable_pops               |                                      |
+|          | events                        |                                      |
+|          | faction                       | Unknown (not a list of faction ids)  |
+| Complete | flag                          |                                      |
+|          | flags                         |                                      |
+| Complete | fleet_size                    |                                      |
+|          | fleet_template_manager        |                                      |
+|          | given_value                   |                                      |
+|          | government                    | government type, authority, & civics |
+|          | government_date               |                                      |
+|          | graphical_culture             |                                      |
+|          | has_advisor                   |                                      |
+|          | highest_intel_level           |                                      |
+|          | hyperlane_systems             |                                      |
+|          | immigration                   |                                      |
+|          | initialized                   |                                      |
+|          | intel                         |                                      |
+|          | intel_level                   |                                      |
+|          | is_affected_by_war_exhaustion |                                      |
+|          | last_activated_relic          |                                      |
+|          | last_alliance_name            |                                      |
+|          | last_changed_country_type     |                                      |
+|          | last_date_at_war              |                                      |
+|          | last_date_war_lost            |                                      |
+|          | last_date_was_human           |                                      |
+|          | location                      |                                      |
+| Complete | military_power                |                                      |
+|          | modules                       |                                      |
+| Complete | name                          | Name                                 |
+|          | name_list                     |                                      |
+|          | neighbor_rivals               |                                      |
+|          | new_colonies                  |                                      |
+|          | next_election                 |                                      |
+|          | next_transport_fleet_number   |                                      |
+|          | num_upgraded_starbase         |                                      |
+| Complete | overlord                      |                                      |
+| Ignored  | owned_armies                  | (linked via Army)                    |
+| Ignored  | owned_fleets                  | (linked via Fleet)                   |
+| Ignored  | owned_leaders                 | (linked via Leader)                  |
+|          | owned_megastructures          |                                      |
+| Complete | owned_planets                 |                                      |
+|          | personality                   |                                      |
+|          | policy_flags                  |                                      |
+|          | random_name_variables         |                                      |
+|          | regnal_numbers                |                                      |
+|          | rejected_actions              |                                      |
+|          | relations_manager             |                                      |
+|          | relics                        |                                      |
+|          | restricted_systems            |                                      |
+|          | room                          |                                      |
+| Complete | ruler                         |                                      |
+|          | ruler_title                   |                                      |
+|          | ruler_title_female            |                                      |
+|          | sapient                       |                                      |
+| Ignored  | saved_leaders                 | (linked via Leader)                  |
+| Ignored  | sectors                       | (linked via Sector)                  |
+|          | seen_bypass_types             |                                      |
+|          | sensor_range_fleets           |                                      |
+|          | ship_design                   |                                      |
+|          | ship_names                    |                                      |
+|          | ship_prefix                   |                                      |
+|          | shown_message_types           |                                      |
+|          | species_index                 |                                      |
+|          | starbase_capacity             |                                      |
+|          | starting_system               |                                      |
+|          | subject_date                  |                                      |
+|          | subject_type                  |                                      |
+| Ignored  | subjects                      | (linked via Country)                 |
+|          | surveyed                      |                                      |
+|          | tech_power                    |                                      |
+|          | tech_status                   |                                      |
+|          | terra_incognita               |                                      |
+|          | timed_modifier                |                                      |
+|          | traditions                    |                                      |
+|          | type                          |                                      |
+|          | usable_bypasses               |                                      |
+|          | variables                     |                                      |
+|          | visited_objects               |                                      |
+|          | victory_rank                  |                                      |
+|          | victory_score                 |                                      |
+|          | war_allies                    |                                      |
 
 ## Country -> Flag
 

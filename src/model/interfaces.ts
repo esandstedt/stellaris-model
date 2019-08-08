@@ -62,19 +62,46 @@ export interface Coordinate {
 
 export interface Country {
   id: string;
+  adjective: string;
   alliance: Alliance | undefined;
   armies: Army[];
   controlledPlanets: Planet[];
+  economyPower: number;
+  ethos: Ethic[];
+  empireSize: number;
   factions: Faction[];
   flag: Flag;
   fleets: Fleet[];
   fleetSize: number;
+  heir: Leader | undefined;
   leaders: Leader[];
+  militaryPower: number;
   name: string;
   overlord: Country | undefined;
   ownedPlanets: Planet[];
+  ruler: Leader | undefined;
   starbases: Starbase[];
   subjects: Country[];
+}
+
+export enum Ethic {
+  GestaltConsciousness,
+  Authoritarian,
+  FanaticAuthoritarian,
+  Egalitarian,
+  FanaticEgalitarian,
+  Materialist,
+  FanaticMaterialist,
+  Militarist,
+  FanaticMilitarist,
+  Pacifist,
+  FanaticPacifist,
+  Spiritualist,
+  FanaticSpiritualist,
+  Xenophile,
+  FanaticXenophile,
+  Xenophobe,
+  FanaticXenophobe
 }
 
 export interface Faction {

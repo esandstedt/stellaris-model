@@ -2,7 +2,7 @@ import { asDictionary, asArray, asString, Pair, asPairArray } from "../compile";
 import { Collection } from "./collection";
 import { CountryImpl } from "./country";
 import { FactionImpl } from "./faction";
-import { Model } from "./interfaces";
+import { Model, LeaderType, Country } from "./interfaces";
 import { LeaderImpl } from "./leader";
 import { SystemImpl } from "./system";
 import { HyperlaneImpl } from "./system/hyperlane";
@@ -515,6 +515,33 @@ export class ModelImpl implements Model {
         alliance.members.push(country);
       }
     );
+
+    this.link(
+      this.countries,
+      this.leaders,
+      x => x.rulerId,
+      (country, ruler) => {
+        country.ruler = ruler;
+      }
+    );
+
+    this.leaders
+      .getAll()
+      .filter(
+        leader =>
+          leader.type == LeaderType.Ruler &&
+          typeof leader.country !== "undefined" &&
+          leader.country.ruler !== leader
+      )
+      .forEach(leader => {
+        const country = leader.country as Country;
+
+        if (typeof country.heir !== "undefined") {
+          throw new Error();
+        }
+
+        country.heir = leader;
+      });
   }
 
   private getCollection<T>(

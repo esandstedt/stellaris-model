@@ -1,4 +1,5 @@
 import { load, Model } from "..";
+import { LeaderType, Country, Leader } from "../model/interfaces";
 
 const filePath = "savefiles/orderoftheeternalflame-2362.07.01.sav";
 
@@ -81,5 +82,20 @@ describe("orderoftheeternalflame-2362.07.01", () => {
       expect(alliance.leader).not.toBeUndefined();
       expect(memberSet.has(alliance.leader)).toBe(true);
     });
+  });
+
+  test("all rulers are linked to their country", () => {
+    model.leaders
+      .getAll()
+      .filter(leader => leader.type === LeaderType.Ruler)
+      .forEach(leader => {
+        const country = leader.country as Country;
+        expect(country).not.toBeUndefined();
+
+        const ruler = country.ruler as Leader;
+        const heir = country.heir as Leader;
+
+        expect(leader === ruler || leader === heir).toBe(true);
+      });
   });
 });
