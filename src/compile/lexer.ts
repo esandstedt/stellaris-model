@@ -1,7 +1,8 @@
-import { Token } from "./token";
+import { Token, TokenType } from "./token";
 
 export class Lexer {
   private index: number = 0;
+  private regexText = /[a-zA-Z0-9_:.@-]+/y;
 
   constructor(private text: string) {}
 
@@ -9,77 +10,71 @@ export class Lexer {
     while (this.index < this.text.length) {
       const c = this.text.charAt(this.index);
 
-      if (this.isWhitespace(c)) {
-        this.index += 1;
-      } else if (this.isLiteral(c)) {
-        this.index += 1;
-        return new Token(c);
-      } else if (this.isText(c)) {
-        const value = this.handleText(this.index);
-        this.index += value.length;
-        return new Token("text", value);
-      } else if (this.isDoubleQuote(c)) {
-        const value = this.handleEscapedText(this.index);
-        this.index += value.length + 2;
-        return new Token("text", value);
-      } else {
-        throw new Error("could not tokenize");
+      switch (c) {
+        case "\t":
+        case "\n":
+        case " ":
+          this.index += 1;
+          continue;
+        case "{":
+          this.index += 1;
+          return {
+            type: TokenType.LeftCurly,
+            value: ""
+          };
+        case "}":
+          this.index += 1;
+          return {
+            type: TokenType.RightCurly,
+            value: ""
+          };
+        case "=":
+          this.index += 1;
+          return {
+            type: TokenType.Equals,
+            value: ""
+          };
+        case '"':
+          const value = this.handleEscapedText(this.index);
+          this.index += value.length + 2;
+          return {
+            type: TokenType.Text,
+            value
+          };
       }
+
+      this.regexText.lastIndex = this.index;
+      const match = this.regexText.exec(this.text);
+      if (match && match.index === this.index) {
+        const value = match[0];
+        this.index += value.length;
+        return {
+          type: TokenType.Text,
+          value
+        };
+      }
+
+      throw new Error("could not tokenize");
     }
 
-    return new Token("eof");
-  }
-
-  private handleText(i: number) {
-    let j = i + 1;
-    while (this.isText(this.text.charAt(j))) {
-      j += 1;
-    }
-
-    return this.text.substring(i, j);
+    return {
+      type: TokenType.EOF,
+      value: ""
+    };
   }
 
   private handleEscapedText(i: number) {
     let j = i + 1;
     while (true) {
       const c = this.text.charAt(j);
-      if (this.isEscape(c)) {
+      if (c === "\\") {
         // Skip the next character.
         j += 2;
-      } else if (this.isDoubleQuote(c)) {
+      } else if (c === '"') {
         return this.text.substring(i + 1, j);
       } else {
         j += 1;
       }
     }
-  }
-
-  private isWhitespace(c: string) {
-    return c === "\t" || c === "\n" || c === " ";
-  }
-
-  private isLiteral(c: string) {
-    return c === "{" || c === "}" || c === "=";
-  }
-
-  private isText(c: string) {
-    return (
-      (c >= "a" && c <= "z") ||
-      (c >= "A" && c <= "Z") ||
-      (c >= "0" && c <= "9") ||
-      c === "_" ||
-      c === ":" ||
-      c === "." ||
-      c === "@" ||
-      c === "-"
-    );
-  }
-
-  private isEscape(c: string) {
-    return c === "\\";
-  }
-
-  private isDoubleQuote(c: string) {
-    return c === '"';
   }
 }

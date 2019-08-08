@@ -1,5 +1,5 @@
 import { Lexer } from "./lexer";
-import { Token } from "./token";
+import { Token, TokenType } from "./token";
 import { Pair } from ".";
 
 export function asString(input: Pair[] | string): string {
@@ -75,23 +75,23 @@ export class Parser {
 
   public parse(): Pair[] {
     const pairs: Pair[] = [];
-    while (this.token.type !== "eof") {
+    while (this.token.type !== TokenType.EOF) {
       pairs.push(this.parsePair());
     }
     return pairs;
   }
 
   private parsePair(): Pair {
-    if (this.token.type === "text") {
+    if (this.token.type === TokenType.Text) {
       const keyOrValue = this.token.value;
       this.token = this.lexer.getNextToken();
-      if (this.token.type === "=") {
+      if (this.token.type === TokenType.Equals) {
         this.token = this.lexer.getNextToken();
-        if (this.token.type === "text") {
+        if (this.token.type === TokenType.Text) {
           const value = this.token.value;
           this.token = this.lexer.getNextToken();
           return new Pair(keyOrValue, value);
-        } else if (this.token.type === "{") {
+        } else if (this.token.type === TokenType.LeftCurly) {
           return new Pair(keyOrValue, this.parseObject());
         } else {
           throw new Error("could not parse");
@@ -99,7 +99,7 @@ export class Parser {
       } else {
         return new Pair(null, keyOrValue);
       }
-    } else if (this.token.type === "{") {
+    } else if (this.token.type === TokenType.LeftCurly) {
       return new Pair(null, this.parseObject());
     } else {
       throw new Error("could not parse");
@@ -109,7 +109,7 @@ export class Parser {
   private parseObject(): Pair[] {
     this.token = this.lexer.getNextToken();
     const pairs: Pair[] = [];
-    while (this.token.type !== "}") {
+    while (this.token.type !== TokenType.RightCurly) {
       pairs.push(this.parsePair());
     }
     this.token = this.lexer.getNextToken();
