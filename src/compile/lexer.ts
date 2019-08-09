@@ -47,9 +47,9 @@ export class Lexer {
               type: TokenType.Text,
               value: result.substring(1, result.length - 1)
             };
-          } else {
-            throw new Error("could not tokenize");
           }
+
+          throw new Error("could not tokenize");
       }
 
       this.regexText.lastIndex = this.index;
