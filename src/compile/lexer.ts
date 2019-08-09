@@ -3,6 +3,7 @@ import { Token, TokenType } from "./token";
 export class Lexer {
   private index: number = 0;
   private regexText = /[a-zA-Z0-9_:.@-]+/y;
+  private regexEscaped = /\"(\\\"|[^\"])*\"/y;
 
   constructor(private text: string) {}
 
@@ -35,12 +36,20 @@ export class Lexer {
             value: ""
           };
         case '"':
-          const value = this.handleEscapedText(this.index);
-          this.index += value.length + 2;
-          return {
-            type: TokenType.Text,
-            value
-          };
+          this.regexEscaped.lastIndex = this.index;
+          const match = this.regexEscaped.exec(this.text);
+          if (match && match.index === this.index) {
+            const result = match[0];
+
+            this.index += result.length;
+
+            return {
+              type: TokenType.Text,
+              value: result.substring(1, result.length - 1)
+            };
+          } else {
+            throw new Error("could not tokenize");
+          }
       }
 
       this.regexText.lastIndex = this.index;
