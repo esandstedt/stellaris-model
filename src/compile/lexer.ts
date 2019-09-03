@@ -37,9 +37,9 @@ export class Lexer {
           };
         case '"':
           this.regexEscaped.lastIndex = this.index;
-          const match = this.regexEscaped.exec(this.text);
-          if (match && match.index === this.index) {
-            const result = match[0];
+          const matchEscaped = this.regexEscaped.exec(this.text);
+          if (matchEscaped && matchEscaped.index === this.index) {
+            const result = matchEscaped[0];
 
             this.index += result.length;
 
@@ -53,9 +53,9 @@ export class Lexer {
       }
 
       this.regexText.lastIndex = this.index;
-      const match = this.regexText.exec(this.text);
-      if (match && match.index === this.index) {
-        const value = match[0];
+      const matchText = this.regexText.exec(this.text);
+      if (matchText && matchText.index === this.index) {
+        const value = matchText[0];
         this.index += value.length;
         return {
           type: TokenType.Text,

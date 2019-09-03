@@ -1,4 +1,5 @@
-import { load, Model, Player, Country, Fleet } from "..";
+import { Model, Player, Country, Fleet } from "..";
+import { loadPath } from ".";
 import { FactionImpl } from "../model/faction";
 import { LeaderImpl } from "../model/leader";
 import { PopImpl } from "../model/pop";
@@ -12,7 +13,7 @@ describe("unitednationsofearth-2247.07.11", () => {
   let model: Model;
   beforeAll(async () => {
     console.time("model");
-    model = await load(filePath);
+    model = await loadPath(filePath);
     console.timeEnd("model");
   });
 

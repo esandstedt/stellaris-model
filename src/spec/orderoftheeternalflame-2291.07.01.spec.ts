@@ -1,4 +1,5 @@
-import { load, Model, Leader } from "..";
+import { Model, Leader } from "..";
+import { loadPath } from ".";
 
 const filePath = "savefiles/orderoftheeternalflame-2291.07.01.sav";
 
@@ -6,7 +7,7 @@ describe("orderoftheeternalflame-2291.07.01", () => {
   let model: Model;
   beforeAll(async () => {
     console.time("model");
-    model = await load(filePath);
+    model = await loadPath(filePath);
     console.timeEnd("model");
   });
 

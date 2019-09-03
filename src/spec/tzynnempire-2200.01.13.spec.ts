@@ -1,4 +1,5 @@
-import { Model, load } from "..";
+import { Model } from "..";
+import { loadPath } from ".";
 import { Player, Country, Leader } from "../model/interfaces";
 
 const filePath = "savefiles/tzynnempire-2200.01.13.sav";
@@ -7,7 +8,7 @@ describe("tzynnempire-2200.01.13", () => {
   let model: Model;
   beforeAll(async () => {
     console.time("model");
-    model = await load(filePath);
+    model = await loadPath(filePath);
     console.timeEnd("model");
   });
 
