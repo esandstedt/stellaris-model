@@ -2,9 +2,9 @@ import { Collection } from "./collection";
 
 /**
  * Loads the savefile and extracts its information into a [[Model]].
- * @param path the savefile path
+ * @param data the savefile data
  */
-export function load(path: string): Promise<Model> {
+export function load(data: string | Buffer): Promise<Model> {
   throw new Error();
 }
 
