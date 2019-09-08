@@ -39,7 +39,7 @@
 |          | last_notification_id        |                                      |
 |          | last_refugee_country        |                                      |
 | Complete | leaders                     |                                      |
-|          | market                      |                                      |
+|          | market                      | Just don't.                          |
 |          | megastructures              |                                      |
 |          | message                     |                                      |
 |          | missile                     |                                      |
