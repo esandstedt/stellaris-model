@@ -45,7 +45,7 @@ export interface Army {
   home: Planet | undefined;
   leader: Leader | undefined;
   maxHealth: number;
-  morale: number;
+  morale: number | undefined;
   owner: Country;
   name: string;
   planet: Planet | undefined;

@@ -17,7 +17,7 @@ export class ArmyImpl implements Army {
   public leaderId: string | undefined;
   public leader: Leader | undefined;
   public maxHealth: number;
-  public morale: number;
+  public morale: number | undefined;
   public ownerId: string;
   public name: string;
   public planetId: string | undefined;
@@ -62,7 +62,11 @@ export class ArmyImpl implements Army {
     }
 
     this.maxHealth = parseFloat(asString(data["max_health"]));
-    this.morale = parseFloat(asString(data["morale"]));
+
+    if (typeof data["morale"] !== "undefined") {
+      this.morale = parseFloat(asString(data["morale"]));
+    }
+
     this.name = asString(data["name"]);
     this.ownerId = asString(data["owner"]);
 
