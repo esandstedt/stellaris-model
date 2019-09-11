@@ -18,7 +18,6 @@ export class SystemImpl implements System {
     const data = asDictionary(pairs);
 
     this.coordinate = new CoordinateImpl(asPairArray(data["coordinate"]));
-    this.type = asString(data["type"]);
     this.name = asString(data["name"]);
 
     if (typeof data["sector"] !== "undefined") {
@@ -31,5 +30,6 @@ export class SystemImpl implements System {
     }
 
     this.starClass = asString(data["star_class"]);
+    this.type = asString(data["type"]);
   }
 }

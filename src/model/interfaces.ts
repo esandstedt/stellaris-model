@@ -67,11 +67,12 @@ export interface Country {
   alliance: Alliance | undefined;
   armies: Army[];
   associatedAlliance: Alliance | undefined;
+  capital: Planet | undefined;
   controlledPlanets: Planet[];
   economyPower: number;
-  ethos: Ethic[];
   emigration: number;
   empireSize: number;
+  ethos: Ethic[];
   factions: Faction[];
   flag: Flag;
   fleets: Fleet[];

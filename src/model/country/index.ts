@@ -64,13 +64,13 @@ export class CountryImpl implements Country {
 
     this.economyPower = parseFloat(asString(data["economy_power"]));
 
-    if (data["overlord"]) {
-      this.overlordId = asString(data["overlord"]);
-    }
+    this.emigration = parseFloat(asString(data["emigration"]));
 
-    this.flag = new FlagImpl(asPairArray(data["flag"]));
-    this.fleetSize = parseInt(asString(data["fleet_size"]), 10);
-    this.name = asString(data["name"]);
+    if (typeof data["empire_size"] !== "undefined") {
+      this.empireSize = parseInt(asString(data["empire_size"]), 10);
+    } else {
+      this.empireSize = 0;
+    }
 
     if (typeof data["ethos"] !== "undefined") {
       this.ethos = asPairArray(data["ethos"])
@@ -86,11 +86,9 @@ export class CountryImpl implements Country {
       this.ethos = [];
     }
 
-    if (typeof data["empire_size"] !== "undefined") {
-      this.empireSize = parseInt(asString(data["empire_size"]), 10);
-    } else {
-      this.empireSize = 0;
-    }
+    this.flag = new FlagImpl(asPairArray(data["flag"]));
+    this.fleetSize = parseInt(asString(data["fleet_size"]), 10);
+    this.immigration = parseFloat(asString(data["immigration"]));
 
     if (typeof data["military_power"] !== "undefined") {
       this.militaryPower = parseFloat(asString(data["military_power"]));
@@ -98,12 +96,15 @@ export class CountryImpl implements Country {
       this.militaryPower = 0;
     }
 
+    this.name = asString(data["name"]);
+
+    if (data["overlord"]) {
+      this.overlordId = asString(data["overlord"]);
+    }
+
     if (typeof data["ruler"] !== "undefined") {
       this.rulerId = asString(data["ruler"]);
     }
-
-    this.emigration = parseFloat(asString(data["emigration"]));
-    this.immigration = parseFloat(asString(data["immigration"]));
   }
 }
 
