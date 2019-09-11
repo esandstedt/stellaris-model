@@ -70,12 +70,14 @@ export interface Country {
   controlledPlanets: Planet[];
   economyPower: number;
   ethos: Ethic[];
+  emigration: number;
   empireSize: number;
   factions: Faction[];
   flag: Flag;
   fleets: Fleet[];
   fleetSize: number;
   heir: Leader | undefined;
+  immigration: number;
   leaders: Leader[];
   militaryPower: number;
   name: string;

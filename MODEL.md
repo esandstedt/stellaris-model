@@ -134,7 +134,7 @@
 | Complete | economy_power                 |                                      |
 |          | edicts                        |                                      |
 | Complete | ethos                         |                                      |
-|          | emigration                    |                                      |
+| Complete | emigration                    |                                      |
 |          | empire_cohesion               |                                      |
 | Complete | empire_size                   |                                      |
 |          | employable_pops               |                                      |
@@ -151,7 +151,7 @@
 |          | has_advisor                   |                                      |
 |          | highest_intel_level           |                                      |
 |          | hyperlane_systems             |                                      |
-|          | immigration                   |                                      |
+| Complete | immigration                   |                                      |
 |          | initialized                   |                                      |
 |          | intel                         |                                      |
 |          | intel_level                   |                                      |

@@ -24,6 +24,7 @@ export class CountryImpl implements Country {
   public capital: Planet | undefined;
   public controlledPlanets: Planet[] = [];
   public economyPower: number;
+  public emigration: number;
   public empireSize: number;
   public ethos: Ethic[];
   public factions: Faction[] = [];
@@ -31,6 +32,7 @@ export class CountryImpl implements Country {
   public fleets: Fleet[] = [];
   public fleetSize: number;
   public heir: Leader | undefined;
+  public immigration: number;
   public leaders: Leader[] = [];
   public militaryPower: number;
   public name: string;
@@ -99,6 +101,9 @@ export class CountryImpl implements Country {
     if (typeof data["ruler"] !== "undefined") {
       this.rulerId = asString(data["ruler"]);
     }
+
+    this.emigration = parseFloat(asString(data["emigration"]));
+    this.immigration = parseFloat(asString(data["immigration"]));
   }
 }
 
