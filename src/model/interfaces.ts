@@ -204,6 +204,7 @@ export interface Player {
 export interface Pop {
   id: string;
   amenitiesUsage: number;
+  canMigrate: boolean;
   category: string;
   crime: number | undefined;
   ethos: string | undefined;
@@ -213,6 +214,7 @@ export interface Pop {
   job: string | undefined;
   planet: Planet;
   power: number | undefined;
+  promotionDate: string | undefined;
   species: Species;
 }
 

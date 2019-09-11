@@ -3,6 +3,7 @@ import { Faction, Planet, Pop, Species } from "./interfaces";
 
 export class PopImpl implements Pop {
   public amenitiesUsage: number;
+  public canMigrate: boolean;
   public category: string;
   public crime: number | undefined;
   public ethos: string | undefined;
@@ -13,6 +14,7 @@ export class PopImpl implements Pop {
   public job: string | undefined;
   public planetId: string;
   public power: number | undefined;
+  public promotionDate: string | undefined;
   public speciesIndex: number;
 
   get planet(): Planet {
@@ -42,6 +44,7 @@ export class PopImpl implements Pop {
     const data = asDictionary(pairs);
 
     this.amenitiesUsage = parseFloat(asString(data["amenities_usage"]));
+    this.canMigrate = data["can_migrate"] !== "no";
     this.category = asString(data["category"]);
 
     if (typeof data["crime"] !== "undefined") {
@@ -76,6 +79,10 @@ export class PopImpl implements Pop {
 
     if (typeof data["power"] !== "undefined") {
       this.power = parseFloat(asString(data["power"]));
+    }
+
+    if (typeof data["promotion_date"] !== "undefined") {
+      this.promotionDate = asString(data["promotion_date"]);
     }
 
     this.speciesIndex = parseInt(asString(data["species_index"]), 10);

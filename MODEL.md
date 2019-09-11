@@ -403,7 +403,7 @@
 | Status   | Property                 | Description                                     |
 | -------- | ------------------------ | ----------------------------------------------- |
 | Complete | amenities_usage          | Amenities usage                                 |
-|          | can_migrate              |                                                 |
+| Complete | can_migrate              |                                                 |
 | Complete | category                 | Employment category (worker, specialist, ruler) |
 | Complete | crime                    | Crime level                                     |
 | Complete | ethos                    | Ethic                                           |
@@ -415,7 +415,7 @@
 | Complete | planet                   | Planet id                                       |
 | Complete | pop_faction              | Faction id                                      |
 | Complete | power                    | Political power                                 |
-|          | promotion_date           |                                                 |
+| Complete | promotion_date           |                                                 |
 | Complete | species_index            | Species                                         |
 
 ## Sector
