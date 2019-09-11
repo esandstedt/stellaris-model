@@ -1,10 +1,11 @@
 import { CoordinateImpl } from "./coordinate";
 import { Pair, asDictionary, asString, asPairArray } from "../compile";
-import { Country, Pop, System, Planet } from "./interfaces";
+import { Country, Pop, System, Planet, Army } from "./interfaces";
 
 export class PlanetImpl implements Planet {
   public amenities: number;
   public amenitiesUsage: number;
+  public armies: Army[] = [];
   public colonizeDate: string | undefined;
   public controllerId: string | undefined;
   public controller: Country | undefined;

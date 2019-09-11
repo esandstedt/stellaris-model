@@ -313,7 +313,7 @@
 | Complete | amenities                 | The amount of amenities produced        |
 | Complete | amenities_usage           | The amount of amenities used            |
 |          | anomaly                   | Unknown (string)                        |
-|          | army                      | List of army ids                        |
+| Complete | army                      | (linked via Army)                       |
 |          | army_build_queue_item     | Unknown (complex)                       |
 |          | assembling_species        | Unknown (number)                        |
 |          | auto_slots_taken          | Unknown (list of yes/no)                |

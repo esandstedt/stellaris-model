@@ -418,6 +418,7 @@ export class ModelImpl implements Model {
       x => x.planetId,
       (army, planet) => {
         army.planet = planet;
+        planet.armies.push(army);
       }
     );
 

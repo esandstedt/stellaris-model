@@ -178,6 +178,7 @@ export interface Planet {
   id: string;
   amenities: number;
   amenitiesUsage: number;
+  armies: Army[];
   colonizeDate: string | undefined;
   controller: Country | undefined;
   coordinates: Coordinate;
