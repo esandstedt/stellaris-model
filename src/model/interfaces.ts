@@ -179,17 +179,21 @@ export interface Planet {
   amenities: number;
   amenitiesUsage: number;
   armies: Army[];
+  buildings: string[];
   colonizeDate: string | undefined;
   controller: Country | undefined;
   coordinates: Coordinate;
   crime: number;
-  owner: Country | undefined;
+  districts: string[];
+  migration: number;
   name: string;
+  owner: Country | undefined;
   planetClass: string;
+  pops: Pop[];
   size: number;
   stability: number;
   system: System;
-  pops: Pop[];
+  totalHousing: number;
 }
 
 export interface Player {

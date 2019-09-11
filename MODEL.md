@@ -322,7 +322,7 @@
 |          | branch_office_building    |                                         |
 |          | branch_office_owner       |                                         |
 |          | build_queue_item          |                                         |
-|          | building                  |                                         |
+| Complete | building                  | List of buildings                       |
 |          | built_armies              |                                         |
 | Complete | colonize_date             | Date planet was colonized               |
 | Complete | controller                | Controlling country id                  |
@@ -336,7 +336,7 @@
 |          | deposits                  |                                         |
 |          | disabled                  |                                         |
 |          | disabled_branch_office    |                                         |
-|          | district                  |                                         |
+| Complete | district                  | List of districts                       |
 |          | employable_pops           |                                         |
 |          | entity                    |                                         |
 |          | entity_name               |                                         |
@@ -361,7 +361,7 @@
 |          | last_bombardment          |                                         |
 |          | last_building_changed     |                                         |
 |          | last_district_changed     |                                         |
-|          | migration                 |                                         |
+| Complete | migration                 | Immigration/Emigration                  |
 |          | moon_of                   |                                         |
 |          | moons                     |                                         |
 | Complete | name                      |                                         |
@@ -377,7 +377,7 @@
 |          | planet_class_changed      |                                         |
 |          | planet_modifier           |                                         |
 | Complete | planet_size               | Planet size                             |
-|          | pop                       | List of pop ids                         |
+| Complete | pop                       | (linked via Pop)                        |
 |          | pop_assembly              |                                         |
 |          | prevent_anomaly           |                                         |
 |          | ruined                    |                                         |
@@ -388,7 +388,7 @@
 |          | surveyed_by               |                                         |
 |          | terraformed_by            |                                         |
 |          | timed_modifier            |                                         |
-|          | total_housing             |                                         |
+| Complete | total_housing             |                                         |
 |          | variables                 |                                         |
 
 ## Player
