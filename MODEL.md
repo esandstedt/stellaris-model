@@ -83,7 +83,7 @@
 
 | Status   | Property    | Description          |
 | -------- | ----------- | -------------------- |
-|          | associates  |                      |
+| Complete | associates  | (linked via Country) |
 | Complete | leader      |                      |
 | Ignored  | members     | (linked via Country) |
 | Complete | name        |                      |
@@ -118,7 +118,7 @@
 |          | ai                            |                                      |
 | Complete | alliance                      |                                      |
 |          | ascension_perks               |                                      |
-|          | associated_alliance           |                                      |
+| Complete | associated_alliance           |                                      |
 |          | auto_ship_designs             |                                      |
 |          | branch_office_planets         |                                      |
 |          | budget                        |                                      |

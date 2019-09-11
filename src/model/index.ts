@@ -525,6 +525,16 @@ export class ModelImpl implements Model {
       }
     );
 
+    this.link(
+      this.countries,
+      this.alliances,
+      x => x.associatedAllianceId,
+      (country, alliance) => {
+        country.associatedAlliance = alliance;
+        alliance.associates.push(country);
+      }
+    );
+
     this.leaders
       .getAll()
       .filter(

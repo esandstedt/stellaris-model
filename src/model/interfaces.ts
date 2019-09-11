@@ -33,6 +33,7 @@ export interface Model {
 
 export interface Alliance {
   id: string;
+  associates: Country[];
   leader: Country;
   members: Country[];
   name: string;
@@ -65,6 +66,7 @@ export interface Country {
   adjective: string;
   alliance: Alliance | undefined;
   armies: Army[];
+  associatedAlliance: Alliance | undefined;
   controlledPlanets: Planet[];
   economyPower: number;
   ethos: Ethic[];

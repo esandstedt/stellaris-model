@@ -18,6 +18,8 @@ export class CountryImpl implements Country {
   public allianceId: string | undefined;
   public alliance: Alliance | undefined;
   public armies: Army[] = [];
+  public associatedAllianceId: string | undefined;
+  public associatedAlliance: Alliance | undefined;
   public capitalId: string | undefined;
   public capital: Planet | undefined;
   public controlledPlanets: Planet[] = [];
@@ -48,6 +50,10 @@ export class CountryImpl implements Country {
 
     if (typeof data["alliance"] !== "undefined") {
       this.allianceId = asString(data["alliance"]);
+    }
+
+    if (typeof data["associated_alliance"] !== "undefined") {
+      this.associatedAllianceId = asString(data["associated_alliance"]);
     }
 
     if (typeof data["capital"] !== "undefined") {

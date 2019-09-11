@@ -1,4 +1,4 @@
-import { Model, Leader } from "..";
+import { Model, Leader, Alliance, Country } from "..";
 import { loadPath } from ".";
 
 const filePath = "savefiles/orderoftheeternalflame-2291.07.01.sav";
@@ -54,5 +54,19 @@ describe("orderoftheeternalflame-2291.07.01", () => {
         expect(leaderIdSet.has(id)).toBe(false);
         leaderIdSet.add(id);
       });
+  });
+
+  test("associated alliances are loaded", () => {
+    const alliance = model.alliances.get("0") as Alliance;
+    const countries = [
+      model.countries.get("17") as Country,
+      model.countries.get("22") as Country
+    ];
+
+    expect(alliance.associates.length).toEqual(2);
+    countries.forEach(country => {
+      expect(country.associatedAlliance).toBe(alliance);
+      expect(alliance.associates.some(x => x === country)).toEqual(true);
+    });
   });
 });

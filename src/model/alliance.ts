@@ -2,6 +2,7 @@ import { Pair, asDictionary, asString } from "../compile";
 import { Country, Alliance } from "./interfaces";
 
 export class AllianceImpl implements Alliance {
+  public associates: Country[] = [];
   public date: string;
   public leaderId: string;
   public members: Country[] = [];
