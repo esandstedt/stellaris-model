@@ -37,7 +37,13 @@ export class FactionImpl implements Faction {
     }
 
     this.name = asString(data["name"]);
-    this.support = parseFloat(asString(data["support"]));
+
+    if (typeof data["support"] !== "undefined") {
+      this.support = parseFloat(asString(data["support"]));
+    } else {
+      this.support = 0;
+    }
+
     this.type = asString(data["type"]);
   }
 }
