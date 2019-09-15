@@ -77,7 +77,7 @@
 |          | used_symbols                |                                      |
 | Complete | version                     |                                      |
 |          | version_control_revision    | Version in number form               |
-|          | war                         |                                      |
+| Complete | war                         |                                      |
 
 ## Alliance
 
@@ -557,3 +557,43 @@
 |          | trade_hub              | Amount and source of trade value collected in the system |
 |          | trade_piracy           | Unknown (complex)                                        |
 | Complete | type                   | The systems's type                                       |
+
+## War
+
+| Status   | Property                | Description      |
+| -------- | ----------------------- | ---------------- |
+| Complete | attackers               | WarParticipant[] |
+| Complete | attacker_war_exhaustion |                  |
+| Complete | attacker_war_goal       |                  |
+| Complete | battles                 | WarBattle[]      |
+| Complete | defenders               | WarParticipant[] |
+| Complete | defender_war_exhaustion |                  |
+| Complete | defender_war_goal       |                  |
+| Ignored  | have_defender_war_goal  |                  |
+| Complete | name                    |                  |
+| Complete | start_date              |                  |
+
+## WarBattle
+
+| Status   | Property                | Description |
+| -------- | ----------------------- | ----------- |
+| Complete | attacker_losses         |             |
+| Complete | attacker_victory        |             |
+| Complete | attacker_war_exhaustion |             |
+| Complete | attackers               |             |
+| Complete | date                    |             |
+| Complete | defender_losses         |             |
+| Complete | defender_war_exhaustion |             |
+| Complete | defenders               |             |
+| Complete | planet                  |             |
+| Complete | system                  |             |
+| Complete | type                    |             |
+
+## WarParticipant
+
+| Status   | Property        | Description |
+| -------- | --------------- | ----------- |
+| Complete | caller          |             |
+| Complete | call_type       |             |
+| Complete | country         |             |
+|          | fleets_gone_mia |             |

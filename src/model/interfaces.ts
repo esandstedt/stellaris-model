@@ -28,6 +28,7 @@ export interface Model {
   starbases: Collection<Starbase>;
   systems: Collection<System>;
   version: string;
+  wars: Collection<War>;
   wormholes: Collection<Wormhole>;
 }
 
@@ -282,6 +283,39 @@ export interface System {
   starbase: Starbase | undefined;
   starClass: string;
   type: string;
+}
+
+export interface War {
+  id: string;
+  attackers: WarParticipant[];
+  attackerWarExhaustion: number;
+  attackerWarGoals: string[];
+  battles: WarBattle[];
+  defenders: WarParticipant[];
+  defenderWarExhaustion: number;
+  defenderWarGoals: string[];
+  name: string;
+  startDate: string;
+}
+
+export interface WarBattle {
+  attackers: Country[];
+  attackerLosses: number;
+  attackerWarExhaustion: number;
+  date: string;
+  defenders: Country[];
+  defenderLosses: number;
+  defenderWarExhaustion: number;
+  planet: Planet | undefined;
+  system: System | undefined;
+  type: "armies" | "ships";
+  victor: "attacker" | "defender";
+}
+
+export interface WarParticipant {
+  callType: string;
+  country: Country;
+  caller: Country | undefined;
 }
 
 export interface Wormhole {

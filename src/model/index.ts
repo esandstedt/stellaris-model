@@ -2,7 +2,7 @@ import { asDictionary, asArray, asString, Pair, asPairArray } from "../compile";
 import { Collection } from "./collection";
 import { CountryImpl } from "./country";
 import { FactionImpl } from "./faction";
-import { Model, LeaderType, Country } from "./interfaces";
+import { Model, LeaderType } from "./interfaces";
 import { LeaderImpl } from "./leader";
 import { SystemImpl } from "./system";
 import { HyperlaneImpl } from "./system/hyperlane";
@@ -18,6 +18,8 @@ import { ArmyImpl } from "./army";
 import { ShipDesignImpl } from "./ship-design";
 import { SectorImpl } from "./sector";
 import { AllianceImpl } from "./alliance";
+import { WarImpl } from "./war";
+import { WarParticipantImpl } from "./war/participant";
 
 export class ModelImpl implements Model {
   public alliances: Collection<AllianceImpl>;
@@ -39,6 +41,7 @@ export class ModelImpl implements Model {
   public starbases: Collection<StarbaseImpl>;
   public systems: Collection<SystemImpl>;
   public version: string;
+  public wars: Collection<WarImpl>;
   public wormholes: Collection<WormholeImpl>;
 
   constructor(pairs: Pair[]) {
@@ -143,6 +146,12 @@ export class ModelImpl implements Model {
       systemPairs,
       (id, p) => new SystemImpl(id, p),
       system => system.id
+    );
+
+    this.wars = this.getCollection(
+      data["war"],
+      (id, p) => new WarImpl(id, p),
+      war => war.id
     );
 
     const bypasses = asDictionary(data["bypasses"]);
@@ -545,7 +554,7 @@ export class ModelImpl implements Model {
           leader.country.ruler !== leader
       )
       .forEach(leader => {
-        const country = leader.country as Country;
+        const country = leader.country as CountryImpl;
 
         if (typeof country.heir !== "undefined") {
           throw new Error();
@@ -553,6 +562,62 @@ export class ModelImpl implements Model {
 
         country.heir = leader;
       });
+
+    const wars = this.wars.getAll();
+    const warParticipants: WarParticipantImpl[] = [
+      wars.map(war => war.attackers).reduce((a, b) => a.concat(b), []),
+      wars.map(war => war.defenders).reduce((a, b) => a.concat(b), [])
+    ].reduce((a, b) => a.concat(b), []);
+
+    this.link(
+      warParticipants,
+      this.countries,
+      x => x.countryId,
+      (participant, country) => {
+        participant.country = country;
+      }
+    );
+
+    this.link(
+      warParticipants,
+      this.countries,
+      x => x.callerId,
+      (participant, caller) => {
+        participant.caller = caller;
+      }
+    );
+
+    const warBattles = wars
+      .map(war => war.battles)
+      .reduce((a, b) => a.concat(b), []);
+
+    warBattles.forEach(battle => {
+      battle.defenders = battle.defenderIds
+        .map(id => this.countries.get(id))
+        .filter(x => typeof x !== "undefined") as CountryImpl[];
+      battle.attackers = battle.attackerIds
+        .map(id => this.countries.get(id))
+        .filter(x => typeof x !== "undefined") as CountryImpl[];
+    });
+
+    this.link(
+      warBattles,
+      this.systems,
+      x => x.systemId,
+      (battle, system) => {
+        battle.system = system;
+      }
+    );
+
+    this.link(
+      warBattles,
+      this.planets,
+      x => x.planetId,
+      (battle, planet) => {
+        battle.planet = planet;
+        battle.system = planet.system;
+      }
+    );
   }
 
   private getCollection<T>(
