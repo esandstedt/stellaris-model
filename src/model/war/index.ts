@@ -24,7 +24,7 @@ export class WarImpl implements War {
     const data = asDictionary(pairs);
 
     this.attackers = asArray(data["attackers"]).map(
-      x => new WarParticipantImpl(asPairArray(x))
+      x => new WarParticipantImpl(this, asPairArray(x))
     );
 
     this.attackerWarExhaustion = parseFloat(
@@ -44,7 +44,7 @@ export class WarImpl implements War {
     }
 
     this.defenders = asArray(data["defenders"]).map(
-      x => new WarParticipantImpl(asPairArray(x))
+      x => new WarParticipantImpl(this, asPairArray(x))
     );
 
     this.defenderWarExhaustion = parseFloat(

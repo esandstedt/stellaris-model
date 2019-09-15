@@ -88,6 +88,7 @@ export interface Country {
   ruler: Leader | undefined;
   starbases: Starbase[];
   subjects: Country[];
+  wars: War[];
 }
 
 export enum Ethic {

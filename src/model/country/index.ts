@@ -10,7 +10,8 @@ import {
   Army,
   Sector,
   Alliance,
-  Ethic
+  Ethic,
+  War
 } from "../interfaces";
 
 export class CountryImpl implements Country {
@@ -44,6 +45,7 @@ export class CountryImpl implements Country {
   public sectors: Sector[] = [];
   public starbases: Starbase[] = [];
   public subjects: Country[] = [];
+  public wars: War[] = [];
 
   constructor(public id: string, pairs: Pair[]) {
     const data = asDictionary(pairs);

@@ -575,6 +575,7 @@ export class ModelImpl implements Model {
       x => x.countryId,
       (participant, country) => {
         participant.country = country;
+        country.wars.push(participant.war);
       }
     );
 

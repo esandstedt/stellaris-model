@@ -123,6 +123,7 @@ describe("orderoftheeternalflame-2362.07.01", () => {
       expect(participant.callType).toEqual("primary");
       expect(participant.country).not.toBeUndefined();
       expect(participant.country.id).toEqual("9");
+      expect(participant.country.wars.some(x => x === war)).toBe(true);
       expect(participant.caller).toBeUndefined();
     })();
 
@@ -134,6 +135,7 @@ describe("orderoftheeternalflame-2362.07.01", () => {
       expect(participant.callType).toEqual("primary");
       expect(participant.country).not.toBeUndefined();
       expect(participant.country.id).toEqual("12");
+      expect(participant.country.wars.some(x => x === war)).toBe(true);
       expect(participant.caller).toBeUndefined();
     })();
 
@@ -142,6 +144,7 @@ describe("orderoftheeternalflame-2362.07.01", () => {
       expect(participant.callType).toEqual("defensive");
       expect(participant.country).not.toBeUndefined();
       expect(participant.country.id).toEqual("6");
+      expect(participant.country.wars.some(x => x === war)).toBe(true);
 
       if (typeof participant.caller === "undefined") {
         expect(participant.caller).not.toBeUndefined();
@@ -156,6 +159,7 @@ describe("orderoftheeternalflame-2362.07.01", () => {
       expect(participant.callType).toEqual("defensive");
       expect(participant.country).not.toBeUndefined();
       expect(participant.country.id).toEqual("10");
+      expect(participant.country.wars.some(x => x === war)).toBe(true);
 
       if (typeof participant.caller === "undefined") {
         expect(participant.caller).not.toBeUndefined();

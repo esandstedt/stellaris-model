@@ -1,5 +1,6 @@
 import { Country, WarParticipant } from "../..";
 import { Pair, asDictionary, asString } from "../../compile";
+import { WarImpl } from ".";
 
 export class WarParticipantImpl implements WarParticipant {
   public callType: string;
@@ -19,7 +20,7 @@ export class WarParticipantImpl implements WarParticipant {
 
   private countryInstance: Country | undefined;
 
-  constructor(pairs: Pair[]) {
+  constructor(public war: WarImpl, pairs: Pair[]) {
     const data = asDictionary(pairs);
 
     this.callType = asString(data["call_type"]);
