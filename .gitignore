@@ -1,5 +1,6 @@
 node_modules/
 dist/
+coverage/
 
 # my own test file
 src/run.ts

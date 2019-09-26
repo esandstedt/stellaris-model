@@ -1,5 +1,6 @@
 import { Model } from "..";
 import { loadPath } from ".";
+import invariants from "./invariants";
 
 const filePath = "savefiles/orderoftheeternalflame-2200.04.01.sav";
 
@@ -11,7 +12,9 @@ describe("orderoftheeternalflame-2200.04.01", () => {
     console.timeEnd("model");
   });
 
-  test("no factions at the start", () => {
+  invariants(() => model);
+
+  test("no factions", () => {
     expect(model.factions.getAll().length).toEqual(0);
   });
 });

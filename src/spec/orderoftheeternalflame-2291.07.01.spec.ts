@@ -1,5 +1,6 @@
 import { Model, Leader, Alliance, Country } from "..";
 import { loadPath } from ".";
+import invariants from "./invariants";
 
 const filePath = "savefiles/orderoftheeternalflame-2291.07.01.sav";
 
@@ -11,49 +12,12 @@ describe("orderoftheeternalflame-2291.07.01", () => {
     console.timeEnd("model");
   });
 
-  test("all pops have a species", () => {
-    model.pops.getAll().forEach(pop => expect(pop.species).not.toBeUndefined());
-  });
-
-  test("all pops have a planet", () => {
-    model.pops.getAll().forEach(pop => expect(pop.planet).not.toBeUndefined());
-  });
-
-  test("all planets have a system", () => {
-    model.planets
-      .getAll()
-      .forEach(planet => expect(planet.system).not.toBeUndefined());
-  });
-
-  test("all leaders have a species", () => {
-    model.leaders
-      .getAll()
-      .forEach(leader => expect(leader.species).not.toBeUndefined());
-  });
-
-  test("all factions have a country", () => {
-    model.factions
-      .getAll()
-      .forEach(faction => expect(faction.country).not.toBeUndefined());
-  });
+  invariants(() => model);
 
   test("all factions have a leader", () => {
     model.factions
       .getAll()
       .forEach(faction => expect(faction.leader).not.toBeUndefined());
-  });
-
-  test("leaders are only linked to one ship", () => {
-    const leaderIdSet = new Set<string>();
-
-    model.ships
-      .getAll()
-      .filter(x => typeof x.leader !== "undefined")
-      .forEach(ship => {
-        const { id } = ship.leader as Leader;
-        expect(leaderIdSet.has(id)).toBe(false);
-        leaderIdSet.add(id);
-      });
   });
 
   test("associated alliances are loaded", () => {

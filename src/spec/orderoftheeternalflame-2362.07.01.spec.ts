@@ -1,6 +1,6 @@
 import { Model } from "..";
 import { loadPath } from ".";
-import { LeaderType, Country, Leader } from "../model/interfaces";
+import invariants from "./invariants";
 
 const filePath = "savefiles/orderoftheeternalflame-2362.07.01.sav";
 
@@ -11,6 +11,8 @@ describe("orderoftheeternalflame-2362.07.01", () => {
     model = await loadPath(filePath);
     console.timeEnd("model");
   });
+
+  invariants(() => model);
 
   test("some factions do not have a leader", () => {
     expect(
@@ -50,54 +52,6 @@ describe("orderoftheeternalflame-2362.07.01", () => {
       expect(country.overlord).toBe(overlord);
       expect(overlord.subjects.some(x => x === country)).toBe(true);
     });
-  });
-
-  test("all armies have an owner", () => {
-    model.armies
-      .getAll()
-      .forEach(army => expect(army.owner).not.toBeUndefined());
-  });
-
-  test("all ships have a design", () => {
-    model.ships
-      .getAll()
-      .forEach(ship => expect(ship.design).not.toBeUndefined());
-  });
-
-  test("all sectors have a capital", () => {
-    model.sectors
-      .getAll()
-      .forEach(sector => expect(sector.capital).not.toBeUndefined());
-  });
-
-  test("all alliances have members and a leader", () => {
-    model.alliances.getAll().forEach(alliance => {
-      expect(2 <= alliance.members.length).toBe(true);
-
-      alliance.members.forEach(country => {
-        expect(country.alliance).toBe(alliance);
-      });
-
-      const memberSet = new Set(alliance.members);
-
-      expect(alliance.leader).not.toBeUndefined();
-      expect(memberSet.has(alliance.leader)).toBe(true);
-    });
-  });
-
-  test("all rulers are linked to their country", () => {
-    model.leaders
-      .getAll()
-      .filter(leader => leader.type === LeaderType.Ruler)
-      .forEach(leader => {
-        const country = leader.country as Country;
-        expect(country).not.toBeUndefined();
-
-        const ruler = country.ruler as Leader;
-        const heir = country.heir as Leader;
-
-        expect(leader === ruler || leader === heir).toBe(true);
-      });
   });
 
   test("loads specific war correctly", () => {

@@ -1,11 +1,11 @@
 import { Model, Player, Country, Fleet } from "..";
 import { loadPath } from ".";
 import { FactionImpl } from "../model/faction";
-import { LeaderImpl } from "../model/leader";
 import { PopImpl } from "../model/pop";
 import { SpeciesImpl } from "../model/species";
 import { Leader } from "../model/interfaces";
 import { Collection } from "../model/collection";
+import invariants from "./invariants";
 
 const filePath = "savefiles/unitednationsofearth-2247.07.11.sav";
 
@@ -17,16 +17,14 @@ describe("unitednationsofearth-2247.07.11", () => {
     console.timeEnd("model");
   });
 
+  invariants(() => model);
+
   function getCountryByName(name: string) {
     return model.countries.getAll().filter(x => x.name === name)[0];
   }
 
   function getPlanetByName(name: string) {
     return model.planets.getAll().filter(planet => planet.name === name)[0];
-  }
-
-  function getSystemByName(name: string) {
-    return model.systems.getAll().filter(x => x.name === name)[0];
   }
 
   test("loads savefile name", () => {
@@ -203,23 +201,6 @@ describe("unitednationsofearth-2247.07.11", () => {
       });
   });
 
-  test("links factions to thier country", () => {
-    model.factions
-      .getAll()
-      .map(faction => faction as FactionImpl)
-      .forEach(faction => {
-        expect(faction.countryId).not.toBeUndefined();
-
-        if (typeof faction.country === "undefined") {
-          expect(faction.country).not.toBeUndefined();
-          return;
-        }
-
-        expect(faction.country.id).toEqual(faction.countryId);
-        expect(faction.country.factions.some(x => x === faction)).toEqual(true);
-      });
-  });
-
   test("links species to their home planet", () => {
     model.species
       .map(species => species as SpeciesImpl)
@@ -236,36 +217,6 @@ describe("unitednationsofearth-2247.07.11", () => {
       });
   });
 
-  test("links leaders to their species", () => {
-    model.leaders
-      .getAll()
-      .map(leader => leader as LeaderImpl)
-      .forEach(leader => {
-        if (typeof leader.species === "undefined") {
-          expect(leader.species).not.toBeUndefined();
-          return;
-        }
-
-        expect(leader.species).toBe(model.species[leader.speciesIndex]);
-        expect(leader.species.leaders.some(x => x === leader)).toBe(true);
-      });
-  });
-
-  test("links pops to their species", () => {
-    model.pops
-      .getAll()
-      .map(pop => pop as PopImpl)
-      .forEach(pop => {
-        if (typeof pop.species === "undefined") {
-          expect(pop.species).not.toBeUndefined();
-          return;
-        }
-
-        expect(pop.species).toBe(model.species[pop.speciesIndex]);
-        expect(pop.species.pops.some(x => x === pop)).toBe(true);
-      });
-  });
-
   test("all factions have a leader", () => {
     model.factions
       .getAll()
@@ -273,69 +224,11 @@ describe("unitednationsofearth-2247.07.11", () => {
       .forEach(faction => expect(faction.leader).not.toBeUndefined());
   });
 
-  test("all wormholes have a system", () => {
-    model.wormholes
-      .getAll()
-      .forEach(wormhole => expect(wormhole.system).not.toBeUndefined());
-  });
-
-  test("all wormholes have a link", () => {
-    model.wormholes.getAll().forEach(wormhole => {
-      expect(wormhole.link).not.toBeUndefined();
-    });
-  });
-
-  test("all starbases have a system", () => {
-    model.starbases.getAll().forEach(starbase => {
-      expect(starbase.system).not.toBeUndefined();
-    });
-  });
-
-  test("all starbases have an owner", () => {
-    model.starbases.getAll().forEach(starbase => {
-      const { owner } = starbase;
-
-      expect(owner).not.toBeUndefined();
-      expect(owner.starbases.some(x => x === starbase)).toBe(true);
-    });
-  });
-
-  test("starbases and systems link correctly", () => {
-    model.starbases.getAll().forEach(starbase => {
-      const { system } = starbase;
-
-      expect(system).not.toBeUndefined();
-
-      if (typeof system.starbase === "undefined") {
-        expect(system.starbase).not.toBeUndefined();
-      }
-
-      expect(system.starbase).toBe(starbase);
-    });
-
-    model.systems.getAll().forEach(system => {
-      const { starbase } = system;
-
-      if (typeof starbase !== "undefined") {
-        expect(starbase.system).toBe(system);
-      }
-    });
-  });
-
   test("all fleets have an owner", () => {
     model.fleets.getAll().forEach(fleet => {
       const owner = fleet.owner as Country;
       expect(owner).not.toBeUndefined();
       expect(owner.fleets.some(x => x === fleet)).toBe(true);
-    });
-  });
-
-  test("all ships have a fleet", () => {
-    model.ships.getAll().forEach(ship => {
-      const { fleet } = ship;
-
-      expect(fleet).not.toBeUndefined();
-      expect(fleet.ships.some(x => x === ship)).toBe(true);
     });
   });
 

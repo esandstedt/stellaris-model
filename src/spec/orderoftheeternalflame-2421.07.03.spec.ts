@@ -1,5 +1,6 @@
 import { Model } from "..";
 import { loadPath } from ".";
+import invariants from "./invariants";
 
 const filePath = "savefiles/orderoftheeternalflame-2421.07.03.sav";
 
@@ -11,7 +12,5 @@ describe("orderoftheeternalflame-2421.07.03", () => {
     console.timeEnd("model");
   });
 
-  test("loads the model", () => {
-    expect(model).not.toBeUndefined();
-  });
+  invariants(() => model);
 });

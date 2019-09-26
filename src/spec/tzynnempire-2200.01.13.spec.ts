@@ -1,6 +1,7 @@
 import { Model } from "..";
 import { loadPath } from ".";
 import { Player, Country, Leader } from "../model/interfaces";
+import invariants from "./invariants";
 
 const filePath = "savefiles/tzynnempire-2200.01.13.sav";
 
@@ -11,6 +12,8 @@ describe("tzynnempire-2200.01.13", () => {
     model = await loadPath(filePath);
     console.timeEnd("model");
   });
+
+  invariants(() => model);
 
   test("correctly sets ruler and heir", () => {
     const player = model.players.get("Goose") as Player;
