@@ -71,19 +71,4 @@ export class Lexer {
       value: ""
     };
   }
-
-  private handleEscapedText(i: number) {
-    let j = i + 1;
-    while (true) {
-      const c = this.text.charAt(j);
-      if (c === "\\") {
-        // Skip the next character.
-        j += 2;
-      } else if (c === '"') {
-        return this.text.substring(i + 1, j);
-      } else {
-        j += 1;
-      }
-    }
-  }
 }
