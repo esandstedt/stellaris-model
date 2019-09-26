@@ -1,4 +1,10 @@
-import { asDictionary, Pair, asString, asPairArray } from "../../compile";
+import {
+  asDictionary,
+  Pair,
+  asString,
+  asPairArray,
+  asArray
+} from "../../compile";
 import { FlagImpl } from "./flag";
 import {
   Country,
@@ -11,10 +17,15 @@ import {
   Sector,
   Alliance,
   Ethic,
-  War
+  War,
+  Policy,
+  Edict
 } from "../interfaces";
+import { PolicyImpl } from "./policy";
+import { EdictImpl } from "./edict";
 
 export class CountryImpl implements Country {
+  public activePolicies: Policy[];
   public adjective: string;
   public allianceId: string | undefined;
   public alliance: Alliance | undefined;
@@ -23,9 +34,13 @@ export class CountryImpl implements Country {
   public associatedAlliance: Alliance | undefined;
   public capitalId: string | undefined;
   public capital: Planet | undefined;
+  public cityGraphicalCulture: string | undefined;
   public controlledPlanets: Planet[] = [];
+  public customName: boolean;
   public economyPower: number;
+  public edicts: Edict[];
   public emigration: number;
+  public empireCohesion: number;
   public empireSize: number;
   public ethos: Ethic[];
   public factions: Faction[] = [];
@@ -50,6 +65,14 @@ export class CountryImpl implements Country {
   constructor(public id: string, pairs: Pair[]) {
     const data = asDictionary(pairs);
 
+    if (typeof data["active_policies"] !== "undefined") {
+      this.activePolicies = asArray(data["active_policies"]).map(
+        x => new PolicyImpl(asPairArray(x))
+      );
+    } else {
+      this.activePolicies = [];
+    }
+
     this.adjective = asString(data["adjective"]);
 
     if (typeof data["alliance"] !== "undefined") {
@@ -63,10 +86,25 @@ export class CountryImpl implements Country {
     if (typeof data["capital"] !== "undefined") {
       this.capitalId = asString(data["capital"]);
     }
+    if (typeof data["city_graphical_culture"] !== "undefined") {
+      this.cityGraphicalCulture = asString(data["city_graphical_culture"]);
+    }
+
+    this.customName = data["custom_name"] === "yes";
 
     this.economyPower = parseFloat(asString(data["economy_power"]));
 
+    if (typeof data["edicts"] !== "undefined") {
+      this.edicts = asArray(data["edicts"]).map(
+        x => new EdictImpl(asPairArray(x))
+      );
+    } else {
+      this.edicts = [];
+    }
+
     this.emigration = parseFloat(asString(data["emigration"]));
+
+    this.empireCohesion = parseFloat(asString(data["empire_cohesion"]));
 
     if (typeof data["empire_size"] !== "undefined") {
       this.empireSize = parseInt(asString(data["empire_size"]), 10);

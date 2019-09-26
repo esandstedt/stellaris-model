@@ -112,7 +112,7 @@
 
 | Status   | Property                      | Description                          |
 | -------- | ----------------------------- | ------------------------------------ |
-|          | active_policies               |                                      |
+| Complete | active_policies               |                                      |
 | Complete | adjective                     |                                      |
 |          | advisor_voice_type            |                                      |
 |          | ai                            |                                      |
@@ -124,18 +124,18 @@
 |          | budget                        |                                      |
 |          | built_species                 |                                      |
 | Complete | capital                       |                                      |
-|          | city_graphical_culture        |                                      |
-|          | color_index                   |                                      |
-|          | control_groups                |                                      |
+| Complete | city_graphical_culture        |                                      |
+|          | color_index                   | ???                                  |
+|          | control_groups                | ???                                  |
 | Complete | controlled_planets            |                                      |
-|          | custom_name                   |                                      |
+| Complete | custom_name                   |                                      |
 |          | customization                 |                                      |
 |          | democratic_election           |                                      |
 | Complete | economy_power                 |                                      |
-|          | edicts                        |                                      |
+| Complete | edicts                        |                                      |
 | Complete | ethos                         |                                      |
 | Complete | emigration                    |                                      |
-|          | empire_cohesion               |                                      |
+| Complete | empire_cohesion               |                                      |
 | Complete | empire_size                   |                                      |
 |          | employable_pops               |                                      |
 |          | events                        |                                      |

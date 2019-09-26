@@ -64,14 +64,19 @@ export interface Coordinate {
 
 export interface Country {
   id: string;
+  activePolicies: Policy[];
   adjective: string;
   alliance: Alliance | undefined;
   armies: Army[];
   associatedAlliance: Alliance | undefined;
   capital: Planet | undefined;
   controlledPlanets: Planet[];
+  cityGraphicalCulture: string | undefined;
+  customName: boolean;
   economyPower: number;
+  edicts: Edict[];
   emigration: number;
+  empireCohesion: number;
   empireSize: number;
   ethos: Ethic[];
   factions: Faction[];
@@ -89,6 +94,16 @@ export interface Country {
   starbases: Starbase[];
   subjects: Country[];
   wars: War[];
+}
+
+export interface Edict {
+  name: string;
+  date: string;
+}
+
+export interface Policy {
+  name: string;
+  selected: string;
 }
 
 export enum Ethic {
