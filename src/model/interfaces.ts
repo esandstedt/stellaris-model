@@ -101,11 +101,6 @@ export interface Edict {
   date: string;
 }
 
-export interface Policy {
-  name: string;
-  selected: string;
-}
-
 export enum Ethic {
   GestaltConsciousness,
   Authoritarian,
@@ -217,6 +212,11 @@ export interface Planet {
 export interface Player {
   country: Country | undefined;
   name: string;
+}
+
+export interface Policy {
+  name: string;
+  selected: string;
 }
 
 export interface Pop {
