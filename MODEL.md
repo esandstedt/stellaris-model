@@ -219,6 +219,13 @@
 |          | victory_score                 |                                      |
 |          | war_allies                    |                                      |
 
+## Country -> Edict
+
+| Status   | Property | Description |
+| -------- | -------- | ----------- |
+| Complete | edict    |             |
+| Complete | date     |             |
+
 ## Country -> Flag
 
 | Status   | Property   | Description |
@@ -226,6 +233,13 @@
 | Complete | background |             |
 | Complete | colors     |             |
 | Complete | icon       |             |
+
+## Country -> Policy
+
+| Status   | Property | Description |
+| -------- | -------- | ----------- |
+| Complete | policy   |             |
+| Complete | selected |             |
 
 ## Faction
 
