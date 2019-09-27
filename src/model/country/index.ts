@@ -23,6 +23,7 @@ import {
 } from "../interfaces";
 import { PolicyImpl } from "./policy";
 import { EdictImpl } from "./edict";
+import { BudgetImpl } from "./budget";
 
 export class CountryImpl implements Country {
   public activePolicies: Policy[];
@@ -64,6 +65,8 @@ export class CountryImpl implements Country {
 
   constructor(public id: string, pairs: Pair[]) {
     const data = asDictionary(pairs);
+
+    var budget = new BudgetImpl(asPairArray(data["budget"]));
 
     if (typeof data["active_policies"] !== "undefined") {
       this.activePolicies = asArray(data["active_policies"]).map(
