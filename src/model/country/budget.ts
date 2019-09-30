@@ -27,21 +27,21 @@ export class BudgetImpl implements Budget {
   };
 
   constructor(pairs: Pair[]) {
-    var data = asDictionary(pairs);
+    const data = asDictionary(pairs);
 
-    var currentMonth = asDictionary(data["current_month"]);
+    const currentMonth = asDictionary(data["current_month"]);
 
-    var balance = asPairArray(currentMonth["balance"])
+    const balance = asPairArray(currentMonth["balance"])
       .map(x =>
         asPairArray(x.value).map(y => ({
-          type: x.key as string,
+          amount: parseFloat(asString(y.value)),
           resource: y.key as string,
-          amount: parseFloat(asString(y.value))
+          type: x.key as string
         }))
       )
       .reduce((a, b) => a.concat(b));
 
-    var resources: any = {};
+    const resources: { [key: string]: BudgetResource } = {};
 
     balance.forEach(({ type, resource, amount }) => {
       if (!resources[resource]) {
@@ -52,42 +52,41 @@ export class BudgetImpl implements Budget {
       }
 
       resources[resource].items.push({
-        type,
-        amount
+        amount,
+        type
       });
       resources[resource].total += amount;
     });
 
-    const getResourceOrDefault = (type: string): BudgetResource =>
-      resources[type] || { items: [], amount: 0 };
+    const empty = (): BudgetResource => ({ items: [], total: 0 });
 
-    this.energy = getResourceOrDefault("energy");
-    this.minerals = getResourceOrDefault("minerals");
-    this.food = getResourceOrDefault("food");
-    this.consumerGoods = getResourceOrDefault("consumer_goods");
-    this.alloys = getResourceOrDefault("alloys");
-    this.influence = getResourceOrDefault("influence");
-    this.unity = getResourceOrDefault("unity");
+    this.energy = resources["energy"] || empty();
+    this.minerals = resources["minerals"] || empty();
+    this.food = resources["food"] || empty();
+    this.consumerGoods = resources["consumer_goods"] || empty();
+    this.alloys = resources["alloys"] || empty();
+    this.influence = resources["influence"] || empty();
+    this.unity = resources["unity"] || empty();
 
-    var physics = getResourceOrDefault("physics_research");
-    var society = getResourceOrDefault("society_research");
-    var engineering = getResourceOrDefault("engineering_research");
+    const physics = resources["physics_research"] || empty();
+    const society = resources["society_research"] || empty();
+    const engineering = resources["engineering_research"] || empty();
 
     this.research = {
+      engineering,
       physics,
       society,
-      engineering,
       total: engineering.total + physics.total + society.total
     };
 
     this.strategic = {
-      volatileMotes: getResourceOrDefault("volatile_motes"),
-      exoticGases: getResourceOrDefault("exotic_gases"),
-      rareCrystals: getResourceOrDefault("rare_crystals"),
-      livingMetal: getResourceOrDefault("sr_living_metal"),
-      zro: getResourceOrDefault("sr_zro"),
-      darkMatter: getResourceOrDefault("sr_dark_matter"),
-      nanites: getResourceOrDefault("nanites")
+      darkMatter: resources["sr_dark_matter"] || empty(),
+      exoticGases: resources["exotic_gases"] || empty(),
+      livingMetal: resources["sr_living_metal"] || empty(),
+      nanites: resources["nanites"] || empty(),
+      rareCrystals: resources["rare_crystals"] || empty(),
+      volatileMotes: resources["volatile_motes"] || empty(),
+      zro: resources["sr_zro"] || empty()
     };
   }
 }
