@@ -19,7 +19,8 @@ import {
   Ethic,
   War,
   Policy,
-  Edict
+  Edict,
+  Budget
 } from "../interfaces";
 import { PolicyImpl } from "./policy";
 import { EdictImpl } from "./edict";
@@ -33,6 +34,7 @@ export class CountryImpl implements Country {
   public armies: Army[] = [];
   public associatedAllianceId: string | undefined;
   public associatedAlliance: Alliance | undefined;
+  public budget: Budget;
   public capitalId: string | undefined;
   public capital: Planet | undefined;
   public cityGraphicalCulture: string | undefined;
@@ -66,8 +68,6 @@ export class CountryImpl implements Country {
   constructor(public id: string, pairs: Pair[]) {
     const data = asDictionary(pairs);
 
-    var budget = new BudgetImpl(asPairArray(data["budget"]));
-
     if (typeof data["active_policies"] !== "undefined") {
       this.activePolicies = asArray(data["active_policies"]).map(
         x => new PolicyImpl(asPairArray(x))
@@ -85,6 +85,8 @@ export class CountryImpl implements Country {
     if (typeof data["associated_alliance"] !== "undefined") {
       this.associatedAllianceId = asString(data["associated_alliance"]);
     }
+
+    this.budget = new BudgetImpl(asPairArray(data["budget"]));
 
     if (typeof data["capital"] !== "undefined") {
       this.capitalId = asString(data["capital"]);

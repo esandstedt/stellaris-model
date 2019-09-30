@@ -57,6 +57,41 @@ export interface Army {
   type: string;
 }
 
+export interface Budget {
+  energy: BudgetResource;
+  minerals: BudgetResource;
+  food: BudgetResource;
+  consumerGoods: BudgetResource;
+  alloys: BudgetResource;
+  influence: BudgetResource;
+  unity: BudgetResource;
+  research: {
+    physics: BudgetResource;
+    society: BudgetResource;
+    engineering: BudgetResource;
+    total: number;
+  };
+  strategic: {
+    volatileMotes: BudgetResource;
+    exoticGases: BudgetResource;
+    rareCrystals: BudgetResource;
+    livingMetal: BudgetResource;
+    zro: BudgetResource;
+    darkMatter: BudgetResource;
+    nanites: BudgetResource;
+  };
+}
+
+export interface BudgetResource {
+  items: BudgetItem[];
+  total: number;
+}
+
+export interface BudgetItem {
+  type: string;
+  amount: number;
+}
+
 export interface Coordinate {
   x: number;
   y: number;
@@ -69,6 +104,7 @@ export interface Country {
   alliance: Alliance | undefined;
   armies: Army[];
   associatedAlliance: Alliance | undefined;
+  budget: Budget;
   capital: Planet | undefined;
   controlledPlanets: Planet[];
   cityGraphicalCulture: string | undefined;
