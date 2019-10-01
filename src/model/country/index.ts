@@ -20,11 +20,13 @@ import {
   War,
   Policy,
   Edict,
-  Budget
+  Budget,
+  Government
 } from "../interfaces";
 import { PolicyImpl } from "./policy";
 import { EdictImpl } from "./edict";
 import { BudgetImpl } from "./budget";
+import { GovernmentImpl } from "./government";
 
 export class CountryImpl implements Country {
   public activePolicies: Policy[];
@@ -32,6 +34,7 @@ export class CountryImpl implements Country {
   public allianceId: string | undefined;
   public alliance: Alliance | undefined;
   public armies: Army[] = [];
+  public ascensionPerks: string[];
   public associatedAllianceId: string | undefined;
   public associatedAlliance: Alliance | undefined;
   public budget: Budget;
@@ -50,6 +53,7 @@ export class CountryImpl implements Country {
   public flag: FlagImpl;
   public fleets: Fleet[] = [];
   public fleetSize: number;
+  public government: Government | undefined;
   public heir: Leader | undefined;
   public immigration: number;
   public leaders: Leader[] = [];
@@ -62,7 +66,14 @@ export class CountryImpl implements Country {
   public ruler: Leader | undefined;
   public sectors: Sector[] = [];
   public starbases: Starbase[] = [];
+  public starbaseCapacity: number;
   public subjects: Country[] = [];
+  public subjectDate: string | undefined;
+  public subjectType: string | undefined;
+  public traditions: string[];
+  public type: string;
+  public victoryRank: number;
+  public victoryScore: number;
   public wars: War[] = [];
 
   constructor(public id: string, pairs: Pair[]) {
@@ -80,6 +91,12 @@ export class CountryImpl implements Country {
 
     if (typeof data["alliance"] !== "undefined") {
       this.allianceId = asString(data["alliance"]);
+    }
+
+    if (typeof data["ascension_perks"] !== "undefined") {
+      this.ascensionPerks = asArray(data["ascension_perks"]).map(asString);
+    } else {
+      this.ascensionPerks = [];
     }
 
     if (typeof data["associated_alliance"] !== "undefined") {
@@ -133,6 +150,11 @@ export class CountryImpl implements Country {
 
     this.flag = new FlagImpl(asPairArray(data["flag"]));
     this.fleetSize = parseInt(asString(data["fleet_size"]), 10);
+
+    if (typeof data["government"] !== "undefined") {
+      this.government = new GovernmentImpl(asPairArray(data["government"]));
+    }
+
     this.immigration = parseFloat(asString(data["immigration"]));
 
     if (typeof data["military_power"] !== "undefined") {
@@ -150,6 +172,27 @@ export class CountryImpl implements Country {
     if (typeof data["ruler"] !== "undefined") {
       this.rulerId = asString(data["ruler"]);
     }
+
+    this.starbaseCapacity = parseInt(asString(data["starbase_capacity"]), 10);
+
+    if (typeof data["subject_date"] !== "undefined") {
+      this.subjectDate = asString(data["subject_date"]);
+    }
+
+    if (typeof data["subject_type"] !== "undefined") {
+      this.subjectType = asString(data["subject_type"]);
+    }
+
+    if (typeof data["traditions"] !== "undefined") {
+      this.traditions = asArray(data["traditions"]).map(asString);
+    } else {
+      this.traditions = [];
+    }
+
+    this.type = asString(data["type"]);
+
+    this.victoryRank = parseInt(asString(data["victory_rank"]), 10);
+    this.victoryScore = parseFloat(asString(data["victory_score"]));
   }
 }
 

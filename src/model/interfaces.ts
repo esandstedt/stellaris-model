@@ -103,6 +103,7 @@ export interface Country {
   adjective: string;
   alliance: Alliance | undefined;
   armies: Army[];
+  ascensionPerks: string[];
   associatedAlliance: Alliance | undefined;
   budget: Budget;
   capital: Planet | undefined;
@@ -119,6 +120,7 @@ export interface Country {
   flag: Flag;
   fleets: Fleet[];
   fleetSize: number;
+  government: Government | undefined;
   heir: Leader | undefined;
   immigration: number;
   leaders: Leader[];
@@ -128,7 +130,13 @@ export interface Country {
   ownedPlanets: Planet[];
   ruler: Leader | undefined;
   starbases: Starbase[];
+  starbaseCapacity: number;
   subjects: Country[];
+  subjectDate: string | undefined;
+  subjectType: string | undefined;
+  traditions: string[];
+  type: string;
+  victoryScore: number;
   wars: War[];
 }
 
@@ -189,6 +197,12 @@ export interface Fleet {
   owner: Country | undefined;
   ships: Ship[];
   system: System;
+}
+
+export interface Government {
+  authority: string;
+  civics: string[];
+  type: string;
 }
 
 export interface Hyperlane {
