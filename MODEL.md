@@ -310,14 +310,14 @@
 | Complete | immortal           |                      |
 |          | leader_terms       |                      |
 | Complete | level              |                      |
-| Partial  | location           |                      |
-|          | mandate            |                      |
+| Complete | location           |                      |
+| Complete | mandate            |                      |
 | Complete | name               |                      |
 | Ignored  | pop_faction        | (linked via Faction) |
 | Complete | portrait           |                      |
 |          | pre_ruler_class    |                      |
 |          | pre_ruler_location |                      |
-|          | roles              |                      |
+| Complete | roles              | traits               |
 | Complete | species_index      |                      |
 
 ## Planet

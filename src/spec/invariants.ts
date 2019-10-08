@@ -162,5 +162,77 @@ export default (getModel: () => Model) => {
         }
       });
     });
+
+    test("all governors have their planet set to the sector capital", () => {
+      const model = getModel();
+
+      model.sectors.getAll().forEach(sector => {
+        const { governor } = sector;
+
+        if (typeof governor === "undefined") {
+          return;
+        }
+
+        expect(governor.planet).toBe(sector.capital);
+      });
+    });
+
+    test("every country has at most one scientist for each research type", () => {
+      const TYPES = new Set(["physics", "society", "engineering"]);
+
+      const model = getModel();
+
+      model.countries.getAll().forEach(country => {
+        const types = country.leaders
+          .filter(x => typeof x.researchType !== "undefined")
+          .map(x => x.researchType as string);
+
+        expect(types.length).toBeLessThanOrEqual(3);
+        expect(types.every(x => TYPES.has(x)));
+        TYPES.forEach(T => {
+          const count = types.filter(t => t === T).length;
+          expect(count).toBeLessThanOrEqual(1);
+        });
+      });
+    });
+
+    test("all leaders have traits", () => {
+      const model = getModel();
+
+      model.leaders.getAll().forEach(leader => {
+        expect(leader.traits).not.toBeUndefined();
+        expect(leader.traits.length).toBeGreaterThan(0);
+      });
+    });
+
+    test("all rulers have their planet set to the capital", () => {
+      const model = getModel();
+
+      model.countries.getAll().forEach(country => {
+        const { ruler, heir } = country;
+
+        if (typeof ruler !== "undefined") {
+          expect(ruler.planet).toBe(country.capital);
+        }
+
+        if (typeof heir !== "undefined") {
+          expect(heir.planet).toBe(country.capital);
+        }
+      });
+    });
+
+    test("all researchers have their planet set to the capital", () => {
+      const model = getModel();
+      model.leaders
+        .getAll()
+        .filter(x => typeof x.researchType !== "undefined")
+        .forEach(leader => {
+          if (typeof leader.country === "undefined") {
+            return;
+          }
+
+          expect(leader.planet).toBe(leader.country.capital);
+        });
+    });
   });
 };

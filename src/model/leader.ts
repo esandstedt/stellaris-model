@@ -1,4 +1,4 @@
-import { asDictionary, Pair, asString, asPairArray } from "../compile";
+import { asDictionary, Pair, asString, asPairArray, asArray } from "../compile";
 import {
   Country,
   Leader,
@@ -6,7 +6,8 @@ import {
   Army,
   LeaderType,
   Ship,
-  Sector
+  Sector,
+  Planet
 } from "./interfaces";
 
 export class LeaderImpl implements Leader {
@@ -20,12 +21,17 @@ export class LeaderImpl implements Leader {
   public gender: string | undefined;
   public immortal: boolean;
   public level: number;
+  public mandate: string[];
   public name: string;
+  public planetId: string | undefined;
+  public planet: Planet | undefined;
   public portrait: string;
+  public researchType: string | undefined;
   public sector: Sector | undefined;
   public shipId: string | undefined;
   public ship: Ship | undefined;
   public speciesIndex: number;
+  public traits: string[];
   public type: LeaderType;
 
   get species(): Species {
@@ -66,6 +72,12 @@ export class LeaderImpl implements Leader {
 
     this.level = parseInt(asString(data["level"]), 10);
 
+    if (typeof data["mandate"] !== "undefined") {
+      this.mandate = asArray(data["mandate"], "type").map(asString);
+    } else {
+      this.mandate = [];
+    }
+
     this.name = asPairArray(data["name"])
       .map(p => asString(p.value))
       .join(" ");
@@ -76,14 +88,28 @@ export class LeaderImpl implements Leader {
       const location = asDictionary(data["location"]);
 
       const locationType = asString(location["type"]);
-      if (locationType === "ship") {
+      if (locationType === "army") {
+        // Handled from the other side.
+      } else if (locationType === "planet") {
+        this.planetId = asString(location["id"]);
+      } else if (locationType === "sector") {
+        // Handled from the other side.
+      } else if (locationType === "ship") {
         this.shipId = asString(location["id"]);
+      } else if (locationType === "tech") {
+        this.researchType = asString(location["area"]);
+      } else {
+        throw new Error(`unrecognized leader location type '${locationType}'`);
       }
     }
 
     this.speciesIndex = parseInt(asString(data["species_index"]), 10);
 
     const typeString = asString(data["class"]);
+
+    const roles = asDictionary(data["roles"]);
+    this.traits = asArray(roles[typeString], "trait").map(asString);
+
     this.type = LEADERTYPE_MAPPING[typeString];
     if (typeof this.type === "undefined") {
       throw new Error(`unrecognized leader type "${typeString}"`);

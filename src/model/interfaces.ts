@@ -222,10 +222,14 @@ export interface Leader {
   gender: string | undefined;
   immortal: boolean;
   level: number;
+  mandate: string[];
   name: string;
+  planet: Planet | undefined;
   portrait: string;
+  researchType: string | undefined;
   sector: Sector | undefined;
   species: Species;
+  traits: string[];
   type: LeaderType;
 }
 

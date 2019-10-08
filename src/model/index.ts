@@ -243,12 +243,26 @@ export class ModelImpl implements Model {
     );
 
     this.link(
+      this.countries,
+      this.planets,
+      x => x.capitalId,
+      (country, capital) => {
+        country.capital = capital;
+      }
+    );
+
+    this.link(
       this.leaders,
       this.countries,
       leader => leader.countryId,
       (leader, country) => {
         leader.country = country;
         country.leaders.push(leader);
+
+        // Researchers are at the capital
+        if (typeof leader.researchType !== "undefined") {
+          leader.planet = country.capital;
+        }
       }
     );
 
@@ -461,16 +475,6 @@ export class ModelImpl implements Model {
 
     this.link(
       this.sectors,
-      this.leaders,
-      x => x.governorId,
-      (sector, governor) => {
-        sector.governor = governor;
-        governor.sector = sector;
-      }
-    );
-
-    this.link(
-      this.sectors,
       this.countries,
       x => x.ownerId,
       (sector, owner) => {
@@ -499,11 +503,13 @@ export class ModelImpl implements Model {
     );
 
     this.link(
-      this.countries,
-      this.planets,
-      x => x.capitalId,
-      (country, capital) => {
-        country.capital = capital;
+      this.sectors,
+      this.leaders,
+      x => x.governorId,
+      (sector, governor) => {
+        sector.governor = governor;
+        governor.sector = sector;
+        governor.planet = sector.capital;
       }
     );
 
@@ -532,6 +538,7 @@ export class ModelImpl implements Model {
       x => x.rulerId,
       (country, ruler) => {
         country.ruler = ruler;
+        ruler.planet = country.capital;
       }
     );
 
@@ -561,6 +568,7 @@ export class ModelImpl implements Model {
         }
 
         country.heir = leader;
+        leader.planet = country.capital;
       });
 
     const wars = this.wars.getAll();
