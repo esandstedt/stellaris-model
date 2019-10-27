@@ -20,6 +20,7 @@ import { SectorImpl } from "./sector";
 import { AllianceImpl } from "./alliance";
 import { WarImpl } from "./war";
 import { WarParticipantImpl } from "./war/participant";
+import { MegastructureImpl } from "./megastructure";
 
 export class ModelImpl implements Model {
   public alliances: Collection<AllianceImpl>;
@@ -29,6 +30,7 @@ export class ModelImpl implements Model {
   public factions: Collection<FactionImpl>;
   public fleets: Collection<FleetImpl>;
   public leaders: Collection<LeaderImpl>;
+  public megastructures: Collection<MegastructureImpl>;
   public name: string;
   public planets: Collection<PlanetImpl>;
   public players: Collection<PlayerImpl>;
@@ -93,6 +95,12 @@ export class ModelImpl implements Model {
       data["leaders"],
       (id, p) => new LeaderImpl(id, p),
       leader => leader.id
+    );
+
+    this.megastructures = this.getCollection(
+      data["megastructures"],
+      (id, p) => new MegastructureImpl(id, p),
+      megastructure => megastructure.id
     );
 
     this.planets = this.getCollection(
@@ -625,6 +633,26 @@ export class ModelImpl implements Model {
       (battle, planet) => {
         battle.planet = planet;
         battle.system = planet.system;
+      }
+    );
+
+    this.link(
+      this.megastructures,
+      this.countries,
+      x => x.ownerId,
+      (megastructure, owner) => {
+        megastructure.owner = owner;
+        owner.megastructures.push(megastructure);
+      }
+    );
+
+    this.link(
+      this.megastructures,
+      this.systems,
+      x => x.systemId,
+      (megastructure, system) => {
+        megastructure.system = system;
+        system.megastructures.push(megastructure);
       }
     );
   }

@@ -16,6 +16,7 @@ export interface Model {
   factions: Collection<Faction>;
   fleets: Collection<Fleet>;
   leaders: Collection<Leader>;
+  megastructures: Collection<Megastructure>;
   name: string;
   planets: Collection<Planet>;
   players: Collection<Player>;
@@ -124,6 +125,7 @@ export interface Country {
   heir: Leader | undefined;
   immigration: number;
   leaders: Leader[];
+  megastructures: Megastructure[];
   militaryPower: number;
   name: string;
   overlord: Country | undefined;
@@ -241,6 +243,13 @@ export enum LeaderType {
   Ruler
 }
 
+export interface Megastructure {
+  id: string;
+  owner: Country | undefined;
+  system: System;
+  type: string;
+}
+
 export interface Planet {
   id: string;
   amenities: number;
@@ -348,6 +357,7 @@ export interface System {
   id: string;
   coordinate: Coordinate;
   hyperlanes: Hyperlane[];
+  megastructures: Megastructure[];
   name: string;
   planets: Planet[];
   starbase: Starbase | undefined;

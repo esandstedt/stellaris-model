@@ -234,5 +234,25 @@ export default (getModel: () => Model) => {
           expect(leader.planet).toBe(leader.country.capital);
         });
     });
+
+    test("megastructures linked correctly to owner", () => {
+      const model = getModel();
+      model.megastructures.getAll().forEach(megastructure => {
+        if (typeof megastructure.owner !== "undefined") {
+          expect(
+            megastructure.owner.megastructures.some(x => x === megastructure)
+          ).toBe(true);
+        }
+      });
+    });
+
+    test("megastructures linked correctly to system", () => {
+      const model = getModel();
+      model.megastructures.getAll().forEach(megastructure => {
+        expect(
+          megastructure.system.megastructures.some(x => x === megastructure)
+        ).toBe(true);
+      });
+    });
   });
 };

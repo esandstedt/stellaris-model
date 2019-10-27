@@ -40,7 +40,7 @@
 |          | last_refugee_country        |                                      |
 | Complete | leaders                     |                                      |
 |          | market                      | Just don't.                          |
-|          | megastructures              |                                      |
+| Complete | megastructures              |                                      |
 |          | message                     |                                      |
 |          | missile                     |                                      |
 | Complete | name                        | Name shown when opening the savefile |
@@ -319,6 +319,19 @@
 |          | pre_ruler_location |                      |
 | Complete | roles              | traits               |
 | Complete | species_index      |                      |
+
+## Megastructure
+
+| Status   | Property          | Description |
+| -------- | ----------------- | ----------- |
+|          | bypass            |             |
+| Partial  | coordinate        |             |
+|          | flags             |             |
+|          | graphical_culture |             |
+| Complete | owner             |             |
+|          | planet            |             |
+| Complete | type              |             |
+|          | upgrade           |             |
 
 ## Planet
 

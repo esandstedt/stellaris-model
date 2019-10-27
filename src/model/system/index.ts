@@ -1,10 +1,18 @@
 import { CoordinateImpl } from "../coordinate";
 import { asDictionary, Pair, asString, asPairArray } from "../../compile";
-import { Hyperlane, Planet, Starbase, System, Sector } from "../interfaces";
+import {
+  Hyperlane,
+  Planet,
+  Starbase,
+  System,
+  Sector,
+  Megastructure
+} from "../interfaces";
 
 export class SystemImpl implements System {
   public coordinate: CoordinateImpl;
   public hyperlanes: Hyperlane[] = [];
+  public megastructures: Megastructure[] = [];
   public name: string;
   public planets: Planet[] = [];
   public sectorId: string | undefined;

@@ -21,7 +21,8 @@ import {
   Policy,
   Edict,
   Budget,
-  Government
+  Government,
+  Megastructure
 } from "../interfaces";
 import { PolicyImpl } from "./policy";
 import { EdictImpl } from "./edict";
@@ -57,6 +58,7 @@ export class CountryImpl implements Country {
   public heir: Leader | undefined;
   public immigration: number;
   public leaders: Leader[] = [];
+  public megastructures: Megastructure[] = [];
   public militaryPower: number;
   public name: string;
   public overlordId: string | undefined;
