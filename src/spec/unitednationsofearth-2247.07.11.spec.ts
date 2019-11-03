@@ -281,7 +281,7 @@ describe("unitednationsofearth-2247.07.11", () => {
     expect(fleets.length).toBe(8);
 
     // Lookup by name
-    const collection = new Collection(fleets, x => x.name);
+    const collection = new Collection(fleets, x => x.name || "");
 
     function checkFleet(
       shipName: string,
