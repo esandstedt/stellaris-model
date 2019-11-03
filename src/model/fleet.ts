@@ -5,7 +5,7 @@ export class FleetImpl implements Fleet {
   public isCivilian: boolean;
   public isStation: boolean;
   public militaryPower: number;
-  public name: string;
+  public name: string | undefined;
   public ownerId: string | undefined;
   public owner: Country | undefined;
   public ships: Ship[] = [];
@@ -39,7 +39,10 @@ export class FleetImpl implements Fleet {
     }
 
     this.militaryPower = parseFloat(asString(data["military_power"]));
-    this.name = asString(data["name"]);
+
+    if (typeof data["name"] !== "undefined") {
+      this.name = asString(data["name"]);
+    }
 
     if (typeof data["owner"] !== "undefined") {
       this.ownerId = asString(data["owner"]);

@@ -195,7 +195,7 @@ export interface Fleet {
   isCivilian: boolean;
   isStation: boolean;
   militaryPower: number;
-  name: string;
+  name: string | undefined;
   owner: Country | undefined;
   ships: Ship[];
   system: System;
@@ -225,7 +225,7 @@ export interface Leader {
   immortal: boolean;
   level: number;
   mandate: string[];
-  name: string;
+  name: string | undefined;
   planet: Planet | undefined;
   portrait: string;
   researchType: string | undefined;

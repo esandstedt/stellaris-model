@@ -22,7 +22,7 @@ export class LeaderImpl implements Leader {
   public immortal: boolean;
   public level: number;
   public mandate: string[];
-  public name: string;
+  public name: string | undefined;
   public planetId: string | undefined;
   public planet: Planet | undefined;
   public portrait: string;
@@ -78,9 +78,11 @@ export class LeaderImpl implements Leader {
       this.mandate = [];
     }
 
-    this.name = asPairArray(data["name"])
-      .map(p => asString(p.value))
-      .join(" ");
+    if (typeof data["name"] !== "undefined") {
+      this.name = asPairArray(data["name"])
+        .map(p => asString(p.value))
+        .join(" ");
+    }
 
     this.portrait = asString(data["portrait"]);
 
