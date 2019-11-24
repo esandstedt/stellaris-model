@@ -45,8 +45,6 @@ export class ArmyImpl implements Army {
   constructor(public id: string, pairs: Pair[]) {
     const data = asDictionary(pairs);
 
-    this.experience = 0;
-
     if (typeof data.experience !== "undefined") {
       this.experience = parseFloat(asString(data.experience));
     } else {
