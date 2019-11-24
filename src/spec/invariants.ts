@@ -1,4 +1,4 @@
-import { Model, Leader, LeaderType, Country } from "..";
+import { Country, Leader, LeaderType, Model } from "..";
 
 export default (getModel: () => Model) => {
   describe("invariants", () => {

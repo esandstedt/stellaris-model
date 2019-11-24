@@ -1,4 +1,4 @@
-import { Pair, asDictionary, asString, asPairArray } from "../compile";
+import { asDictionary, asPairArray, asString, Pair } from "../compile";
 import { Country, Starbase, System } from "./interfaces";
 
 export class StarbaseImpl implements Starbase {
@@ -34,23 +34,21 @@ export class StarbaseImpl implements Starbase {
   constructor(public id: string, pairs: Pair[]) {
     const data = asDictionary(pairs);
 
-    if (typeof data["buildings"] !== "undefined") {
-      this.buildings = asPairArray(data["buildings"]).map(x =>
-        asString(x.value)
-      );
+    if (typeof data.buildings !== "undefined") {
+      this.buildings = asPairArray(data.buildings).map(x => asString(x.value));
     } else {
       this.buildings = [];
     }
 
-    this.level = asString(data["level"]);
+    this.level = asString(data.level);
 
-    if (typeof data["modules"] !== "undefined") {
-      this.modules = asPairArray(data["modules"]).map(x => asString(x.value));
+    if (typeof data.modules !== "undefined") {
+      this.modules = asPairArray(data.modules).map(x => asString(x.value));
     } else {
       this.modules = [];
     }
 
-    this.ownerId = asString(data["owner"]);
-    this.systemId = asString(data["system"]);
+    this.ownerId = asString(data.owner);
+    this.systemId = asString(data.system);
   }
 }

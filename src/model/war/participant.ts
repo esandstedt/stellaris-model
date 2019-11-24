@@ -1,6 +1,6 @@
-import { Country, WarParticipant } from "../..";
-import { Pair, asDictionary, asString } from "../../compile";
 import { WarImpl } from ".";
+import { Country, WarParticipant } from "../..";
+import { asDictionary, asString, Pair } from "../../compile";
 
 export class WarParticipantImpl implements WarParticipant {
   public callType: string;
@@ -23,10 +23,10 @@ export class WarParticipantImpl implements WarParticipant {
   constructor(public war: WarImpl, pairs: Pair[]) {
     const data = asDictionary(pairs);
 
-    this.callType = asString(data["call_type"]);
-    this.countryId = asString(data["country"]);
+    this.callType = asString(data.call_type);
+    this.countryId = asString(data.country);
 
-    const callerId = asString(data["caller"]);
+    const callerId = asString(data.caller);
     if (callerId !== "4294967295") {
       this.callerId = callerId;
     }

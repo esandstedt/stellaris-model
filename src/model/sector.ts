@@ -1,11 +1,11 @@
-import { asDictionary, Pair, asString } from "../compile";
+import { asDictionary, asString, Pair } from "../compile";
 import {
-  Leader,
-  SectorType,
-  Sector,
   Country,
-  System,
-  Planet
+  Leader,
+  Planet,
+  Sector,
+  SectorType,
+  System
 } from "./interfaces";
 
 const SECTORTYPE_MAPPING: { [key: string]: SectorType } = {
@@ -38,17 +38,17 @@ export class SectorImpl implements Sector {
   constructor(public id: string, pairs: Pair[]) {
     const data = asDictionary(pairs);
 
-    this.capitalId = asString(data["local_capital"]);
+    this.capitalId = asString(data.local_capital);
 
-    if (typeof data["governor"] !== "undefined") {
-      this.governorId = asString(data["governor"]);
+    if (typeof data.governor !== "undefined") {
+      this.governorId = asString(data.governor);
     }
 
-    this.name = asString(data["name"]);
+    this.name = asString(data.name);
 
-    this.ownerId = asString(data["owner"]);
+    this.ownerId = asString(data.owner);
 
-    const typeString = asString(data["type"]);
+    const typeString = asString(data.type);
     this.type = SECTORTYPE_MAPPING[typeString];
     if (typeof this.type === "undefined") {
       throw new Error(`unrecognized sector type '${typeString}'`);

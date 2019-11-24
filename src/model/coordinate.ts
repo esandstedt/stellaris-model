@@ -8,7 +8,7 @@ export class CoordinateImpl implements Coordinate {
   constructor(pairs: Pair[]) {
     const data = asDictionary(pairs);
 
-    this.x = parseFloat(asString(data["x"]));
-    this.y = parseFloat(asString(data["y"]));
+    this.x = parseFloat(asString(data.x));
+    this.y = parseFloat(asString(data.y));
   }
 }

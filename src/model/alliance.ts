@@ -1,5 +1,5 @@
-import { Pair, asDictionary, asString } from "../compile";
-import { Country, Alliance } from "./interfaces";
+import { asDictionary, asString, Pair } from "../compile";
+import { Alliance, Country } from "./interfaces";
 
 export class AllianceImpl implements Alliance {
   public associates: Country[] = [];
@@ -23,8 +23,8 @@ export class AllianceImpl implements Alliance {
   constructor(public id: string, pairs: Pair[]) {
     const data = asDictionary(pairs);
 
-    this.date = asString(data["start_date"]);
-    this.leaderId = asString(data["leader"]);
-    this.name = asString(data["name"]);
+    this.date = asString(data.start_date);
+    this.leaderId = asString(data.leader);
+    this.name = asString(data.name);
   }
 }

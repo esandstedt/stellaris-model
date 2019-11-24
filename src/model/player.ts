@@ -1,4 +1,4 @@
-import { asDictionary, Pair, asString } from "../compile";
+import { asDictionary, asString, Pair } from "../compile";
 import { Country, Player } from "./interfaces";
 
 export class PlayerImpl implements Player {
@@ -9,10 +9,10 @@ export class PlayerImpl implements Player {
   constructor(pairs: Pair[]) {
     const data = asDictionary(pairs);
 
-    if (data["country"]) {
-      this.countryId = asString(data["country"]);
+    if (data.country) {
+      this.countryId = asString(data.country);
     }
 
-    this.name = asString(data["name"]);
+    this.name = asString(data.name);
   }
 }

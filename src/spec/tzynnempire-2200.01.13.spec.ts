@@ -1,6 +1,6 @@
-import { Model } from "..";
 import { loadPath } from ".";
-import { Player, Country, Leader } from "../model/interfaces";
+import { Model } from "..";
+import { Country, Leader, Player } from "../model/interfaces";
 import invariants from "./invariants";
 
 const filePath = "savefiles/tzynnempire-2200.01.13.sav";

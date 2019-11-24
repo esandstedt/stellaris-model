@@ -1,6 +1,6 @@
+import { Pair } from ".";
 import { Lexer } from "./lexer";
 import { Token, TokenType } from "./token";
-import { Pair } from ".";
 
 export function asString(input: Pair[] | string): string {
   if (typeof input === "string") {

@@ -1,26 +1,26 @@
-import { asDictionary, asArray, asString, Pair, asPairArray } from "../compile";
+import { asArray, asDictionary, asPairArray, asString, Pair } from "../compile";
+import { AllianceImpl } from "./alliance";
+import { ArmyImpl } from "./army";
 import { Collection } from "./collection";
 import { CountryImpl } from "./country";
 import { FactionImpl } from "./faction";
-import { Model, LeaderType } from "./interfaces";
+import { FleetImpl } from "./fleet";
+import { LeaderType, Model } from "./interfaces";
 import { LeaderImpl } from "./leader";
-import { SystemImpl } from "./system";
-import { HyperlaneImpl } from "./system/hyperlane";
+import { MegastructureImpl } from "./megastructure";
 import { PlanetImpl } from "./planet";
 import { PlayerImpl } from "./player";
 import { PopImpl } from "./pop";
+import { SectorImpl } from "./sector";
+import { ShipImpl } from "./ship";
+import { ShipDesignImpl } from "./ship-design";
 import { SpeciesImpl } from "./species";
 import { StarbaseImpl } from "./starbase";
-import { WormholeImpl } from "./wormhole";
-import { FleetImpl } from "./fleet";
-import { ShipImpl } from "./ship";
-import { ArmyImpl } from "./army";
-import { ShipDesignImpl } from "./ship-design";
-import { SectorImpl } from "./sector";
-import { AllianceImpl } from "./alliance";
+import { SystemImpl } from "./system";
+import { HyperlaneImpl } from "./system/hyperlane";
 import { WarImpl } from "./war";
 import { WarParticipantImpl } from "./war/participant";
-import { MegastructureImpl } from "./megastructure";
+import { WormholeImpl } from "./wormhole";
 
 export class ModelImpl implements Model {
   public alliances: Collection<AllianceImpl>;
@@ -49,35 +49,35 @@ export class ModelImpl implements Model {
   constructor(pairs: Pair[]) {
     const data = asDictionary(pairs);
 
-    this.version = asString(data["version"]);
-    this.name = asString(data["name"]);
-    this.date = asString(data["date"]);
+    this.version = asString(data.version);
+    this.name = asString(data.name);
+    this.date = asString(data.date);
 
-    this.requiredDlcs = asArray(data["required_dlcs"]).map(asString);
+    this.requiredDlcs = asArray(data.required_dlcs).map(asString);
 
-    const systemPairs = asPairArray(data["galactic_object"]);
+    const systemPairs = asPairArray(data.galactic_object);
 
     this.alliances = this.getCollection(
-      data["alliance"],
+      data.alliance,
       (id, p) => new AllianceImpl(id, p),
       alliance => alliance.id
     );
 
     this.armies = this.getCollection(
-      data["army"],
+      data.army,
       (id, p) => new ArmyImpl(id, p),
       army => army.id
     );
 
     this.countries = this.getCollection(
-      data["country"],
+      data.country,
       (id, p) => new CountryImpl(id, p),
       country => country.id
     );
 
-    if (typeof data["pop_factions"] !== "undefined") {
+    if (typeof data.pop_factions !== "undefined") {
       this.factions = this.getCollection(
-        data["pop_factions"],
+        data.pop_factions,
         (id, p) => new FactionImpl(id, p),
         faction => faction.id
       );
@@ -86,66 +86,66 @@ export class ModelImpl implements Model {
     }
 
     this.fleets = this.getCollection(
-      data["fleet"],
+      data.fleet,
       (id, p) => new FleetImpl(id, p),
       fleet => fleet.id
     );
 
     this.leaders = this.getCollection(
-      data["leaders"],
+      data.leaders,
       (id, p) => new LeaderImpl(id, p),
       leader => leader.id
     );
 
     this.megastructures = this.getCollection(
-      data["megastructures"],
+      data.megastructures,
       (id, p) => new MegastructureImpl(id, p),
       megastructure => megastructure.id
     );
 
     this.planets = this.getCollection(
-      asDictionary(data["planets"])["planet"],
+      asDictionary(data.planets).planet,
       (id, p) => new PlanetImpl(id, p),
       planet => planet.id
     );
 
     this.players = new Collection(
-      asArray(data["player"])
+      asArray(data.player)
         .map(asPairArray)
         .map(p => new PlayerImpl(p)),
       player => player.name
     );
 
     this.pops = this.getCollection(
-      data["pop"],
+      data.pop,
       (id, p) => new PopImpl(id, p),
       pop => pop.id
     );
 
     this.sectors = this.getCollection(
-      data["sectors"],
+      data.sectors,
       (id, p) => new SectorImpl(id, p),
       sector => sector.id
     );
 
     this.ships = this.getCollection(
-      data["ships"],
+      data.ships,
       (id, p) => new ShipImpl(id, p),
       ship => ship.id
     );
 
     this.shipDesigns = this.getCollection(
-      data["ship_design"],
+      data.ship_design,
       (id, p) => new ShipDesignImpl(id, p),
       design => design.id
     );
 
-    this.species = asPairArray(data["species"]).map(
+    this.species = asPairArray(data.species).map(
       pair => new SpeciesImpl(asPairArray(pair.value))
     );
 
     this.starbases = this.getCollection(
-      data["starbases"],
+      data.starbases,
       (id, p) => new StarbaseImpl(id, p),
       base => base.id
     );
@@ -157,15 +157,15 @@ export class ModelImpl implements Model {
     );
 
     this.wars = this.getCollection(
-      data["war"],
+      data.war,
       (id, p) => new WarImpl(id, p),
       war => war.id
     );
 
-    const bypasses = asDictionary(data["bypasses"]);
+    const bypasses = asDictionary(data.bypasses);
 
     this.wormholes = this.getCollection(
-      data["natural_wormholes"],
+      data.natural_wormholes,
       (_, p) => {
         return new WormholeImpl(p, bypasses);
       },
@@ -746,11 +746,11 @@ export class ModelImpl implements Model {
       }
 
       const systemData = asDictionary(pair.value);
-      if (systemData["hyperlane"]) {
-        system.hyperlanes = asArray(systemData["hyperlane"])
+      if (systemData.hyperlane) {
+        system.hyperlanes = asArray(systemData.hyperlane)
           .map(item => asDictionary(item))
           .map(data => {
-            const to = this.systems.get(asString(data["to"]));
+            const to = this.systems.get(asString(data.to));
 
             if (typeof to === "undefined") {
               throw new Error();
@@ -759,7 +759,7 @@ export class ModelImpl implements Model {
             return new HyperlaneImpl(
               system,
               to,
-              parseFloat(asString(data["length"]))
+              parseFloat(asString(data.length))
             );
           });
       } else {

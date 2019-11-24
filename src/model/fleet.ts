@@ -1,5 +1,5 @@
-import { asDictionary, Pair, asString, asPairArray } from "../compile";
-import { Fleet, Country, System, Ship } from "./interfaces";
+import { asDictionary, asPairArray, asString, Pair } from "../compile";
+import { Country, Fleet, Ship, System } from "./interfaces";
 
 export class FleetImpl implements Fleet {
   public isCivilian: boolean;
@@ -26,33 +26,31 @@ export class FleetImpl implements Fleet {
   constructor(public id: string, pairs: Pair[]) {
     const data = asDictionary(pairs);
 
-    if (typeof data["civilian"] !== "undefined") {
-      this.isCivilian = asString(data["civilian"]) === "yes";
+    if (typeof data.civilian !== "undefined") {
+      this.isCivilian = asString(data.civilian) === "yes";
     } else {
       this.isCivilian = false;
     }
 
-    if (typeof data["station"] !== "undefined") {
-      this.isStation = asString(data["station"]) === "yes";
+    if (typeof data.station !== "undefined") {
+      this.isStation = asString(data.station) === "yes";
     } else {
       this.isStation = false;
     }
 
-    this.militaryPower = parseFloat(asString(data["military_power"]));
+    this.militaryPower = parseFloat(asString(data.military_power));
 
-    if (typeof data["name"] !== "undefined") {
-      this.name = asString(data["name"]);
+    if (typeof data.name !== "undefined") {
+      this.name = asString(data.name);
     }
 
-    if (typeof data["owner"] !== "undefined") {
-      this.ownerId = asString(data["owner"]);
+    if (typeof data.owner !== "undefined") {
+      this.ownerId = asString(data.owner);
     }
 
     // const combat = asDictionary(data["combat"]);
-    const movementManager = asDictionary(data["movement_manager"]);
+    const movementManager = asDictionary(data.movement_manager);
 
-    this.systemId = asString(
-      asDictionary(movementManager["coordinate"])["origin"]
-    );
+    this.systemId = asString(asDictionary(movementManager.coordinate).origin);
   }
 }

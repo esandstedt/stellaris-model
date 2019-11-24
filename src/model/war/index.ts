@@ -1,13 +1,13 @@
-import {
-  asDictionary,
-  Pair,
-  asString,
-  asPairArray,
-  asArray
-} from "../../compile";
 import { War } from "../..";
-import { WarParticipantImpl } from "./participant";
+import {
+  asArray,
+  asDictionary,
+  asPairArray,
+  asString,
+  Pair
+} from "../../compile";
 import { WarBattleImpl } from "./battle";
+import { WarParticipantImpl } from "./participant";
 
 export class WarImpl implements War {
   public attackers: WarParticipantImpl[];
@@ -23,39 +23,39 @@ export class WarImpl implements War {
   constructor(public id: string, pairs: Pair[]) {
     const data = asDictionary(pairs);
 
-    this.attackers = asArray(data["attackers"]).map(
+    this.attackers = asArray(data.attackers).map(
       x => new WarParticipantImpl(this, asPairArray(x))
     );
 
     this.attackerWarExhaustion = parseFloat(
-      asString(data["attacker_war_exhaustion"])
+      asString(data.attacker_war_exhaustion)
     );
 
-    this.attackerWarGoals = asPairArray(data["attacker_war_goal"]).map(pair =>
+    this.attackerWarGoals = asPairArray(data.attacker_war_goal).map(pair =>
       asString(pair.value)
     );
 
-    if (typeof data["battles"] !== "undefined") {
-      this.battles = asArray(data["battles"]).map(
+    if (typeof data.battles !== "undefined") {
+      this.battles = asArray(data.battles).map(
         x => new WarBattleImpl(asPairArray(x))
       );
     } else {
       this.battles = [];
     }
 
-    this.defenders = asArray(data["defenders"]).map(
+    this.defenders = asArray(data.defenders).map(
       x => new WarParticipantImpl(this, asPairArray(x))
     );
 
     this.defenderWarExhaustion = parseFloat(
-      asString(data["defender_war_exhaustion"])
+      asString(data.defender_war_exhaustion)
     );
 
-    this.defenderWarGoals = asPairArray(data["defender_war_goal"]).map(pair =>
+    this.defenderWarGoals = asPairArray(data.defender_war_goal).map(pair =>
       asString(pair.value)
     );
 
-    this.name = asString(data["name"]);
-    this.startDate = asString(data["start_date"]);
+    this.name = asString(data.name);
+    this.startDate = asString(data.start_date);
   }
 }

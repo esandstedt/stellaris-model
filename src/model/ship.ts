@@ -1,5 +1,5 @@
-import { Pair, asDictionary, asString } from "../compile";
-import { Ship, Fleet, Leader, Army, ShipDesign } from "./interfaces";
+import { asDictionary, asString, Pair } from "../compile";
+import { Army, Fleet, Leader, Ship, ShipDesign } from "./interfaces";
 
 export class ShipImpl implements Ship {
   public designId: string;
@@ -35,18 +35,18 @@ export class ShipImpl implements Ship {
   constructor(public id: string, pairs: Pair[]) {
     const data = asDictionary(pairs);
 
-    this.designId = asString(data["ship_design"]);
+    this.designId = asString(data.ship_design);
 
-    if (typeof data["experience"] !== "undefined") {
-      this.experience = parseFloat(asString(data["experience"]));
+    if (typeof data.experience !== "undefined") {
+      this.experience = parseFloat(asString(data.experience));
     } else {
       this.experience = 0;
     }
 
-    this.fleetId = asString(data["fleet"]);
+    this.fleetId = asString(data.fleet);
 
-    if (typeof data["name"] !== "undefined") {
-      this.name = asString(data["name"]);
+    if (typeof data.name !== "undefined") {
+      this.name = asString(data.name);
     } else {
       this.name = "";
     }

@@ -1,4 +1,4 @@
-import { asDictionary, Pair, asPairArray, asString } from "../../compile";
+import { asDictionary, asPairArray, asString, Pair } from "../../compile";
 import { Flag } from "../interfaces";
 
 export class FlagImpl implements Flag {
@@ -17,20 +17,20 @@ export class FlagImpl implements Flag {
   constructor(pairs: Pair[]) {
     const data = asDictionary(pairs);
 
-    const background = asDictionary(data["background"]);
+    const background = asDictionary(data.background);
     this.background = {
-      category: asString(background["category"]),
-      file: asString(background["file"])
+      category: asString(background.category),
+      file: asString(background.file)
     };
 
-    this.colors = asPairArray(data["colors"])
+    this.colors = asPairArray(data.colors)
       .map(x => asString(x.value))
       .filter(x => x !== "null");
 
-    const icon = asDictionary(data["icon"]);
+    const icon = asDictionary(data.icon);
     this.icon = {
-      category: asString(icon["category"]),
-      file: asString(icon["file"])
+      category: asString(icon.category),
+      file: asString(icon.file)
     };
   }
 }

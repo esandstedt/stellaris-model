@@ -1,4 +1,4 @@
-import { Pair, asDictionary, asString } from "../compile";
+import { asDictionary, asString, Pair } from "../compile";
 import { Country, Faction, Leader, Pop } from "./interfaces";
 
 export class FactionImpl implements Faction {
@@ -26,24 +26,24 @@ export class FactionImpl implements Faction {
   constructor(public id: string, pairs: Pair[]) {
     const data = asDictionary(pairs);
 
-    if (typeof data["faction_approval"] !== "undefined") {
+    if (typeof data.faction_approval !== "undefined") {
       this.approval = parseFloat(asString("faction_approval"));
     }
 
-    this.countryId = asString(data["country"]);
+    this.countryId = asString(data.country);
 
-    if (typeof data["leader"] !== "undefined") {
-      this.leaderId = asString(data["leader"]);
+    if (typeof data.leader !== "undefined") {
+      this.leaderId = asString(data.leader);
     }
 
-    this.name = asString(data["name"]);
+    this.name = asString(data.name);
 
-    if (typeof data["support"] !== "undefined") {
-      this.support = parseFloat(asString(data["support"]));
+    if (typeof data.support !== "undefined") {
+      this.support = parseFloat(asString(data.support));
     } else {
       this.support = 0;
     }
 
-    this.type = asString(data["type"]);
+    this.type = asString(data.type);
   }
 }

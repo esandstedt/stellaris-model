@@ -21,12 +21,18 @@
   "author": "Erik Sandstedt",
   "license": "ISC",
   "homepage": "https://github.com/esandstedt/stellaris-model#readme",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/esandstedt/stellaris-model.git"
+  },
   "devDependencies": {
     "@types/jest": "^24.0.15",
     "@types/jszip": "^3.1.6",
     "@types/node": "^10.14.13",
+    "husky": "^3.1.0",
     "jest": "^24.8.0",
-    "prettier": "^1.18.2",
+    "lint-staged": "^10.0.0-1",
+    "prettier": "^1.19.1",
     "ts-jest": "^24.0.2",
     "ts-node": "^7.0.1",
     "tslint": "^5.18.0",
@@ -36,5 +42,10 @@
   },
   "dependencies": {
     "jszip": "^3.2.2"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
   }
 }

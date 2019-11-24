@@ -1,12 +1,12 @@
-import { asDictionary, Pair, asString } from "../compile";
+import { asDictionary, asString, Pair } from "../compile";
 import {
   Army,
   Country,
-  Ship,
-  Planet,
   Leader,
-  Species,
-  Pop
+  Planet,
+  Pop,
+  Ship,
+  Species
 } from "./interfaces";
 
 export class ArmyImpl implements Army {
@@ -45,47 +45,47 @@ export class ArmyImpl implements Army {
   constructor(public id: string, pairs: Pair[]) {
     const data = asDictionary(pairs);
 
-    if (typeof data["experience"] !== "undefined") {
-      this.experience = parseFloat(asString(data["experience"]));
+    if (typeof data.experience !== "undefined") {
+      this.experience = parseFloat(asString(data.experience));
     } else {
       this.experience = 0;
     }
 
-    this.health = parseFloat(asString(data["health"]));
+    this.health = parseFloat(asString(data.health));
 
-    if (typeof data["home_planet"] !== "undefined") {
-      this.homeId = asString(data["home_planet"]);
+    if (typeof data.home_planet !== "undefined") {
+      this.homeId = asString(data.home_planet);
     }
 
-    if (typeof data["leader"] !== "undefined") {
-      this.leaderId = asString(data["leader"]);
+    if (typeof data.leader !== "undefined") {
+      this.leaderId = asString(data.leader);
     }
 
-    this.maxHealth = parseFloat(asString(data["max_health"]));
+    this.maxHealth = parseFloat(asString(data.max_health));
 
-    if (typeof data["morale"] !== "undefined") {
-      this.morale = parseFloat(asString(data["morale"]));
+    if (typeof data.morale !== "undefined") {
+      this.morale = parseFloat(asString(data.morale));
     }
 
-    this.name = asString(data["name"]);
-    this.ownerId = asString(data["owner"]);
+    this.name = asString(data.name);
+    this.ownerId = asString(data.owner);
 
-    if (typeof data["ship"] !== "undefined") {
-      this.shipId = asString(data["ship"]);
+    if (typeof data.ship !== "undefined") {
+      this.shipId = asString(data.ship);
     }
 
-    if (typeof data["species_index"] !== "undefined") {
-      this.speciesIndex = parseInt(asString(data["species_index"]), 10);
+    if (typeof data.species_index !== "undefined") {
+      this.speciesIndex = parseInt(asString(data.species_index), 10);
     }
 
-    if (typeof data["planet"] !== "undefined") {
-      this.planetId = asString(data["planet"]);
+    if (typeof data.planet !== "undefined") {
+      this.planetId = asString(data.planet);
     }
 
-    if (typeof data["pop"] !== "undefined") {
-      this.popId = asString(data["pop"]);
+    if (typeof data.pop !== "undefined") {
+      this.popId = asString(data.pop);
     }
 
-    this.type = asString(data["type"]);
+    this.type = asString(data.type);
   }
 }

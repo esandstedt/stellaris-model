@@ -1,5 +1,5 @@
-import { asDictionary, Pair, asString, asArray } from "../../compile";
-import { WarBattle, Country, System, Planet } from "../..";
+import { Country, Planet, System, WarBattle } from "../..";
+import { asArray, asDictionary, asString, Pair } from "../../compile";
 
 export class WarBattleImpl implements WarBattle {
   public attackers: Country[] = [];
@@ -21,29 +21,29 @@ export class WarBattleImpl implements WarBattle {
   constructor(pairs: Pair[]) {
     const data = asDictionary(pairs);
 
-    this.attackerIds = asArray(data["attackers"]).map(x => asString(x));
-    this.attackerLosses = parseInt(asString(data["attacker_losses"]), 10);
+    this.attackerIds = asArray(data.attackers).map(x => asString(x));
+    this.attackerLosses = parseInt(asString(data.attacker_losses), 10);
     this.attackerWarExhaustion = parseFloat(
-      asString(data["attacker_war_exhaustion"])
+      asString(data.attacker_war_exhaustion)
     );
-    this.date = asString(data["date"]);
-    this.defenderIds = asArray(data["defenders"]).map(x => asString(x));
-    this.defenderLosses = parseInt(asString(data["defender_losses"]), 10);
+    this.date = asString(data.date);
+    this.defenderIds = asArray(data.defenders).map(x => asString(x));
+    this.defenderLosses = parseInt(asString(data.defender_losses), 10);
     this.defenderWarExhaustion = parseFloat(
-      asString(data["defender_war_exhaustion"])
+      asString(data.defender_war_exhaustion)
     );
 
-    const planetId = asString(data["planet"]);
+    const planetId = asString(data.planet);
     if (planetId !== "4294967295") {
       this.planetId = planetId;
     }
 
-    const systemId = asString(data["system"]);
+    const systemId = asString(data.system);
     if (systemId !== "4294967295") {
       this.systemId = systemId;
     }
 
-    const type = asString(data["type"]);
+    const type = asString(data.type);
     if (type === "armies") {
       this.type = "armies";
     } else if (type === "ships") {
@@ -52,7 +52,7 @@ export class WarBattleImpl implements WarBattle {
       throw new Error(`Unrecognized battle type '${type}'.`);
     }
 
-    const attackerVictory = asString(data["attacker_victory"]);
+    const attackerVictory = asString(data.attacker_victory);
     if (attackerVictory === "yes") {
       this.victor = "attacker";
     } else if (attackerVictory === "no") {

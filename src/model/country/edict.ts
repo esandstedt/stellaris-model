@@ -1,4 +1,4 @@
-import { Pair, asDictionary, asString } from "../../compile";
+import { asDictionary, asString, Pair } from "../../compile";
 import { Edict } from "../interfaces";
 
 export class EdictImpl implements Edict {
@@ -8,7 +8,7 @@ export class EdictImpl implements Edict {
   constructor(pairs: Pair[]) {
     const data = asDictionary(pairs);
 
-    this.name = asString(data["edict"]);
-    this.date = asString(data["date"]);
+    this.name = asString(data.edict);
+    this.date = asString(data.date);
   }
 }
