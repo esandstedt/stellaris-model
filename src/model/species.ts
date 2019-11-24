@@ -1,4 +1,4 @@
-import { Pair, asDictionary, asString, asPairArray } from "../compile";
+import { asDictionary, asPairArray, asString, Pair } from "../compile";
 import { Leader, Planet, Pop, Species } from "./interfaces";
 
 export class SpeciesImpl implements Species {
@@ -20,32 +20,32 @@ export class SpeciesImpl implements Species {
   constructor(pairs: Pair[]) {
     const data = asDictionary(pairs);
 
-    if (data["adjective"]) {
-      this.adjective = asString(data["adjective"]);
+    if (data.adjective) {
+      this.adjective = asString(data.adjective);
     }
 
-    if (data["base"]) {
-      this.baseIndex = parseInt(asString(data["base"]), 10);
+    if (data.base) {
+      this.baseIndex = parseInt(asString(data.base), 10);
     }
 
-    this.name = asString(data["name"]);
+    this.name = asString(data.name);
 
-    if (data["home_planet"]) {
-      this.homePlanetId = asString(data["home_planet"]);
+    if (data.home_planet) {
+      this.homePlanetId = asString(data.home_planet);
     }
 
-    if (data["plural"]) {
-      this.plural = asString(data["plural"]);
+    if (data.plural) {
+      this.plural = asString(data.plural);
     }
 
-    this.portrait = asString(data["portrait"]);
+    this.portrait = asString(data.portrait);
 
-    this.speciesClass = asString(data["class"]);
+    this.speciesClass = asString(data.class);
 
-    this.traits = asPairArray(data["traits"]).map(x => asString(x.value));
+    this.traits = asPairArray(data.traits).map(x => asString(x.value));
 
-    if (data["sapient"]) {
-      this.sapient = asString(data["sapient"]) !== "no";
+    if (data.sapient) {
+      this.sapient = asString(data.sapient) !== "no";
     } else {
       this.sapient = true;
     }

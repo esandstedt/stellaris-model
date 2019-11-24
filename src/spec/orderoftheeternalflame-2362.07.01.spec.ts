@@ -1,5 +1,5 @@
-import { Model } from "..";
 import { loadPath } from ".";
+import { Model } from "..";
 import invariants from "./invariants";
 
 const filePath = "savefiles/orderoftheeternalflame-2362.07.01.sav";

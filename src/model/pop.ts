@@ -1,4 +1,4 @@
-import { asDictionary, Pair, asString, asPairArray } from "../compile";
+import { asDictionary, asPairArray, asString, Pair } from "../compile";
 import { Faction, Planet, Pop, Species } from "./interfaces";
 
 export class PopImpl implements Pop {
@@ -43,16 +43,16 @@ export class PopImpl implements Pop {
   constructor(public id: string, pairs: Pair[]) {
     const data = asDictionary(pairs);
 
-    this.amenitiesUsage = parseFloat(asString(data["amenities_usage"]));
-    this.canMigrate = data["can_migrate"] !== "no";
-    this.category = asString(data["category"]);
+    this.amenitiesUsage = parseFloat(asString(data.amenities_usage));
+    this.canMigrate = data.can_migrate !== "no";
+    this.category = asString(data.category);
 
-    if (typeof data["crime"] !== "undefined") {
-      this.crime = parseFloat(asString(data["crime"]));
+    if (typeof data.crime !== "undefined") {
+      this.crime = parseFloat(asString(data.crime));
     }
 
-    if (typeof data["ethos"] !== "undefined") {
-      const array = asPairArray(data["ethos"]).map(x => asString(x.value));
+    if (typeof data.ethos !== "undefined") {
+      const array = asPairArray(data.ethos).map(x => asString(x.value));
 
       if (array.length !== 1) {
         throw new Error("Expected only one ethos on pop.");
@@ -61,30 +61,30 @@ export class PopImpl implements Pop {
       this.ethos = array[0];
     }
 
-    if (typeof data["pop_faction"] !== "undefined") {
-      this.factionId = asString(data["pop_faction"]);
+    if (typeof data.pop_faction !== "undefined") {
+      this.factionId = asString(data.pop_faction);
     }
 
-    if (typeof data["happiness"] !== "undefined") {
-      this.happiness = parseFloat(asString(data["happiness"]));
+    if (typeof data.happiness !== "undefined") {
+      this.happiness = parseFloat(asString(data.happiness));
     }
 
-    this.housingUsage = parseFloat(asString(data["housing_usage"]));
+    this.housingUsage = parseFloat(asString(data.housing_usage));
 
-    if (typeof data["job"] !== "undefined") {
-      this.job = asString(data["job"]);
+    if (typeof data.job !== "undefined") {
+      this.job = asString(data.job);
     }
 
-    this.planetId = asString(data["planet"]);
+    this.planetId = asString(data.planet);
 
-    if (typeof data["power"] !== "undefined") {
-      this.power = parseFloat(asString(data["power"]));
+    if (typeof data.power !== "undefined") {
+      this.power = parseFloat(asString(data.power));
     }
 
-    if (typeof data["promotion_date"] !== "undefined") {
-      this.promotionDate = asString(data["promotion_date"]);
+    if (typeof data.promotion_date !== "undefined") {
+      this.promotionDate = asString(data.promotion_date);
     }
 
-    this.speciesIndex = parseInt(asString(data["species_index"]), 10);
+    this.speciesIndex = parseInt(asString(data.species_index), 10);
   }
 }

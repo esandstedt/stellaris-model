@@ -1,5 +1,5 @@
-import { asDictionary, Pair, asString } from "../compile";
-import { ShipDesign, Ship } from "./interfaces";
+import { asDictionary, asString, Pair } from "../compile";
+import { Ship, ShipDesign } from "./interfaces";
 
 export class ShipDesignImpl implements ShipDesign {
   public name: string | undefined;
@@ -9,10 +9,10 @@ export class ShipDesignImpl implements ShipDesign {
   constructor(public id: string, pairs: Pair[]) {
     const data = asDictionary(pairs);
 
-    if (typeof data["name"] !== "undefined") {
-      this.name = asString(data["name"]);
+    if (typeof data.name !== "undefined") {
+      this.name = asString(data.name);
     }
 
-    this.type = asString(data["ship_size"]);
+    this.type = asString(data.ship_size);
   }
 }

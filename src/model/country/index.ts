@@ -1,33 +1,33 @@
 import {
+  asArray,
   asDictionary,
-  Pair,
-  asString,
   asPairArray,
-  asArray
+  asString,
+  Pair
 } from "../../compile";
-import { FlagImpl } from "./flag";
 import {
-  Country,
-  Faction,
-  Leader,
-  Planet,
-  Starbase,
-  Fleet,
-  Army,
-  Sector,
   Alliance,
-  Ethic,
-  War,
-  Policy,
-  Edict,
+  Army,
   Budget,
+  Country,
+  Edict,
+  Ethic,
+  Faction,
+  Fleet,
   Government,
-  Megastructure
+  Leader,
+  Megastructure,
+  Planet,
+  Policy,
+  Sector,
+  Starbase,
+  War
 } from "../interfaces";
-import { PolicyImpl } from "./policy";
-import { EdictImpl } from "./edict";
 import { BudgetImpl } from "./budget";
+import { EdictImpl } from "./edict";
+import { FlagImpl } from "./flag";
 import { GovernmentImpl } from "./government";
+import { PolicyImpl } from "./policy";
 
 export class CountryImpl implements Country {
   public activePolicies: Policy[];
@@ -81,63 +81,63 @@ export class CountryImpl implements Country {
   constructor(public id: string, pairs: Pair[]) {
     const data = asDictionary(pairs);
 
-    if (typeof data["active_policies"] !== "undefined") {
-      this.activePolicies = asArray(data["active_policies"]).map(
+    if (typeof data.active_policies !== "undefined") {
+      this.activePolicies = asArray(data.active_policies).map(
         x => new PolicyImpl(asPairArray(x))
       );
     } else {
       this.activePolicies = [];
     }
 
-    this.adjective = asString(data["adjective"]);
+    this.adjective = asString(data.adjective);
 
-    if (typeof data["alliance"] !== "undefined") {
-      this.allianceId = asString(data["alliance"]);
+    if (typeof data.alliance !== "undefined") {
+      this.allianceId = asString(data.alliance);
     }
 
-    if (typeof data["ascension_perks"] !== "undefined") {
-      this.ascensionPerks = asArray(data["ascension_perks"]).map(asString);
+    if (typeof data.ascension_perks !== "undefined") {
+      this.ascensionPerks = asArray(data.ascension_perks).map(asString);
     } else {
       this.ascensionPerks = [];
     }
 
-    if (typeof data["associated_alliance"] !== "undefined") {
-      this.associatedAllianceId = asString(data["associated_alliance"]);
+    if (typeof data.associated_alliance !== "undefined") {
+      this.associatedAllianceId = asString(data.associated_alliance);
     }
 
-    this.budget = new BudgetImpl(asPairArray(data["budget"]));
+    this.budget = new BudgetImpl(asPairArray(data.budget));
 
-    if (typeof data["capital"] !== "undefined") {
-      this.capitalId = asString(data["capital"]);
+    if (typeof data.capital !== "undefined") {
+      this.capitalId = asString(data.capital);
     }
-    if (typeof data["city_graphical_culture"] !== "undefined") {
-      this.cityGraphicalCulture = asString(data["city_graphical_culture"]);
+    if (typeof data.city_graphical_culture !== "undefined") {
+      this.cityGraphicalCulture = asString(data.city_graphical_culture);
     }
 
-    this.customName = data["custom_name"] === "yes";
+    this.customName = data.custom_name === "yes";
 
-    this.economyPower = parseFloat(asString(data["economy_power"]));
+    this.economyPower = parseFloat(asString(data.economy_power));
 
-    if (typeof data["edicts"] !== "undefined") {
-      this.edicts = asArray(data["edicts"]).map(
+    if (typeof data.edicts !== "undefined") {
+      this.edicts = asArray(data.edicts).map(
         x => new EdictImpl(asPairArray(x))
       );
     } else {
       this.edicts = [];
     }
 
-    this.emigration = parseFloat(asString(data["emigration"]));
+    this.emigration = parseFloat(asString(data.emigration));
 
-    this.empireCohesion = parseFloat(asString(data["empire_cohesion"]));
+    this.empireCohesion = parseFloat(asString(data.empire_cohesion));
 
-    if (typeof data["empire_size"] !== "undefined") {
-      this.empireSize = parseInt(asString(data["empire_size"]), 10);
+    if (typeof data.empire_size !== "undefined") {
+      this.empireSize = parseInt(asString(data.empire_size), 10);
     } else {
       this.empireSize = 0;
     }
 
-    if (typeof data["ethos"] !== "undefined") {
-      this.ethos = asPairArray(data["ethos"])
+    if (typeof data.ethos !== "undefined") {
+      this.ethos = asPairArray(data.ethos)
         .map(({ value }) => asString(value))
         .map(ethicString => {
           const ethic = ETHIC_MAPPING[ethicString];
@@ -150,51 +150,51 @@ export class CountryImpl implements Country {
       this.ethos = [];
     }
 
-    this.flag = new FlagImpl(asPairArray(data["flag"]));
-    this.fleetSize = parseInt(asString(data["fleet_size"]), 10);
+    this.flag = new FlagImpl(asPairArray(data.flag));
+    this.fleetSize = parseInt(asString(data.fleet_size), 10);
 
-    if (typeof data["government"] !== "undefined") {
-      this.government = new GovernmentImpl(asPairArray(data["government"]));
+    if (typeof data.government !== "undefined") {
+      this.government = new GovernmentImpl(asPairArray(data.government));
     }
 
-    this.immigration = parseFloat(asString(data["immigration"]));
+    this.immigration = parseFloat(asString(data.immigration));
 
-    if (typeof data["military_power"] !== "undefined") {
-      this.militaryPower = parseFloat(asString(data["military_power"]));
+    if (typeof data.military_power !== "undefined") {
+      this.militaryPower = parseFloat(asString(data.military_power));
     } else {
       this.militaryPower = 0;
     }
 
-    this.name = asString(data["name"]);
+    this.name = asString(data.name);
 
-    if (data["overlord"]) {
-      this.overlordId = asString(data["overlord"]);
+    if (data.overlord) {
+      this.overlordId = asString(data.overlord);
     }
 
-    if (typeof data["ruler"] !== "undefined") {
-      this.rulerId = asString(data["ruler"]);
+    if (typeof data.ruler !== "undefined") {
+      this.rulerId = asString(data.ruler);
     }
 
-    this.starbaseCapacity = parseInt(asString(data["starbase_capacity"]), 10);
+    this.starbaseCapacity = parseInt(asString(data.starbase_capacity), 10);
 
-    if (typeof data["subject_date"] !== "undefined") {
-      this.subjectDate = asString(data["subject_date"]);
+    if (typeof data.subject_date !== "undefined") {
+      this.subjectDate = asString(data.subject_date);
     }
 
-    if (typeof data["subject_type"] !== "undefined") {
-      this.subjectType = asString(data["subject_type"]);
+    if (typeof data.subject_type !== "undefined") {
+      this.subjectType = asString(data.subject_type);
     }
 
-    if (typeof data["traditions"] !== "undefined") {
-      this.traditions = asArray(data["traditions"]).map(asString);
+    if (typeof data.traditions !== "undefined") {
+      this.traditions = asArray(data.traditions).map(asString);
     } else {
       this.traditions = [];
     }
 
-    this.type = asString(data["type"]);
+    this.type = asString(data.type);
 
-    this.victoryRank = parseInt(asString(data["victory_rank"]), 10);
-    this.victoryScore = parseFloat(asString(data["victory_score"]));
+    this.victoryRank = parseInt(asString(data.victory_rank), 10);
+    this.victoryScore = parseFloat(asString(data.victory_score));
   }
 }
 

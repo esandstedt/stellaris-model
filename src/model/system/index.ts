@@ -1,12 +1,12 @@
+import { asDictionary, asPairArray, asString, Pair } from "../../compile";
 import { CoordinateImpl } from "../coordinate";
-import { asDictionary, Pair, asString, asPairArray } from "../../compile";
 import {
   Hyperlane,
+  Megastructure,
   Planet,
-  Starbase,
-  System,
   Sector,
-  Megastructure
+  Starbase,
+  System
 } from "../interfaces";
 
 export class SystemImpl implements System {
@@ -25,19 +25,19 @@ export class SystemImpl implements System {
   constructor(public id: string, pairs: Pair[]) {
     const data = asDictionary(pairs);
 
-    this.coordinate = new CoordinateImpl(asPairArray(data["coordinate"]));
-    this.name = asString(data["name"]);
+    this.coordinate = new CoordinateImpl(asPairArray(data.coordinate));
+    this.name = asString(data.name);
 
-    if (typeof data["sector"] !== "undefined") {
-      this.sectorId = asString(data["sector"]);
+    if (typeof data.sector !== "undefined") {
+      this.sectorId = asString(data.sector);
     }
 
-    const starbaseId = asString(data["starbase"]);
+    const starbaseId = asString(data.starbase);
     if (starbaseId !== "4294967295") {
       this.starbaseId = starbaseId;
     }
 
-    this.starClass = asString(data["star_class"]);
-    this.type = asString(data["type"]);
+    this.starClass = asString(data.star_class);
+    this.type = asString(data.type);
   }
 }

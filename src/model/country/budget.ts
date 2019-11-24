@@ -1,5 +1,5 @@
-import { Pair, asDictionary, asPairArray, asString } from "../../compile";
 import { Budget } from "../..";
+import { asDictionary, asPairArray, asString, Pair } from "../../compile";
 import { BudgetResource } from "../interfaces";
 
 export class BudgetImpl implements Budget {
@@ -29,9 +29,9 @@ export class BudgetImpl implements Budget {
   constructor(pairs: Pair[]) {
     const data = asDictionary(pairs);
 
-    const currentMonth = asDictionary(data["current_month"]);
+    const currentMonth = asDictionary(data.current_month);
 
-    const balance = asPairArray(currentMonth["balance"])
+    const balance = asPairArray(currentMonth.balance)
       .map(x =>
         asPairArray(x.value).map(y => ({
           amount: parseFloat(asString(y.value)),
@@ -60,17 +60,17 @@ export class BudgetImpl implements Budget {
 
     const empty = (): BudgetResource => ({ items: [], total: 0 });
 
-    this.energy = resources["energy"] || empty();
-    this.minerals = resources["minerals"] || empty();
-    this.food = resources["food"] || empty();
-    this.consumerGoods = resources["consumer_goods"] || empty();
-    this.alloys = resources["alloys"] || empty();
-    this.influence = resources["influence"] || empty();
-    this.unity = resources["unity"] || empty();
+    this.energy = resources.energy || empty();
+    this.minerals = resources.minerals || empty();
+    this.food = resources.food || empty();
+    this.consumerGoods = resources.consumer_goods || empty();
+    this.alloys = resources.alloys || empty();
+    this.influence = resources.influence || empty();
+    this.unity = resources.unity || empty();
 
-    const physics = resources["physics_research"] || empty();
-    const society = resources["society_research"] || empty();
-    const engineering = resources["engineering_research"] || empty();
+    const physics = resources.physics_research || empty();
+    const society = resources.society_research || empty();
+    const engineering = resources.engineering_research || empty();
 
     this.research = {
       engineering,
@@ -80,13 +80,13 @@ export class BudgetImpl implements Budget {
     };
 
     this.strategic = {
-      darkMatter: resources["sr_dark_matter"] || empty(),
-      exoticGases: resources["exotic_gases"] || empty(),
-      livingMetal: resources["sr_living_metal"] || empty(),
-      nanites: resources["nanites"] || empty(),
-      rareCrystals: resources["rare_crystals"] || empty(),
-      volatileMotes: resources["volatile_motes"] || empty(),
-      zro: resources["sr_zro"] || empty()
+      darkMatter: resources.sr_dark_matter || empty(),
+      exoticGases: resources.exotic_gases || empty(),
+      livingMetal: resources.sr_living_metal || empty(),
+      nanites: resources.nanites || empty(),
+      rareCrystals: resources.rare_crystals || empty(),
+      volatileMotes: resources.volatile_motes || empty(),
+      zro: resources.sr_zro || empty()
     };
   }
 }

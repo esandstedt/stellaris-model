@@ -1,5 +1,5 @@
-import { Model } from "..";
 import { loadPath } from ".";
+import { Model } from "..";
 import invariants from "./invariants";
 
 const filePath = "savefiles/evariteconsciousness-2427.07.01.sav";

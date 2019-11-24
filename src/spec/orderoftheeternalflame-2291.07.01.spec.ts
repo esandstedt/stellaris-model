@@ -1,5 +1,5 @@
-import { Model, Leader, Alliance, Country } from "..";
 import { loadPath } from ".";
+import { Alliance, Country, Leader, Model } from "..";
 import invariants from "./invariants";
 
 const filePath = "savefiles/orderoftheeternalflame-2291.07.01.sav";

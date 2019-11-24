@@ -1,10 +1,10 @@
-import { Model, Player, Country, Fleet } from "..";
 import { loadPath } from ".";
+import { Country, Fleet, Model, Player } from "..";
+import { Collection } from "../model/collection";
 import { FactionImpl } from "../model/faction";
+import { Leader } from "../model/interfaces";
 import { PopImpl } from "../model/pop";
 import { SpeciesImpl } from "../model/species";
-import { Leader } from "../model/interfaces";
-import { Collection } from "../model/collection";
 import invariants from "./invariants";
 
 const filePath = "savefiles/unitednationsofearth-2247.07.11.sav";
