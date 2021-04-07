@@ -1,6 +1,6 @@
 {
   "name": "@esandstedt/stellaris-model",
-  "version": "0.4.4",
+  "version": "0.4.5",
   "description": "A library to generate an object model for a Stellaris savefile.",
   "main": "dist/index",
   "types": "dist/index",
