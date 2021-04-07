@@ -100,6 +100,12 @@ export class LeaderImpl implements Leader {
         this.shipId = asString(location.id);
       } else if (locationType === "tech") {
         this.researchType = asString(location.area);
+      } else if (locationType === "empire") {
+        // TODO
+      } else if (locationType === "federation") {
+        // TODO
+      } else if (locationType === "galactic_community") {
+        // TODO
       } else {
         throw new Error(`unrecognized leader location type '${locationType}'`);
       }
