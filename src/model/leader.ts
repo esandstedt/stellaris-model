@@ -121,6 +121,7 @@ export class LeaderImpl implements Leader {
 
 const LEADERTYPE_MAPPING: { [key: string]: LeaderType } = {
   admiral: LeaderType.Admiral,
+  envoy: LeaderType.Envoy,
   general: LeaderType.General,
   governor: LeaderType.Governor,
   ruler: LeaderType.Ruler,

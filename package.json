@@ -15,7 +15,7 @@
     "lint": "tslint -p tsconfig.json",
     "prepare": "npm run build",
     "prepublishOnly": "npm test && npm run lint && typedoc",
-    "start": "node dist/run.js",
+    "start": "ts-node src/run.ts",
     "test": "npx jest"
   },
   "author": "Erik Sandstedt",
@@ -47,5 +47,9 @@
     "hooks": {
       "pre-commit": "lint-staged"
     }
+  },
+  "prettier": {
+    "arrowParens": "avoid",
+    "trailingComma": "none"
   }
 }

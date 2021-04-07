@@ -6,7 +6,7 @@ export function asString(input: Pair[] | string): string {
   if (typeof input === "string") {
     return input;
   } else if (typeof input === "undefined") {
-    throw new Error("Could not convert undefined to string.");
+    return "";
   } else {
     throw new Error("Could not convert pair array to string.");
   }
@@ -14,7 +14,7 @@ export function asString(input: Pair[] | string): string {
 
 export function asPairArray(input: Pair[] | string): Pair[] {
   if (typeof input === "undefined") {
-    throw new Error("Could not convert undefined to pair array.");
+    return [];
   } else if (typeof input === "string") {
     throw new Error("Could not convert string to pair array.");
   } else {

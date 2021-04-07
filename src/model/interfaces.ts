@@ -237,6 +237,7 @@ export interface Leader {
 
 export enum LeaderType {
   Admiral,
+  Envoy,
   General,
   Governor,
   Scientist,
