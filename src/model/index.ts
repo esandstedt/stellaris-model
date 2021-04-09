@@ -150,6 +150,23 @@ export class ModelImpl implements Model {
       base => base.id
     );
 
+    if (data.starbases) {
+      this.starbases = this.getCollection(
+        data.starbases,
+        (id, p) => new StarbaseImpl(id, p),
+        base => base.id
+      );
+    } else if (data.starbase_mgr) {
+      const starbaseMgr = asDictionary(data.starbase_mgr);
+      this.starbases = this.getCollection(
+        starbaseMgr.starbases,
+        (id, p) => new StarbaseImpl(id, p),
+        base => base.id
+      );
+    } else {
+      throw new Error("cannot find starbases");
+    }
+
     this.systems = this.getCollection(
       systemPairs,
       (id, p) => new SystemImpl(id, p),
