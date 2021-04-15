@@ -15,7 +15,7 @@ export class PopImpl implements Pop {
   public planetId: string;
   public power: number | undefined;
   public promotionDate: string | undefined;
-  public speciesIndex: number;
+  public speciesId: string;
 
   get planet(): Planet {
     if (typeof this.planetInstance === "undefined") {
@@ -85,6 +85,12 @@ export class PopImpl implements Pop {
       this.promotionDate = asString(data.promotion_date);
     }
 
-    this.speciesIndex = parseInt(asString(data.species_index), 10);
+    if (typeof data.species_index !== "undefined") {
+      this.speciesId = asString(data.species_index);
+    } else if (typeof data.species !== "undefined") {
+      this.speciesId = asString(data.species);
+    } else {
+      throw new Error("Could not find species for pop.");
+    }
   }
 }

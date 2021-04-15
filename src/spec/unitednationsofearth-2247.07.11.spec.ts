@@ -203,6 +203,7 @@ describe("unitednationsofearth-2247.07.11", () => {
 
   test("links species to their home planet", () => {
     model.species
+      .getAll()
       .map(species => species as SpeciesImpl)
       .forEach(species => {
         if (species.homePlanetId) {

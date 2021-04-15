@@ -196,12 +196,14 @@ export default (getModel: () => Model) => {
       });
     });
 
-    test("all leaders have traits", () => {
+    test("almost all leaders have traits", () => {
       const model = getModel();
 
       model.leaders.getAll().forEach(leader => {
-        expect(leader.traits).not.toBeUndefined();
-        expect(leader.traits.length).toBeGreaterThan(0);
+        if (leader.type !== LeaderType.Envoy) {
+          expect(leader.traits).not.toBeUndefined();
+          expect(leader.traits.length).toBeGreaterThan(0);
+        }
       });
     });
 

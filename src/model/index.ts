@@ -39,7 +39,7 @@ export class ModelImpl implements Model {
   public sectors: Collection<SectorImpl>;
   public ships: Collection<ShipImpl>;
   public shipDesigns: Collection<ShipDesignImpl>;
-  public species: SpeciesImpl[];
+  public species: Collection<SpeciesImpl>;
   public starbases: Collection<StarbaseImpl>;
   public systems: Collection<SystemImpl>;
   public version: string;
@@ -140,9 +140,23 @@ export class ModelImpl implements Model {
       design => design.id
     );
 
-    this.species = asPairArray(data.species).map(
-      pair => new SpeciesImpl(asPairArray(pair.value))
-    );
+    if (data.species) {
+      this.species = new Collection(
+        asPairArray(data.species).map(
+          (pair, index) =>
+            new SpeciesImpl(index.toString(), asPairArray(pair.value))
+        ),
+        species => species.id
+      );
+    } else if (data.species_db) {
+      this.species = this.getCollection(
+        data.species_db,
+        (id, p) => new SpeciesImpl(id, p),
+        species => species.id
+      );
+    } else {
+      throw new Error("cannot find species");
+    }
 
     this.starbases = this.getCollection(
       data.starbases,
@@ -300,30 +314,30 @@ export class ModelImpl implements Model {
       }
     );
 
-    this.linkSpecies(
+    this.link(
       this.leaders,
       this.species,
-      x => x.speciesIndex,
+      x => x.speciesId,
       (leader, species) => {
         leader.species = species;
         species.leaders.push(leader);
       }
     );
 
-    this.linkSpecies(
+    this.link(
       this.pops,
       this.species,
-      x => x.speciesIndex,
+      x => x.speciesId,
       (pop, species) => {
         pop.species = species;
         species.pops.push(pop);
       }
     );
 
-    this.linkSpecies(
+    this.link(
       this.species,
       this.species,
-      x => x.baseIndex,
+      x => x.baseId,
       (species, base) => {
         species.base = base;
         base.children.push(species);
@@ -479,10 +493,10 @@ export class ModelImpl implements Model {
       }
     );
 
-    this.linkSpecies(
+    this.link(
       this.armies,
       this.species,
-      x => x.speciesIndex,
+      x => x.speciesId,
       (army, species) => {
         army.species = species;
       }

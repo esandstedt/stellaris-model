@@ -30,7 +30,7 @@ export class LeaderImpl implements Leader {
   public sector: Sector | undefined;
   public shipId: string | undefined;
   public ship: Ship | undefined;
-  public speciesIndex: number;
+  public speciesId: string;
   public traits: string[];
   public type: LeaderType;
 
@@ -106,12 +106,20 @@ export class LeaderImpl implements Leader {
         // TODO
       } else if (locationType === "galactic_community") {
         // TODO
+      } else if (locationType === "first_contact_system") {
+        // TODO
       } else {
         throw new Error(`unrecognized leader location type '${locationType}'`);
       }
     }
 
-    this.speciesIndex = parseInt(asString(data.species_index), 10);
+    if (typeof data.species_index !== "undefined") {
+      this.speciesId = asString(data.species_index);
+    } else if (typeof data.species !== "undefined") {
+      this.speciesId = asString(data.species);
+    } else {
+      throw new Error("Could not find species for leader.");
+    }
 
     const typeString = asString(data.class);
 

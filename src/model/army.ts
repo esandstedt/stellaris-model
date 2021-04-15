@@ -26,7 +26,7 @@ export class ArmyImpl implements Army {
   public pop: Pop | undefined;
   public shipId: string | undefined;
   public ship: Ship | undefined;
-  public speciesIndex: number | undefined;
+  public speciesId: string | undefined;
   public species: Species | undefined;
   public type: string;
 
@@ -75,7 +75,9 @@ export class ArmyImpl implements Army {
     }
 
     if (typeof data.species_index !== "undefined") {
-      this.speciesIndex = parseInt(asString(data.species_index), 10);
+      this.speciesId = asString(data.species_index);
+    } else if (typeof data.species !== "undefined") {
+      this.speciesId = asString(data.species);
     }
 
     if (typeof data.planet !== "undefined") {

@@ -25,7 +25,7 @@ export interface Model {
   sectors: Collection<Sector>;
   ships: Collection<Ship>;
   shipDesigns: Collection<ShipDesign>;
-  species: Species[];
+  species: Collection<Species>;
   starbases: Collection<Starbase>;
   systems: Collection<System>;
   version: string;
@@ -331,6 +331,7 @@ export interface ShipDesign {
 }
 
 export interface Species {
+  id: string;
   adjective: string | undefined;
   base: Species | undefined;
   children: Species[];

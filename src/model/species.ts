@@ -3,7 +3,7 @@ import { Leader, Planet, Pop, Species } from "./interfaces";
 
 export class SpeciesImpl implements Species {
   public adjective: string | undefined;
-  public baseIndex: number | undefined;
+  public baseId: string | undefined;
   public base: Species | undefined;
   public children: Species[] = [];
   public homePlanetId: string | undefined;
@@ -17,7 +17,7 @@ export class SpeciesImpl implements Species {
   public speciesClass: string;
   public traits: string[];
 
-  constructor(pairs: Pair[]) {
+  constructor(public id: string, pairs: Pair[]) {
     const data = asDictionary(pairs);
 
     if (data.adjective) {
@@ -25,7 +25,7 @@ export class SpeciesImpl implements Species {
     }
 
     if (data.base) {
-      this.baseIndex = parseInt(asString(data.base), 10);
+      this.baseId = asString(data.base);
     }
 
     this.name = asString(data.name);
