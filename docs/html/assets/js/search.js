@@ -2160,13 +2160,21 @@ typedoc.search.data = {
     },
     {
       id: 269,
+      kind: 1024,
+      name: "system",
+      url: "interfaces/ship.html#system",
+      classes: "tsd-kind-property tsd-parent-kind-interface",
+      parent: "Ship"
+    },
+    {
+      id: 270,
       kind: 256,
       name: "ShipDesign",
       url: "interfaces/shipdesign.html",
       classes: "tsd-kind-interface"
     },
     {
-      id: 270,
+      id: 271,
       kind: 1024,
       name: "id",
       url: "interfaces/shipdesign.html#id",
@@ -2174,7 +2182,7 @@ typedoc.search.data = {
       parent: "ShipDesign"
     },
     {
-      id: 271,
+      id: 272,
       kind: 1024,
       name: "ships",
       url: "interfaces/shipdesign.html#ships",
@@ -2182,7 +2190,7 @@ typedoc.search.data = {
       parent: "ShipDesign"
     },
     {
-      id: 272,
+      id: 273,
       kind: 1024,
       name: "type",
       url: "interfaces/shipdesign.html#type",
@@ -2190,14 +2198,22 @@ typedoc.search.data = {
       parent: "ShipDesign"
     },
     {
-      id: 273,
+      id: 274,
       kind: 256,
       name: "Species",
       url: "interfaces/species.html",
       classes: "tsd-kind-interface"
     },
     {
-      id: 274,
+      id: 275,
+      kind: 1024,
+      name: "id",
+      url: "interfaces/species.html#id",
+      classes: "tsd-kind-property tsd-parent-kind-interface",
+      parent: "Species"
+    },
+    {
+      id: 276,
       kind: 1024,
       name: "adjective",
       url: "interfaces/species.html#adjective",
@@ -2205,7 +2221,7 @@ typedoc.search.data = {
       parent: "Species"
     },
     {
-      id: 275,
+      id: 277,
       kind: 1024,
       name: "base",
       url: "interfaces/species.html#base",
@@ -2213,7 +2229,7 @@ typedoc.search.data = {
       parent: "Species"
     },
     {
-      id: 276,
+      id: 278,
       kind: 1024,
       name: "children",
       url: "interfaces/species.html#children",
@@ -2221,7 +2237,7 @@ typedoc.search.data = {
       parent: "Species"
     },
     {
-      id: 277,
+      id: 279,
       kind: 1024,
       name: "homePlanet",
       url: "interfaces/species.html#homeplanet",
@@ -2229,7 +2245,7 @@ typedoc.search.data = {
       parent: "Species"
     },
     {
-      id: 278,
+      id: 280,
       kind: 1024,
       name: "leaders",
       url: "interfaces/species.html#leaders",
@@ -2237,7 +2253,7 @@ typedoc.search.data = {
       parent: "Species"
     },
     {
-      id: 279,
+      id: 281,
       kind: 1024,
       name: "name",
       url: "interfaces/species.html#name",
@@ -2245,7 +2261,7 @@ typedoc.search.data = {
       parent: "Species"
     },
     {
-      id: 280,
+      id: 282,
       kind: 1024,
       name: "plural",
       url: "interfaces/species.html#plural",
@@ -2253,7 +2269,7 @@ typedoc.search.data = {
       parent: "Species"
     },
     {
-      id: 281,
+      id: 283,
       kind: 1024,
       name: "pops",
       url: "interfaces/species.html#pops",
@@ -2261,7 +2277,7 @@ typedoc.search.data = {
       parent: "Species"
     },
     {
-      id: 282,
+      id: 284,
       kind: 1024,
       name: "portrait",
       url: "interfaces/species.html#portrait",
@@ -2269,7 +2285,7 @@ typedoc.search.data = {
       parent: "Species"
     },
     {
-      id: 283,
+      id: 285,
       kind: 1024,
       name: "sapient",
       url: "interfaces/species.html#sapient",
@@ -2277,7 +2293,7 @@ typedoc.search.data = {
       parent: "Species"
     },
     {
-      id: 284,
+      id: 286,
       kind: 1024,
       name: "speciesClass",
       url: "interfaces/species.html#speciesclass",
@@ -2285,7 +2301,7 @@ typedoc.search.data = {
       parent: "Species"
     },
     {
-      id: 285,
+      id: 287,
       kind: 1024,
       name: "traits",
       url: "interfaces/species.html#traits",
@@ -2293,14 +2309,14 @@ typedoc.search.data = {
       parent: "Species"
     },
     {
-      id: 286,
+      id: 288,
       kind: 256,
       name: "Starbase",
       url: "interfaces/starbase.html",
       classes: "tsd-kind-interface"
     },
     {
-      id: 287,
+      id: 289,
       kind: 1024,
       name: "id",
       url: "interfaces/starbase.html#id",
@@ -2308,7 +2324,7 @@ typedoc.search.data = {
       parent: "Starbase"
     },
     {
-      id: 288,
+      id: 290,
       kind: 1024,
       name: "buildings",
       url: "interfaces/starbase.html#buildings",
@@ -2316,7 +2332,7 @@ typedoc.search.data = {
       parent: "Starbase"
     },
     {
-      id: 289,
+      id: 291,
       kind: 1024,
       name: "level",
       url: "interfaces/starbase.html#level",
@@ -2324,7 +2340,7 @@ typedoc.search.data = {
       parent: "Starbase"
     },
     {
-      id: 290,
+      id: 292,
       kind: 1024,
       name: "modules",
       url: "interfaces/starbase.html#modules",
@@ -2332,7 +2348,7 @@ typedoc.search.data = {
       parent: "Starbase"
     },
     {
-      id: 291,
+      id: 293,
       kind: 1024,
       name: "owner",
       url: "interfaces/starbase.html#owner",
@@ -2340,7 +2356,7 @@ typedoc.search.data = {
       parent: "Starbase"
     },
     {
-      id: 292,
+      id: 294,
       kind: 1024,
       name: "system",
       url: "interfaces/starbase.html#system",
@@ -2348,14 +2364,14 @@ typedoc.search.data = {
       parent: "Starbase"
     },
     {
-      id: 293,
+      id: 295,
       kind: 256,
       name: "System",
       url: "interfaces/system.html",
       classes: "tsd-kind-interface"
     },
     {
-      id: 294,
+      id: 296,
       kind: 1024,
       name: "id",
       url: "interfaces/system.html#id",
@@ -2363,7 +2379,7 @@ typedoc.search.data = {
       parent: "System"
     },
     {
-      id: 295,
+      id: 297,
       kind: 1024,
       name: "coordinate",
       url: "interfaces/system.html#coordinate",
@@ -2371,7 +2387,7 @@ typedoc.search.data = {
       parent: "System"
     },
     {
-      id: 296,
+      id: 298,
       kind: 1024,
       name: "hyperlanes",
       url: "interfaces/system.html#hyperlanes",
@@ -2379,7 +2395,7 @@ typedoc.search.data = {
       parent: "System"
     },
     {
-      id: 297,
+      id: 299,
       kind: 1024,
       name: "megastructures",
       url: "interfaces/system.html#megastructures",
@@ -2387,7 +2403,7 @@ typedoc.search.data = {
       parent: "System"
     },
     {
-      id: 298,
+      id: 300,
       kind: 1024,
       name: "name",
       url: "interfaces/system.html#name",
@@ -2395,7 +2411,7 @@ typedoc.search.data = {
       parent: "System"
     },
     {
-      id: 299,
+      id: 301,
       kind: 1024,
       name: "planets",
       url: "interfaces/system.html#planets",
@@ -2403,7 +2419,7 @@ typedoc.search.data = {
       parent: "System"
     },
     {
-      id: 300,
+      id: 302,
       kind: 1024,
       name: "starbase",
       url: "interfaces/system.html#starbase",
@@ -2411,7 +2427,7 @@ typedoc.search.data = {
       parent: "System"
     },
     {
-      id: 301,
+      id: 303,
       kind: 1024,
       name: "starClass",
       url: "interfaces/system.html#starclass",
@@ -2419,7 +2435,7 @@ typedoc.search.data = {
       parent: "System"
     },
     {
-      id: 302,
+      id: 304,
       kind: 1024,
       name: "type",
       url: "interfaces/system.html#type",
@@ -2427,14 +2443,14 @@ typedoc.search.data = {
       parent: "System"
     },
     {
-      id: 303,
+      id: 305,
       kind: 256,
       name: "War",
       url: "interfaces/war.html",
       classes: "tsd-kind-interface"
     },
     {
-      id: 304,
+      id: 306,
       kind: 1024,
       name: "id",
       url: "interfaces/war.html#id",
@@ -2442,7 +2458,7 @@ typedoc.search.data = {
       parent: "War"
     },
     {
-      id: 305,
+      id: 307,
       kind: 1024,
       name: "attackers",
       url: "interfaces/war.html#attackers",
@@ -2450,7 +2466,7 @@ typedoc.search.data = {
       parent: "War"
     },
     {
-      id: 306,
+      id: 308,
       kind: 1024,
       name: "attackerWarExhaustion",
       url: "interfaces/war.html#attackerwarexhaustion",
@@ -2458,7 +2474,7 @@ typedoc.search.data = {
       parent: "War"
     },
     {
-      id: 307,
+      id: 309,
       kind: 1024,
       name: "attackerWarGoals",
       url: "interfaces/war.html#attackerwargoals",
@@ -2466,7 +2482,7 @@ typedoc.search.data = {
       parent: "War"
     },
     {
-      id: 308,
+      id: 310,
       kind: 1024,
       name: "battles",
       url: "interfaces/war.html#battles",
@@ -2474,7 +2490,7 @@ typedoc.search.data = {
       parent: "War"
     },
     {
-      id: 309,
+      id: 311,
       kind: 1024,
       name: "defenders",
       url: "interfaces/war.html#defenders",
@@ -2482,7 +2498,7 @@ typedoc.search.data = {
       parent: "War"
     },
     {
-      id: 310,
+      id: 312,
       kind: 1024,
       name: "defenderWarExhaustion",
       url: "interfaces/war.html#defenderwarexhaustion",
@@ -2490,7 +2506,7 @@ typedoc.search.data = {
       parent: "War"
     },
     {
-      id: 311,
+      id: 313,
       kind: 1024,
       name: "defenderWarGoals",
       url: "interfaces/war.html#defenderwargoals",
@@ -2498,7 +2514,7 @@ typedoc.search.data = {
       parent: "War"
     },
     {
-      id: 312,
+      id: 314,
       kind: 1024,
       name: "name",
       url: "interfaces/war.html#name",
@@ -2506,7 +2522,7 @@ typedoc.search.data = {
       parent: "War"
     },
     {
-      id: 313,
+      id: 315,
       kind: 1024,
       name: "startDate",
       url: "interfaces/war.html#startdate",
@@ -2514,14 +2530,14 @@ typedoc.search.data = {
       parent: "War"
     },
     {
-      id: 314,
+      id: 316,
       kind: 256,
       name: "WarBattle",
       url: "interfaces/warbattle.html",
       classes: "tsd-kind-interface"
     },
     {
-      id: 315,
+      id: 317,
       kind: 1024,
       name: "attackers",
       url: "interfaces/warbattle.html#attackers",
@@ -2529,7 +2545,7 @@ typedoc.search.data = {
       parent: "WarBattle"
     },
     {
-      id: 316,
+      id: 318,
       kind: 1024,
       name: "attackerLosses",
       url: "interfaces/warbattle.html#attackerlosses",
@@ -2537,7 +2553,7 @@ typedoc.search.data = {
       parent: "WarBattle"
     },
     {
-      id: 317,
+      id: 319,
       kind: 1024,
       name: "attackerWarExhaustion",
       url: "interfaces/warbattle.html#attackerwarexhaustion",
@@ -2545,7 +2561,7 @@ typedoc.search.data = {
       parent: "WarBattle"
     },
     {
-      id: 318,
+      id: 320,
       kind: 1024,
       name: "date",
       url: "interfaces/warbattle.html#date",
@@ -2553,7 +2569,7 @@ typedoc.search.data = {
       parent: "WarBattle"
     },
     {
-      id: 319,
+      id: 321,
       kind: 1024,
       name: "defenders",
       url: "interfaces/warbattle.html#defenders",
@@ -2561,7 +2577,7 @@ typedoc.search.data = {
       parent: "WarBattle"
     },
     {
-      id: 320,
+      id: 322,
       kind: 1024,
       name: "defenderLosses",
       url: "interfaces/warbattle.html#defenderlosses",
@@ -2569,7 +2585,7 @@ typedoc.search.data = {
       parent: "WarBattle"
     },
     {
-      id: 321,
+      id: 323,
       kind: 1024,
       name: "defenderWarExhaustion",
       url: "interfaces/warbattle.html#defenderwarexhaustion",
@@ -2577,7 +2593,7 @@ typedoc.search.data = {
       parent: "WarBattle"
     },
     {
-      id: 322,
+      id: 324,
       kind: 1024,
       name: "planet",
       url: "interfaces/warbattle.html#planet",
@@ -2585,7 +2601,7 @@ typedoc.search.data = {
       parent: "WarBattle"
     },
     {
-      id: 323,
+      id: 325,
       kind: 1024,
       name: "system",
       url: "interfaces/warbattle.html#system",
@@ -2593,7 +2609,7 @@ typedoc.search.data = {
       parent: "WarBattle"
     },
     {
-      id: 324,
+      id: 326,
       kind: 1024,
       name: "type",
       url: "interfaces/warbattle.html#type",
@@ -2601,7 +2617,7 @@ typedoc.search.data = {
       parent: "WarBattle"
     },
     {
-      id: 325,
+      id: 327,
       kind: 1024,
       name: "victor",
       url: "interfaces/warbattle.html#victor",
@@ -2609,14 +2625,14 @@ typedoc.search.data = {
       parent: "WarBattle"
     },
     {
-      id: 326,
+      id: 328,
       kind: 256,
       name: "WarParticipant",
       url: "interfaces/warparticipant.html",
       classes: "tsd-kind-interface"
     },
     {
-      id: 327,
+      id: 329,
       kind: 1024,
       name: "callType",
       url: "interfaces/warparticipant.html#calltype",
@@ -2624,7 +2640,7 @@ typedoc.search.data = {
       parent: "WarParticipant"
     },
     {
-      id: 328,
+      id: 330,
       kind: 1024,
       name: "country",
       url: "interfaces/warparticipant.html#country",
@@ -2632,7 +2648,7 @@ typedoc.search.data = {
       parent: "WarParticipant"
     },
     {
-      id: 329,
+      id: 331,
       kind: 1024,
       name: "caller",
       url: "interfaces/warparticipant.html#caller",
@@ -2640,14 +2656,14 @@ typedoc.search.data = {
       parent: "WarParticipant"
     },
     {
-      id: 330,
+      id: 332,
       kind: 256,
       name: "Wormhole",
       url: "interfaces/wormhole.html",
       classes: "tsd-kind-interface"
     },
     {
-      id: 331,
+      id: 333,
       kind: 1024,
       name: "id",
       url: "interfaces/wormhole.html#id",
@@ -2655,7 +2671,7 @@ typedoc.search.data = {
       parent: "Wormhole"
     },
     {
-      id: 332,
+      id: 334,
       kind: 1024,
       name: "link",
       url: "interfaces/wormhole.html#link",
@@ -2663,7 +2679,7 @@ typedoc.search.data = {
       parent: "Wormhole"
     },
     {
-      id: 333,
+      id: 335,
       kind: 1024,
       name: "system",
       url: "interfaces/wormhole.html#system",
@@ -2671,7 +2687,7 @@ typedoc.search.data = {
       parent: "Wormhole"
     },
     {
-      id: 334,
+      id: 336,
       kind: 64,
       name: "load",
       url: "index.html#load",
