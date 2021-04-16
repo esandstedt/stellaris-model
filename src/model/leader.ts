@@ -108,6 +108,8 @@ export class LeaderImpl implements Leader {
         // TODO
       } else if (locationType === "first_contact_system") {
         // TODO
+      } else if (locationType === "spy_network") {
+        // TODO
       } else {
         throw new Error(`unrecognized leader location type '${locationType}'`);
       }
