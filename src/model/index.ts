@@ -369,6 +369,15 @@ export class ModelImpl implements Model {
 
     this.link(
       this.starbases,
+      this.ships, // Yikes!
+      x => x.stationId,
+      (starbase, station) => {
+        starbase.station = station;
+      }
+    );
+
+    this.link(
+      this.starbases,
       this.countries,
       x => x.ownerId,
       (starbase, country) => {
@@ -405,6 +414,24 @@ export class ModelImpl implements Model {
         owner.fleets.push(fleet);
       }
     );
+
+    this.link(
+      this.ships,
+      this.systems,
+      x => x.systemId,
+      (ship, system) => {
+        ship.system = system;
+      }
+    );
+
+    this.starbases.getAll().forEach(starbase => {
+      if (
+        typeof starbase.station !== "undefined" &&
+        typeof starbase.station.system !== "undefined"
+      ) {
+        starbase.system = starbase.station.system;
+      }
+    });
 
     this.link(
       this.ships,

@@ -322,6 +322,7 @@ export interface Ship {
   fleet: Fleet;
   leader: Leader | undefined;
   name: string;
+  system: System | undefined;
 }
 
 export interface ShipDesign {

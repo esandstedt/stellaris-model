@@ -1,11 +1,12 @@
 import { asDictionary, asPairArray, asString, Pair } from "../compile";
-import { Country, Starbase, System } from "./interfaces";
+import { Country, Ship, Starbase, System } from "./interfaces";
 
 export class StarbaseImpl implements Starbase {
   public buildings: string[];
   public level: string;
   public modules: string[];
   public ownerId: string;
+  public stationId: string;
   public systemId: string;
 
   get owner(): Country {
@@ -16,6 +17,16 @@ export class StarbaseImpl implements Starbase {
   }
   set owner(value: Country) {
     this.ownerInstance = value;
+  }
+
+  get station(): Ship {
+    if (typeof this.stationInstance === "undefined") {
+      throw new Error();
+    }
+    return this.stationInstance;
+  }
+  set station(value: Ship) {
+    this.stationInstance = value;
   }
 
   get system(): System {
@@ -29,6 +40,7 @@ export class StarbaseImpl implements Starbase {
   }
 
   private ownerInstance: Country | undefined;
+  private stationInstance: Ship | undefined;
   private systemInstance: System | undefined;
 
   constructor(public id: string, pairs: Pair[]) {
@@ -49,6 +61,7 @@ export class StarbaseImpl implements Starbase {
     }
 
     this.ownerId = asString(data.owner);
+    this.stationId = asString(data.station);
     this.systemId = asString(data.system);
   }
 }

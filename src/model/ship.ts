@@ -1,5 +1,5 @@
 import { asDictionary, asString, Pair } from "../compile";
-import { Army, Fleet, Leader, Ship, ShipDesign } from "./interfaces";
+import { Army, Fleet, Leader, Ship, ShipDesign, System } from "./interfaces";
 
 export class ShipImpl implements Ship {
   public designId: string;
@@ -7,6 +7,8 @@ export class ShipImpl implements Ship {
   public army: Army | undefined;
   public fleetId: string;
   public leader: Leader | undefined;
+  public systemId: string;
+  public system: System | undefined;
   public name: string;
 
   get design(): ShipDesign {
@@ -50,5 +52,7 @@ export class ShipImpl implements Ship {
     } else {
       this.name = "";
     }
+
+    this.systemId = asString(asDictionary(data.coordinate).origin);
   }
 }
