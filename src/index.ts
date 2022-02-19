@@ -1,5 +1,3 @@
-import fs from "fs";
-
 import { compile } from "./compile";
 import { ModelImpl } from "./model";
 import { Model } from "./model/interfaces";

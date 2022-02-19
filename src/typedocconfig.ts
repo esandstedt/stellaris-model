@@ -1,5 +1,5 @@
 module.exports = {
-  entryPoints: ["./model/interfaces.ts", "./model/collection.ts"],
+  entryPoints: ["./index.ts"],
   out: "../docs/html",
   excludePrivate: true,
   readme: "none"
