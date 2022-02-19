@@ -1,8 +1,0 @@
-{
-  "excludePrivate": true,
-  "mode": "file",
-  "out": "docs/html",
-  "readme": "none",
-  "src": ["src/model/interfaces.ts", "src/model/collection.ts"],
-  "theme": "docs/theme"
-}
