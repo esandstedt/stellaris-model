@@ -12,23 +12,23 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v1
-      - run: npm ci
-      - run: npm run build
+      - run: yarn install --frozen-lockfile
+      - run: yarn build
   lint:
     name: Lint
     runs-on: ubuntu-latest
     needs: build
     steps:
       - uses: actions/checkout@v1
-      - run: npm ci
-      - run: npm run build
-      - run: npm run lint
+      - run: yarn install --frozen-lockfile
+      - run: yarn build
+      - run: yarn lint
   test:
     name: Test
     runs-on: ubuntu-latest
     needs: build
     steps:
       - uses: actions/checkout@v1
-      - run: npm ci
-      - run: npm run build
-      - run: npm test
+      - run: yarn install --frozen-lockfile
+      - run: yarn build
+      - run: yarn test
